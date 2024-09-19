@@ -1,0 +1,150 @@
+.container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+.aHeader{
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    overflow: hidden;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.logoBox{
+    padding: 0;
+    width: 300px;
+    text-align: start;
+}
+
+.logo{
+    width: 60%;
+    height: 80px;
+    aspect-ratio: 3/2;
+    object-fit: contain;
+}
+
+.searchBar{
+    width: 100%;
+    background-color: #F4F4F4;
+    height: 40px;
+    border-radius: 30px;
+}
+
+.userIcon{
+    display: flex;
+    height: 60px;
+    width: 90px;
+    background-color: #F4F4F4;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30%;
+    margin-left: 50px;
+    margin-right: 20px;
+}
+
+.userIcon .icon{
+    font-size: 35px;
+}
+
+
+
+
+
+
+
+
+
+
+
+.body{
+    height: 100%;
+    width: auto;
+    display: flex;
+    overflow: hidden;
+    box-sizing: border-box;
+    margin-bottom: 50px;
+    margin-right: 20px;
+}
+
+.sideNavigation{
+    height: 100%;
+    width: 100%;
+    gap: 0;
+    width: 250px;
+}
+
+.navList{
+    display: block;
+    width: 200px;
+    height: 100%;
+}
+
+.navItem{
+    display: flex;
+    padding-left: 30px;
+    border-radius: 0 30px 30px 0;
+}
+
+.navItem::before,
+.navItem::after {
+    content: none;
+    transition: transform 0.3s ease-in-out;
+}
+
+.navItem.active{
+    background-color: #F4F4F4;
+    border-radius: 0 30px 30px 0;
+}
+
+.navItem .icon{
+    width: auto;
+    height: auto;
+    padding: 0 10px;
+    font-size: 25px;
+}
+
+
+.components{
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    border-radius: 30px;
+    background-color: #F4F4F4;
+}
+
+.componentHeader{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.headerText{
+    width: 100%;
+    height: 70px;
+}
+
+.buttonBox{
+    width: 100%;
+    height: 100px;
+}
+
+.buttonList{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}

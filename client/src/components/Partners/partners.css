@@ -1,0 +1,35 @@
+.partnersContainer{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    background-color: #F6F4EC;
+    padding: 20px 0;
+}
+
+.partners{
+    display: flex;
+    width: 100%;
+    height: auto;
+    padding: 30px 20px;
+    justify-content: center;
+    gap: 50px;
+}
+
+.partner{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    width: 500px;
+    height: 300px;
+}
+
+.partner{
+    width: 100%;
+    height: auto;
+    
+}

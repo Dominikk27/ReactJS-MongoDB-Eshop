@@ -1,0 +1,37 @@
+
+/*  font-family: "Open Sans", sans-serif;  */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+
+:root{
+  --background-color: #ffffff;
+  --secondary-color: #ECDFD6;
+
+  --buttonTextColor: #000000;
+
+  --textFont: "Open Sans";
+
+}
+
+*{
+  font-family: 'Open Sans', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  margin: 0;
+  box-sizing: border-box;
+  overflow-x: hidden; 
+}
+
+
+a{
+  text-align: center;
+  text-decoration: none;
+  color: var(--buttonTextColor)
+}
+
+ul{
+  margin: 0;
+  padding: 0;
+}
+
+li{
+  list-style: none;
+}

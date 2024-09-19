@@ -1,0 +1,35 @@
+.container{
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.contactCard{
+    width: 100%;
+    display: grid;
+    grid-row: 2;
+    gap: 20px;
+    background-color: #F6F4EC;
+    padding: 30px 30px;
+}
+
+.contactMAP{
+    height: auto;
+    width: auto;
+}
+
+
+.contactList{
+    display: flex;
+    flex-direction: column;
+}
+
+.contactItem{
+    display: flex;
+    font-size: 15px;
+}
+
+.contactItem .icon{
+    width: 20px;
+    height: 20px;
+}

@@ -1,0 +1,11 @@
+.footerContainer{
+    background-color: #44A05B;
+    padding: 20px 0;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.copyright{
+    display: flex;
+    justify-content: center;
+}
