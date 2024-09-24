@@ -1,26 +1,27 @@
 
 const express = require('express');
 const cors = require('cors');
-
+const dotenv = require('dotenv');
 
 const connectDB = require('./db.js');
-const productModel = require('./models/products.js')
+dotenv.config();
 
+
+const productRoutes = require('./routes/router.js');
 
 const app = express();
 app.use(express.json());
+app.use(cors());
+
 
 connectDB();
 
 
-app.use(cors());
-
-app.get('/', async (req, res) => {
-    const response = await productModel.find();
-    return res.json({products : response});
-})
+app.use('/', productRoutes)
 
 
-app.listen(3005,  () => {
+const PORT = process.env.PORT || 30005;
+
+app.listen(PORT,  () => {
     console.log("app is running");
 })

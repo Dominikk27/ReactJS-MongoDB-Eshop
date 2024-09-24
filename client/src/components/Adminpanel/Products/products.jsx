@@ -7,13 +7,19 @@ import ProductCardComponent from './productCard/productCard'
 
 
 
-function ProductsComponent({products}) {
-    
-    const [activeForm, setActiveForm] = useState('addProduct');
+function ProductsComponent({products, onEdit}) {
 
-    const [activeComponent, setActiveComponent] = useState('products');
-    useEffect(() => {
-    }, [products]);
+  const handleEditProduct = (products) => {
+    onEdit({formType: 'editProduct', productDetails: products })
+  }
+  
+  const getProductPrice = (products) => {
+    return products.onSale === 'true' ? products.onSalePrice : products.defaultPrice;
+  };
+
+  const [activeComponent, setActiveComponent] = useState('products');
+  useEffect(() => {
+  }, [products]);
 
   return (
     <div className="componentContainer">
@@ -22,8 +28,9 @@ function ProductsComponent({products}) {
                 <ProductCardComponent
                     key = {i._id} 
                     productName = {i.productName}
-                    defaultPrice = {i.defaultPrice}
+                    productPrice = {getProductPrice(i)}
                     description = {i.description}
+                    onEditProduct = {() => onEdit(i)}
                     />
             ))}
         </div>

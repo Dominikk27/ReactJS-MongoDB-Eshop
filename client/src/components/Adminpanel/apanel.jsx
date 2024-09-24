@@ -23,14 +23,20 @@ import OnSale from './Products/onSale';
 function Adminpanel ({products}) {
 
     const [activeForm, setActiveForm] = useState(null);
+    const [selectedProduct, setSelectedProduct] = useState(null);
 
    
     const productOnSale = products.filter(product => product.onSale === true);
     
+
+    const handleEditProduct = (product) => {
+        setActiveForm('editProduct');
+        setSelectedProduct(product);
+    };
+    
     
     
     const [activeComponent, setActiveComponent] = useState('products');
-
 
     const renderComponent = () => {
         switch (activeComponent) {
@@ -53,7 +59,7 @@ function Adminpanel ({products}) {
                         </ul>
                     </div>
                 </div>
-                <ProductsComponent products={products}/>
+                <ProductsComponent products={products} onEdit={handleEditProduct}/>
             </div>
           case 'sales':
             return <div >
@@ -72,7 +78,7 @@ function Adminpanel ({products}) {
                         </ul>
                     </div>
                 </div>
-                <OnSale products={productOnSale}/>
+                <OnSale products={productOnSale} onEdit={handleEditProduct}/>
             </div>
           default:
             return <h1>Error</h1>;
@@ -81,7 +87,7 @@ function Adminpanel ({products}) {
 
   return (
     <div className='container'>
-        <Popup showForm={activeForm} />
+        <Popup showForm = {activeForm} setForm = {setActiveForm} activeProduct = {selectedProduct} setActiveProduct={setSelectedProduct}/>
         <div className='aHeader'>
             <div className='logoBox'>
                 <img src={Logo} alt="logo" className='logo'/>

@@ -13,7 +13,7 @@ function App() {
   const [products, setProducts] = useState([]);
   useEffect( () => {
     const fetchData = async() => {
-      const res = await fetch('http://localhost:3005');
+      const res = await fetch('http://localhost:3005/products');
       const data = await res.json();
       setProducts(data.products);
     }

@@ -14,7 +14,11 @@ import { FaPercentage } from "react-icons/fa";
 
 import unknown from "../productCard/unknown.jpg"
 
-function ProductCardComponent ({productName, defaultPrice, description}) {
+function ProductCardComponent ({productName, productPrice, description, onEditProduct}) {
+
+    const editHandler = () =>{
+        onEditProduct();
+    }
 
 
     const formatPrice = (price) => {
@@ -23,8 +27,6 @@ function ProductCardComponent ({productName, defaultPrice, description}) {
         }
         return 'N/A';
     };
-
-
 
 
   return (
@@ -44,14 +46,14 @@ function ProductCardComponent ({productName, defaultPrice, description}) {
             </div>
             <div className="priceCheck">
                 <h3 className='priceTag'>Cena: </h3>
-                <h3 className="price">{formatPrice(defaultPrice)} €</h3>
+                <h3 className="price">{formatPrice(productPrice)} €</h3>
             </div>
 
         </div>
         <div className="productButtonsSection">
             <div className="buttonsRow">
                 <ul className="buttonsList">
-                    <li className="button">
+                    <li className="button" onClick = {editHandler}>
                         <IoSettingsSharp className='icon'/>
                     </li>
                     <li className="button">
