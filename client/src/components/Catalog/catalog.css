@@ -1,19 +1,9 @@
-
-.container{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    padding: 0 50px;
-    margin-top: 20px;
-    gap: 30px;
-  }
-
 .selection{
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
+    padding: 10px 20px;
 }
 
 .selectList{
@@ -24,7 +14,7 @@
     text-align: center;
     justify-content: center;
     padding: 10px 20px;
-    gap: 30px;
+    gap: 20px;
     border-radius: 50px;
     background-color: #F6F4EC;
 }
@@ -32,17 +22,66 @@
 .selectItem{
     width: auto;
     font-size: 20px;
-
 }
 
 .cardsContainer{ 
-    text-align: center;
-    align-items: center;
     box-sizing: border-box;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     gap: 20px;
     width: 100%;
+    margin-top: 30px;
     padding: 20px 50px;
     margin-top: 30px;
+    justify-items: center; /* Horizontálne vycentrovanie */
+    align-items: center; /* Vertikálne vycentrovanie */
 }
+
+
+
+
+@media only screen and (max-width: 575px) {
+
+.selection{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px 20px;
+}
+
+.selectList{
+    margin: 0 auto;
+    width: auto;
+    max-width: fit-content;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    padding: 10px 20px;
+    gap: 20px;
+    border-radius: 50px;
+    background-color: #F6F4EC;
+}
+
+.selectItem{
+    width: auto;
+    font-size: 20px;
+}
+
+.cardsContainer{ 
+    text-align: center;
+    justify-content: center;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    width: 100%;
+    margin-top: 30px;
+}
+
+
+
+}
+
+
+

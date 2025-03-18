@@ -27,15 +27,28 @@ function Adminpanel ({products}) {
 
    
     const productOnSale = products.filter(product => product.onSale === true);
+
+    const handleAddProduct = () => {
+        setActiveForm('addProduct');
+        setSelectedProduct(null); // Ak je to nový produkt
+      };
     
 
-    const handleEditProduct = (product) => {
+      const handleEditProduct = React.useCallback((product) => {
         setActiveForm('editProduct');
+        setSelectedProduct(product); // Nastaví vybraný produkt na úpravu
+      }, []);
+    
+    const handleRemoveProduct = React.useCallback((product) => {
+        setActiveForm('removeProduct');
         setSelectedProduct(product);
-    };
-    
-    
-    
+    }, []);
+
+    const handleCloseForm = () => {
+        setActiveForm(null);
+        setSelectedProduct(null); // Resetuje aj vybraný produkt
+      };
+
     const [activeComponent, setActiveComponent] = useState('products');
 
     const renderComponent = () => {
@@ -53,13 +66,10 @@ function Adminpanel ({products}) {
                             <li className="listItem" onClick={() => setActiveForm('addProduct')}>
                             <TiPlus className='icon'/> Add Product
                             </li>
-                            <li className="listItem">
-                                <MdRemoveShoppingCart className='icon'/> Remove Products
-                            </li>
                         </ul>
                     </div>
                 </div>
-                <ProductsComponent products={products} onEdit={handleEditProduct}/>
+                <ProductsComponent products={products} onEdit={handleEditProduct} onRemove={handleRemoveProduct}/>
             </div>
           case 'sales':
             return <div >
@@ -72,9 +82,6 @@ function Adminpanel ({products}) {
                             <li className="listItem">
                             <TiPlus className='icon'/> Add Product
                             </li>
-                            <li className="listItem">
-                                <MdRemoveShoppingCart className='icon'/> Remove Products
-                            </li>
                         </ul>
                     </div>
                 </div>
@@ -86,8 +93,13 @@ function Adminpanel ({products}) {
     };
 
   return (
-    <div className='container'>
-        <Popup showForm = {activeForm} setForm = {setActiveForm} activeProduct = {selectedProduct} setActiveProduct={setSelectedProduct}/>
+    <div className='Acontainer'>
+        <Popup 
+            showForm={activeForm} 
+            setForm={setActiveForm} 
+            activeProduct={selectedProduct} 
+            setActiveProduct={setSelectedProduct}
+        />
         <div className='aHeader'>
             <div className='logoBox'>
                 <img src={Logo} alt="logo" className='logo'/>

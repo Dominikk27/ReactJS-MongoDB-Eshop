@@ -24,12 +24,57 @@
     justify-content: center;
     text-align: center;
     align-items: center;
-    width: 500px;
-    height: 300px;
-}
-
-.partner{
-    width: 100%;
+    max-width: 500px;
     height: auto;
     
+}
+
+
+@media only screen and (max-width: 575px) {
+    .partners {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+        width: 100%;
+    }
+    
+    .partner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+
+}
+
+
+
+@media only screen and (min-width: 575px) and (max-width: 1500px) {
+    .partners {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 20px;
+        width: 100%;
+        padding: 30px 20px;
+    }
+    
+    .partner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    
+    img {
+        max-width: 500px;
+        height: auto;
+    }
+
+
 }

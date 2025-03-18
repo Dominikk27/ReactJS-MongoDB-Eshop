@@ -5,15 +5,26 @@ import { FaStar, FaRegStar } from "react-icons/fa";
 
 import testImage from '../card/image/pila.jpg'
 
-const Card = () => {
+import unknown from "../card/image/unknown.jpg"
+
+const Card = ({ product }) => {
+
+
+  const formatPrice = (price) => {
+    if (price && typeof price === 'object' && price.$numberDecimal) {
+      return parseFloat(price.$numberDecimal).toFixed(2);  // Preveď Decimal128 na číslo
+    }
+    return price;  // Ak cena nie je Decimal128, vráti ju tak, ako je
+  };
+
   return (
-    <div className="cardBox">
+    <div className="productCardBox">
       <div className="cardImage">
-        <img src={testImage} alt="" />
+        <img src={product.productImages[0] || unknown} alt="" />
       </div>
-      <div className="cardContent">
+      <div className="productCardContent">
         <div className="cardTitle">
-          <h4>STIHL 25256</h4>
+          <h4>{product.productName}</h4>
         </div>
         <div className="starsBox">
           <FaStar className='icon'/>
@@ -23,7 +34,17 @@ const Card = () => {
           <FaRegStar className='icon'/>
         </div>
         <div className="cardDescription">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, sequi deserunt expedita voluptatem numquam doloribus? Enim aliquid ipsa dolorum obcaecati nulla. Vero consequatur ipsa recusandae, ad vitae quia nulla reiciendis?
+        {product.description}
+        </div>
+        <div className="cardPrice">
+          {product.OnSale ? (
+              <>
+                <h4 className="originalPrice">{formatPrice(product.defaultPrice)} €</h4>
+                <h4 className="salePrice">{formatPrice(product.onSalePrice)} €</h4>
+              </>
+            ) : (
+              <h4>{formatPrice(product.defaultPrice)} €</h4>
+            )}
         </div>
         <div className="readMore">
           Zobraziť produkt

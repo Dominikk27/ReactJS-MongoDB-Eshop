@@ -1,35 +1,234 @@
-.container{
-    display: flex;
-    width: 100%;
-    height: 100%;
-}
-
 .contactCard{
     width: 100%;
     display: grid;
-    grid-row: 2;
-    gap: 20px;
+    grid-template-columns: 0.5fr 1fr;
     background-color: #F6F4EC;
     padding: 30px 30px;
+    box-sizing: border-box;
 }
 
 .contactMAP{
-    height: auto;
-    width: auto;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.contactMAP iframe {
+    width: 450px;
+    height: 450px;
+    border: 0;
+}
+
+.cardContent{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    gap: 40px
+}
+
+.contactBox{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    text-align: start;
 }
 
 
 .contactList{
     display: flex;
     flex-direction: column;
-}
-
-.contactItem{
-    display: flex;
-    font-size: 15px;
+    width: 100%;
+    text-align: start;
+    gap: 10px;
 }
 
 .contactItem .icon{
     width: 20px;
     height: 20px;
+    flex-shrink: 0;
+    margin-right: 2px;
+}
+
+.openList{
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    gap: 10px
+}
+
+.contactItem, .openItem {
+    display: flex;
+    font-size: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.bold_text {
+    font-weight: bolder;
+    font-size: 15px;
+}
+
+
+@media only screen and (max-width: 575px) {
+    .contactCard{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        background-color: #F6F4EC;
+        
+    }
+    
+    .contactMAP{
+        height: auto;
+        width: auto;
+    }
+    
+    .contactBox{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        justify-content: start;
+        text-align: start;
+    }
+
+    .cardContent{
+        display: flex;
+        flex-direction: column;
+        gap: 15px
+    }
+    
+    .contactList{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+    }
+    
+    .contactItem{
+        display: flex;
+        font-size: 15px;
+        gap: 5px;
+        width: 100%;
+    }
+    
+    .contactItem .icon{
+        width: 20px;
+        height: 20px;
+    }
+
+    .contactItem, .openItem {
+        display: flex;
+        font-size: 13px;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+}
+
+
+
+@media only screen and (min-width: 575px) and (max-width: 900px) {
+    .contactCard{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        background-color: #F6F4EC;
+        
+    }
+    
+    .contactMAP{
+        height: auto;
+        width: auto;
+    }
+    
+    .contactBox{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        justify-content: start;
+        text-align: start;
+    }
+    
+    .contactList{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+    }
+    
+    .contactItem{
+        display: flex;
+        font-size: 15px;
+        gap: 5px;
+        width: 100%;
+    }
+    
+    .contactItem .icon{
+        width: 20px;
+        height: 20px;
+    }
+
+    .contactItem, .openItem {
+        display: flex;
+        font-size: 13px;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+}
+
+
+
+@media only screen and (min-width: 900px) and (max-width: 1500px) {
+    .contactCard{
+        width: 100%;
+        display: grid;
+        grid-template-columns: 0.6fr 1fr;
+        background-color: #F6F4EC;
+        padding: 10px 10px;
+        box-sizing: border-box;
+    }
+    
+    .contactMAP{
+        display: flex;
+        justify-content: start;
+        align-items: center;
+    }
+    
+    .contactMAP iframe {
+        width: 250px;
+        height: 200px;
+        border: 0;
+    }
+    
+    .cardContent{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+        gap: 40px
+    }
+    
+    .contactBox{
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        text-align: start;
+    }
+    
+    
+    .contactList{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        text-align: start;
+        gap: 10px;
+    }
+    
+    .openList{
+        display: flex;
+        flex-direction: column;
+        text-align: start;
+        gap: 10px
+    }
 }

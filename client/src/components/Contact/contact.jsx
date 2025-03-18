@@ -26,7 +26,7 @@ const Contact = () => {
                 <div className="contactBox">
                     <ul className="contactList">
                         <li className="contactItem">
-                            <div className="icon"></div><span className='bold'>ZAK SERVICES s.r.o</span>
+                            <span className='bold_text'>ZAK SERVICES s.r.o</span>
                         </li>
                         <li className="contactItem">
                             <FaMapMarkerAlt className='icon'/> Moravská 619/1A, 907 01 Myjava
@@ -47,6 +47,9 @@ const Contact = () => {
                 </div>
                 <div className="openHours">
                     <ul className="openList">
+                        <li className="openItem">
+                            <span className='bold_text'>Otvaracie hodiny</span>
+                        </li>
                         <li className="openItem">
                             Pondelok 
                         </li>

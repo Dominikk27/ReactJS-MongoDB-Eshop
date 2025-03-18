@@ -7,12 +7,8 @@ import ProductCardComponent from './productCard/productCard'
 
 
 
-function ProductsComponent({products, onEdit}) {
+function ProductsComponent({products, onEdit, onRemove}) {
 
-  const handleEditProduct = (products) => {
-    onEdit({formType: 'editProduct', productDetails: products })
-  }
-  
   const getProductPrice = (products) => {
     return products.onSale === 'true' ? products.onSalePrice : products.defaultPrice;
   };
@@ -30,7 +26,10 @@ function ProductsComponent({products, onEdit}) {
                     productName = {i.productName}
                     productPrice = {getProductPrice(i)}
                     description = {i.description}
+                    productOnSalePrice = {i.onSalePrice}
+                    productImage = {i.productImages[0]}
                     onEditProduct = {() => onEdit(i)}
+                    onRemoveProduct = {() => onRemove(i)}
                     />
             ))}
         </div>

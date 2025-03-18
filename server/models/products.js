@@ -9,6 +9,7 @@ const productStruct = new mongoose.Schema({
     onSale: {type: Boolean},
     onSalePrice: {type: Decimal128},
     description: {type: String},
+    productImages: [{type: String}],
 }, {collection: "Products"})
 
 const productModel = mongoose.model("product", productStruct);

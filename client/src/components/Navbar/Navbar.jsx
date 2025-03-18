@@ -6,6 +6,8 @@ import { FaMapMarkerAlt, FaChevronDown} from "react-icons/fa";
 import { FaPhone } from "react-icons/fa6";
 import { FiPhoneCall } from "react-icons/fi";
 
+import { FaHome, FaTools  } from "react-icons/fa";
+import { RiFileList3Line, RiContactsBook3Fill  } from "react-icons/ri";
 
 
 import Logo from './logo.png'
@@ -51,27 +53,27 @@ const Navbar = () => {
             <ul className="navBar">
               <li className="navItem">
                 <a href="#" className="navButton">
-                  Domov
+                  <FaHome className="navIcon"/> Domov
                 </a>
               </li>
               <li className="navItem">
                 <a href="#" className="navButton">
-                  Katalóg
+                  <RiFileList3Line className="navIcon"/> Katalóg
                 </a>
               </li>
               <li className="navItem">
                 <a href="#" className="navButton">
-                  Služby
+                  <FaTools className="navIcon"/>Služby
                 </a>
               </li>
               <li className="navItem">
                 <a href="#" className="navButton">
-                  Kontakt
+                  <RiContactsBook3Fill  className="navIcon"/>Kontakt
                 </a>
               </li>
             </ul>
           </div>
-          <div className="contactBox">
+          <div className="numberContactBox">
             <div className="phoneIconBox">
               <FiPhoneCall className='phoneIcon'/>
             </div>

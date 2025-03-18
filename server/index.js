@@ -1,5 +1,7 @@
 
 const express = require('express');
+const path = require('path');
+
 const cors = require('cors');
 const dotenv = require('dotenv');
 
@@ -18,10 +20,10 @@ connectDB();
 
 
 app.use('/', productRoutes)
-
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 const PORT = process.env.PORT || 30005;
 
 app.listen(PORT,  () => {
-    console.log("app is running");
+    console.log("app is running on PORT: ", {PORT});
 })

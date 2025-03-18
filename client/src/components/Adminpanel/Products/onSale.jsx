@@ -32,6 +32,8 @@ function OnSale ({products, onEdit}) {
                         productName = {i.productName}
                         productPrice = {getProductPrice(i)}
                         description = {i.description}
+                        productOnSalePrice = {i.onSalePrice}
+                        productImage = {i.productImages[0]}
                         onEditProduct = {() => onEdit(i)}
                         />
                 ))}

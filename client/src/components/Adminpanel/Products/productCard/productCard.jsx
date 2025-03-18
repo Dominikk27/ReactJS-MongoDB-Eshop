@@ -14,10 +14,14 @@ import { FaPercentage } from "react-icons/fa";
 
 import unknown from "../productCard/unknown.jpg"
 
-function ProductCardComponent ({productName, productPrice, description, onEditProduct}) {
+function ProductCardComponent ({productName, productPrice, productOnSalePrice, description, productImage, onEditProduct, onRemoveProduct}) {
 
     const editHandler = () =>{
         onEditProduct();
+    }
+
+    const removeHandler = () =>{
+        onRemoveProduct();
     }
 
 
@@ -28,12 +32,11 @@ function ProductCardComponent ({productName, productPrice, description, onEditPr
         return 'N/A';
     };
 
-
   return (
     <div className="productCard">
         <div className="productImageSection">
             <div className="productImageBox">
-                <img className='productImage' src={unknown} alt="" />
+                <img className="productImage" src={productImage || unknown} alt={productName} />
             </div>
         </div>
         <div className="productContent">
@@ -48,7 +51,10 @@ function ProductCardComponent ({productName, productPrice, description, onEditPr
                 <h3 className='priceTag'>Cena: </h3>
                 <h3 className="price">{formatPrice(productPrice)} €</h3>
             </div>
-
+            <div className="priceCheck">
+                <h3 className='priceTag'>Akciová Cena: </h3>
+                <h3 className="price">{formatPrice(productOnSalePrice)} €</h3>
+            </div>
         </div>
         <div className="productButtonsSection">
             <div className="buttonsRow">
@@ -59,7 +65,7 @@ function ProductCardComponent ({productName, productPrice, description, onEditPr
                     <li className="button">
                         <FaPercentage className='icon'/>
                     </li>
-                    <li className="button">
+                    <li className="button" onClick = {removeHandler}>
                         <IoMdRemoveCircle className='icon'/>
                     </li>
                 </ul>

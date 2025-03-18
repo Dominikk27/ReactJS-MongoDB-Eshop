@@ -9,6 +9,8 @@ import sliderIMG2 from '../Slider/images/2.jpg';
 import sliderIMG3 from '../Slider/images/3.jpg';
 import sliderIMG4 from '../Slider/images/4.jpg';
 
+import Logo from './logo.png'
+
 const Slider = () => {
   const [index, setIndex] = useState(0);
 
@@ -47,6 +49,9 @@ const Slider = () => {
 
   return (
     <div className="sliderContainer">
+      <div className="mobileLogo">
+          <img src={Logo} alt="logo"/>
+      </div>
       <div className="sliderContent">
         <div className="sliderLeft">
           <div className="content">
