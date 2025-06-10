@@ -29,7 +29,7 @@ const upload = multer({
   }
 }).array('productImages');
 
-router.post('/products/addProduct', (req, res) => {
+router.post('adminpanel/products/addProduct', (req, res) => {
 
   upload(req, res, async (err) => {
     if (err) {
@@ -74,7 +74,7 @@ router.post('/products/addProduct', (req, res) => {
 });
 
 
-router.get('/products', async (req, res) => {
+router.get('/adminpanel/products', async (req, res) => {
     try{
         const response = await productModel.find();
         return res.json({products : response});

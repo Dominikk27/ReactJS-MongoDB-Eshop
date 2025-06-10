@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
+
 import "../Adminpanel/apanel.css"
-
-import { FaUserTie } from "react-icons/fa";
-import { MdDashboard } from "react-icons/md";
-import { MdOutlinePointOfSale } from "react-icons/md";
-import { PiSealPercentFill } from "react-icons/pi";
-
 
 
 import { TiPlus } from "react-icons/ti";
@@ -14,122 +10,44 @@ import Popup from "../Adminpanel/Products/form/popUpForms"
 
 
 import Logo from "../Adminpanel/logo.png"
-import ProductsComponent from './Products/products';
-import OnSale from './Products/onSale';
+import Products from "./Products/products"
+import Dashboard from "./Dashboard/Dashboard";
+import Settings from './Settings/Settings';
+import Visuals from './Visuals/Visuals';
 
+import OnSale from './Products/onSale';
+import SidebarComponent from './Sidebar/Sidebar';
 
 
 
 function Adminpanel ({products}) {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [activeComponent, setActiveComponent] = useState("Dashboard");
+  const navigate = useNavigate();
 
-    const [activeForm, setActiveForm] = useState(null);
-    const [selectedProduct, setSelectedProduct] = useState(null);
+  const renderComponent = () => {
+    switch(activeComponent){
+      case "Dashboard":
+        return <Dashboard />
+      case "Products":
+        return <Products />
+      case "Settings":
+        return <Settings />
+      case "Visuals":
+        return <Visuals />
+    }
+  }
 
-   
-    const productOnSale = products.filter(product => product.onSale === true);
-
-    const handleAddProduct = () => {
-        setActiveForm('addProduct');
-        setSelectedProduct(null); // Ak je to nový produkt
-      };
-    
-
-      const handleEditProduct = React.useCallback((product) => {
-        setActiveForm('editProduct');
-        setSelectedProduct(product); // Nastaví vybraný produkt na úpravu
-      }, []);
-    
-    const handleRemoveProduct = React.useCallback((product) => {
-        setActiveForm('removeProduct');
-        setSelectedProduct(product);
-    }, []);
-
-    const handleCloseForm = () => {
-        setActiveForm(null);
-        setSelectedProduct(null); // Resetuje aj vybraný produkt
-      };
-
-    const [activeComponent, setActiveComponent] = useState('products');
-
-    const renderComponent = () => {
-        switch (activeComponent) {
-          case 'dashboard':
-            return <h1>Dashboard Content</h1>;
-          case 'products':
-            return <div>
-                <div className="componentHeader">
-                    <div className="headerText">
-                        <h1>Products</h1>
-                    </div>
-                    <div className="buttonBox">
-                        <ul className="buttonList">
-                            <li className="listItem" onClick={() => setActiveForm('addProduct')}>
-                            <TiPlus className='icon'/> Add Product
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <ProductsComponent products={products} onEdit={handleEditProduct} onRemove={handleRemoveProduct}/>
-            </div>
-          case 'sales':
-            return <div >
-                <div className="componentHeader">
-                    <div className="headerText">
-                        <h1>Sales</h1>
-                    </div>
-                    <div className="buttonBox">
-                        <ul className="buttonList">
-                            <li className="listItem">
-                            <TiPlus className='icon'/> Add Product
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <OnSale products={productOnSale} onEdit={handleEditProduct}/>
-            </div>
-          default:
-            return <h1>Error</h1>;
-        }
-    };
-
-  return (
-    <div className='Acontainer'>
-        <Popup 
-            showForm={activeForm} 
-            setForm={setActiveForm} 
-            activeProduct={selectedProduct} 
-            setActiveProduct={setSelectedProduct}
-        />
-        <div className='aHeader'>
-            <div className='logoBox'>
-                <img src={Logo} alt="logo" className='logo'/>
-            </div>
-            <div className='searchBar'>
-                
-            </div>
-            <div className='userIcon'>
-                <FaUserTie className='icon'/>
-            </div>
+  return( 
+    <main className='AP_Container'>
+        <SidebarComponent 
+          isOpen={isSidebarOpen} 
+          toggle={() => setIsSidebarOpen(!isSidebarOpen)}
+          navigate={navigate}/>
+        <div className="AP_Content">
+          <Outlet />
         </div>
-        <div className='body'>
-            <div className='sideNavigation'>
-                <ul className='navList'>
-                    <li className={`navItem ${activeComponent === 'dashboard' ? 'active' : ''}`} onClick={() => setActiveComponent('dashboard')}>
-                        <MdDashboard className='icon'/> Dashboard
-                    </li>
-                    <li className={`navItem ${activeComponent === 'products' ? 'active' : ''}`} onClick={() => setActiveComponent('products')}>
-                        <MdOutlinePointOfSale className='icon'/> Products
-                    </li>
-                    <li className={`navItem ${activeComponent === 'sales' ? 'active' : ''}`} onClick={() => setActiveComponent('sales')}>
-                        <PiSealPercentFill className='icon'/> Sales
-                    </li>
-                </ul>
-            </div>
-            <div className='components'>
-                {renderComponent()}
-            </div>
-        </div>
-    </div>
+    </main>
   )
 }
 

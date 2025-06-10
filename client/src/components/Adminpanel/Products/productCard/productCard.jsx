@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import "../productCard/productCard.css"
 
@@ -14,60 +14,53 @@ import { FaPercentage } from "react-icons/fa";
 
 import unknown from "../productCard/unknown.jpg"
 
-function ProductCardComponent ({productName, productPrice, productOnSalePrice, description, productImage, onEditProduct, onRemoveProduct}) {
+function ProductCardComponent ({product}) {
 
-    const editHandler = () =>{
-        onEditProduct();
-    }
+    if(!product) return null;
 
-    const removeHandler = () =>{
-        onRemoveProduct();
-    }
+    const {
+        productName,
+        productDescription,
+        productPrice,
+        productSalePrice,
+        productImages
+    }= product;
 
-
-    const formatPrice = (price) => {
-        if (price && typeof price === 'object' && price.$numberDecimal) {
-            return parseFloat(price.$numberDecimal).toFixed(2);
-        }
-        return 'N/A';
-    };
+    console.log("Images:", productImages);
+    const isOnSale = productSalePrice && productSalePrice > 0 && productSalePrice < productPrice;
 
   return (
-    <div className="productCard">
-        <div className="productImageSection">
-            <div className="productImageBox">
-                <img className="productImage" src={productImage || unknown} alt={productName} />
-            </div>
+    <div className="AP_productCard">
+        <div className="AP_productImage">
+            {productImages && productImages.length > 0 && productImages[0] ? (
+                <img src={productImages[0]} alt={productName} />
+                ) : (
+                <img src={unknown} alt="Obrázok sa nenašiel" />
+            )}
         </div>
-        <div className="productContent">
-            <div className="productName">
-                <h1>{productName}</h1>
-            </div>
-
-            <div className="productDescription">
-                <p>{description}</p>
-            </div>
-            <div className="priceCheck">
-                <h3 className='priceTag'>Cena: </h3>
-                <h3 className="price">{formatPrice(productPrice)} €</h3>
-            </div>
-            <div className="priceCheck">
-                <h3 className='priceTag'>Akciová Cena: </h3>
-                <h3 className="price">{formatPrice(productOnSalePrice)} €</h3>
-            </div>
-        </div>
-        <div className="productButtonsSection">
-            <div className="buttonsRow">
-                <ul className="buttonsList">
-                    <li className="button" onClick = {editHandler}>
-                        <IoSettingsSharp className='icon'/>
-                    </li>
-                    <li className="button">
-                        <FaPercentage className='icon'/>
-                    </li>
-                    <li className="button" onClick = {removeHandler}>
-                        <IoMdRemoveCircle className='icon'/>
-                    </li>
+        <div className="AP_productContent">
+           <div className="AP_productInfo">
+                <div className="AP_productName">
+                    <h3>{productName}</h3>
+                </div>
+                <div className="AP_productDescription">
+                    <p>{productDescription}</p>
+                </div>
+                <div className={`AP_productPriceBox ${isOnSale ? 'isOnSale' : ''}`}>
+                    <div className="AP_productNormalPrice AP_price">
+                    {productPrice.toFixed(2)}
+                    </div>
+                    {isOnSale && (
+                        <div className="AP_productSalesPrice AP_price">
+                            {productSalePrice.toFixed(2)}
+                        </div>
+                    )}
+                </div>
+           </div>
+            <div className="AP_productButtons">
+                <ul className='AP_productButtonsList'>
+                    <li className='AP_productButton'><FaPercentage className='icon'/></li>
+                    <li className='AP_productButton'><IoMdRemoveCircle className='icon'/></li>
                 </ul>
             </div>
         </div>

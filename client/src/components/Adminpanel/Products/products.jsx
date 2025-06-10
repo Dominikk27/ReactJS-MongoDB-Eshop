@@ -2,37 +2,45 @@ import React from 'react'
 
 import { useEffect, useState } from 'react';
 
+import { MdAdd } from "react-icons/md";
+
+import { FaTrashAlt } from "react-icons/fa";
+
 import "../Products/products.css"
 import ProductCardComponent from './productCard/productCard'
 
 
 
-function ProductsComponent({products, onEdit, onRemove}) {
+function ProductsComponent({products}) {
 
-  const getProductPrice = (products) => {
-    return products.onSale === 'true' ? products.onSalePrice : products.defaultPrice;
-  };
+  const [localProducts, setLocalProducts] = useState([]);
 
-  const [activeComponent, setActiveComponent] = useState('products');
   useEffect(() => {
-  }, [products]);
+    if(products && products.length != null) {
+      setLocalProducts(products);
+    }
+  },[products]);
 
   return (
-    <div className="componentContainer">
-        <div className="componentBody">
-            {products.map(i =>(
-                <ProductCardComponent
-                    key = {i._id} 
-                    productName = {i.productName}
-                    productPrice = {getProductPrice(i)}
-                    description = {i.description}
-                    productOnSalePrice = {i.onSalePrice}
-                    productImage = {i.productImages[0]}
-                    onEditProduct = {() => onEdit(i)}
-                    onRemoveProduct = {() => onRemove(i)}
-                    />
-            ))}
-        </div>
+    <div className="productsListBox">
+      <div className="productsList_Buttons">
+        <button className="product_actionButton">
+            <MdAdd className='icon'/> Add Product
+          </button>
+          <button className="product_actionButton">
+            <FaTrashAlt className='icon'/> Remove Product
+          </button>
+      </div>
+      <div className="productsList">
+        {localProducts.length > 0 ? (
+          localProducts.map(product => (
+            <ProductCardComponent
+              key={product._id}
+              product={product} 
+            />
+          ))
+        ) : (<p>Products not found!</p>)}
+      </div>
     </div>
   )
 }

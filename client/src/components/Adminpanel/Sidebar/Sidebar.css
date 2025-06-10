@@ -1,0 +1,91 @@
+.sideBar{
+    background-color: white;
+    height: calc(100vh - 20px);
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+    transition: width 0.3s ease;
+    border-radius: 20px;
+}
+
+.logo_box{
+    display: flex;
+    width: auto;
+    height: 200px;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo_box img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.buttons_box{
+    flex: 1;
+    overflow-y: scroll;
+}
+
+.siedBar_buttonList{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+
+}
+
+.sideBar_button{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+    justify-content: start;
+}
+
+.sideBar_button .icon{
+    width: auto;
+    height: auto;
+    font-size: 30px;
+}
+
+.AP_bottomBar{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.sideBar_toggleButton{
+    position: fixed;
+    bottom: 15px;
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+    transition: linear 3s;
+}
+
+.sideBar.closed{
+    width: 0;
+}
+
+.sideBar.closed .sideBar_toggleButton{
+    position: fixed;
+    left: 25px;
+    transition: width 0.3s ease;
+}
+
+
+@media (max-width: 730px){
+    .sideBar{
+        background-color: white;
+        height: calc(100vh - 20px);
+        width: 200px;
+        display: flex;
+        position: absolute;
+        flex-direction: column;
+        z-index: 10;
+        transition: width 0.3s ease;
+    }
+}

@@ -1,38 +1,43 @@
-.componentContainer{
+.productsListBox {
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
-    padding: 10px;
-    overflow: hidden;
-    box-sizing: border-box;
-}
-
-
-.listItem{
-    display: flex;
-    width: auto;
-    height: 100%;
-    text-align: center;
-    align-items: center;
-    padding: 15px 10px;
-    background-color: #ffffff;
+    padding: 5px;
+    background-color: white;
     gap: 10px;
-    cursor: pointer;
 }
 
-.listItem .icon{
+.productsList_Buttons{
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.product_actionButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: auto;
     height: auto;
-    font-size: 20px;
+    padding: 10px;
+    gap: 10px;
+    border: 0;
+    border-radius: 10px;
+    background-color: #F5F5F4;
+}
+
+.product_actionButton .icon{
+    width: auto;
+    font-size: 30px;
 }
 
 
-.componentBody{
-    width: 100%;
-    height: calc(100vh - 150px);
+.productsList{
     display: flex;
     flex-direction: column;
-    box-sizing: border-box;
-    gap: 20px;
+    flex: 1;
+    gap: 10px;
 }

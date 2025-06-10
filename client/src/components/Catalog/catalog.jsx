@@ -7,7 +7,7 @@ const Catalog = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch('http://localhost:3005/products');
+      const res = await fetch('http://localhost:3005/adminpanel/products');
       const data = await res.json();
 
       const updatedProducts = data.products.map(product => ({

@@ -1,116 +1,150 @@
-.productCard{
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 250px;
-    background-color: #ffffff;
-    gap: 10px;
-    flex-shrink: 0;
-}
-
-
-.productImageSection {
-    display: flex;
-    width: 50%;
-    height: 100%;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 20px;
-}
-
-
-.productImageBox {
-    width: 100%;  
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-
-.productImage {
-    width: 100%; 
-    height: 100%; 
-    object-fit: cover; 
-    border-radius: 5px;
-}
-
-
-.productContent{
+.AP_productCard{
     display: flex;
     width: 100%;
-    height: 100%;
     flex-direction: column;
-    text-align: start;
+    background-color: #E1E1E1;
+    padding: 10px;
+    gap: 20px;
+    max-height: 500px;
+    border-radius: 20px;
+}
+
+.AP_productCard .AP_productImage{
+    display: flex;
+    width: auto;
+    height: 200px;
+    align-content: center;
+    justify-content: center;
+
+}
+
+.AP_productCard .AP_productImage img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+
+}
+
+.AP_productContent{
+    display: flex;
+    flex-direction: column;
     gap: 10px;
+    text-align: center;
+}
+
+.AP_productPriceBox{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    gap: 20px;
+    font-weight: bold;
+    align-items: center;
+}
+
+.AP_productPriceBox .AP_price{
+    width: auto;
+}
+
+.AP_productPriceBox.isOnSale .AP_productNormalPrice{
+    background-color: red;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.AP_productPriceBox.isOnSale .AP_productSalesPrice{
+    background-color: green;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+
+.AP_productButtons {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    height: auto;
+}
+
+.AP_productButtonsList{
+    display: flex;
+    width: 100%;
+    gap: 30px;
+    text-align: center;
+    align-items: center;
     justify-content: center;
 }
 
-.productName{
-    width: 100%;
-    height: fit-content;
-}
-
-.productDescription{
-    width: 100%;
-    height: 110px;
-    box-sizing: border-box;
-    overflow: hidden;
-}
-
-.productDescription p{
-    text-overflow: ellipsis;
-}
-
-.priceCheck{
-    display: flex;
-    width: 100%;
-    gap: 10px;
-    align-items: center;
-    justify-content: start;
-}
-
-.priceTag{
-    width: auto;
-}
-
-.price{
-    width: auto;
-}
-
-
-.productButtonsSection{
-    display: flex;
-    width: 100%;
-    height: 100%;
-    padding: 10px 20px;
-    align-items: center;
-    justify-content: flex-end;
-}
-
-.buttonsRow{
-    height: 100%;
-    width: auto;
-}
-
-.buttonsList{
-    width: 100%;
-    background-color: 100%;
-    display: flex;
-    gap: 10px;
-}
-
-.button{
-    display: flex;
-    width: auto;
-    height: auto;
+.AP_productButton{
+    background-color: white;
     padding: 5px;
     border-radius: 10px;
-    background-color: #F4F4F4;
 }
 
-.button .icon{
-    font-size: 25px;
-    width: 30px;
-    height: 30px;
+.AP_productButton .icon{
+    font-size: 35px;
+}
+
+
+@media screen and (min-width: 830px){
+    .AP_productCard{
+        display: flex;
+        position: relative;
+        width: 100%;
+        flex-direction: row;
+        background-color: #E1E1E1;
+        padding: 10px 20px;
+        gap: 20px;
+        height: 200px;
+        align-items: center;
+        
+    }
+
+    .AP_productCard .AP_productImage{
+        display: flex;
+        width: auto;
+        height: 100%;
+        align-content: center;
+        justify-content: center;
+
+    }
+
+    .AP_productCard .AP_productImage img{
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+
+    }
+
+    .AP_productContent{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .AP_productInfo{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .AP_productButtons {
+        display: flex;
+        gap: 10px;
+        width: 100%;
+        height: auto;
+        justify-content: end;
+    }
+
+    .AP_productButtonsList{
+        display: flex;
+        flex-direction: column;
+        width: 50px;
+        gap: 30px;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+    }
+
 }
