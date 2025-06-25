@@ -1,4 +1,5 @@
 import React from 'react'
+import Popup from './form/popUpForms.jsx'
 
 import { useEffect, useState } from 'react';
 
@@ -12,23 +13,34 @@ import ProductCardComponent from './productCard/productCard'
 
 
 function ProductsComponent({products}) {
-
   const [localProducts, setLocalProducts] = useState([]);
+  const [activeProduct, setActiveProduct] = useState(null);
+
+  const [showForm, setShowForm] = useState(null);
 
   useEffect(() => {
-    if(products && products.length != null) {
+    if(products && products.length > 0) {
       setLocalProducts(products);
+    } else {
+      setLocalProducts([]);
     }
-  },[products]);
+  }, [products]);
+
+
+  const handleAddProduct = (newProduct) => {
+    setLocalProducts(prev => [...prev, newProduct]);
+    setShowForm(null);
+  }
 
   return (
-    <div className="productsListBox">
+    <div className="productsBox">
       <div className="productsList_Buttons">
-        <button className="product_actionButton">
+        <button className="product_actionButton" onClick={
+          () => {
+            setShowForm('addProduct');
+          }
+        }>
             <MdAdd className='icon'/> Add Product
-          </button>
-          <button className="product_actionButton">
-            <FaTrashAlt className='icon'/> Remove Product
           </button>
       </div>
       <div className="productsList">
@@ -36,12 +48,22 @@ function ProductsComponent({products}) {
           localProducts.map(product => (
             <ProductCardComponent
               key={product._id}
-              product={product} 
+              product={product}
+              setShowForm={setShowForm}
+              setActiveProduct={setActiveProduct} 
             />
           ))
         ) : (<p>Products not found!</p>)}
       </div>
-    </div>
+      {showForm && (
+        <Popup
+          activeProduct={activeProduct}
+          setActiveProduct={setActiveProduct}
+          showForm={showForm}
+          setForm={setShowForm}
+        />
+      )}
+    </div> 
   )
 }
 

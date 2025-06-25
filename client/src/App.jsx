@@ -17,30 +17,19 @@ import Visuals from './components/Adminpanel/Visuals/Visuals';
 
 function App() {
   const [products, setProducts] = useState([]);
-  useEffect( () => {
-    const fetchData = async() => {
-      const res = await fetch('http://localhost:3005/adminpanel/products');
-      const data = await res.json();
-
-
-      
-      const updatedProducts = data.products.map(product => {
-        const price = product.defaultPrice ? parseFloat(product.defaultPrice) : 0;
-        const salePrice = product.onSalePrice ? parseFloat(product.onSalePrice) : 0;
-
-
-        return {
-          ...product,
-          productPrice: price,
-          productSalePrice: salePrice,
-          productImages: product.productImages || []
-        };
-      });
-
-      setProducts(updatedProducts);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch('http://localhost:3005/products/api/fetch');
+        const data = await res.json();
+        console.log("Fetched products:", data);
+        setProducts(data);
+      } catch (e) {
+        console.log(e, "error code!");
+      }
     }
-    fetchData()
-  }, [])
+    fetchData();
+  }, []);
 
   return (
     <Router>
@@ -75,15 +64,3 @@ function App() {
 }
 
 export default App
-
-//<Adminpanel products={products}/>
-
-/*
-              <Navbar />
-              <Slider />
-              <Catalog products={products} />
-              <Services />
-              <Partners />
-              <Contact />
-              <Footer />
-*/

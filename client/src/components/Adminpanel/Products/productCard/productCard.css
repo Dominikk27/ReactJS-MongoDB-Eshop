@@ -91,19 +91,19 @@
         display: flex;
         position: relative;
         width: 100%;
-        flex-direction: row;
+        flex-direction: column;
         background-color: #E1E1E1;
         padding: 10px 20px;
         gap: 20px;
-        height: 200px;
+        height: 500px;
         align-items: center;
         
     }
-
-    .AP_productCard .AP_productImage{
+    
+    .AP_productImage{
         display: flex;
         width: auto;
-        height: 100%;
+        height: 200px;
         align-content: center;
         justify-content: center;
 
@@ -119,28 +119,32 @@
     .AP_productContent{
         width: 100%;
         display: flex;
-        flex-direction: row;
-        gap: 10px;
-        text-align: center;
+        flex-direction: column;
+        gap: 20px;
+        text-align: left;
+        flex-grow: 1;
     }
 
     .AP_productInfo{
         display: flex;
         flex-direction: column;
+        gap: 10px;
     }
 
     .AP_productButtons {
         display: flex;
         gap: 10px;
         width: 100%;
-        height: auto;
-        justify-content: end;
+        flex: 1;
+        justify-content: center;
+        align-items: end;
+        margin-top: auto;
     }
 
     .AP_productButtonsList{
         display: flex;
-        flex-direction: column;
-        width: 50px;
+        flex-direction: row;
+        width: 250px;
         gap: 30px;
         text-align: center;
         align-items: center;

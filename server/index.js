@@ -1,29 +1,37 @@
 
-const express = require('express');
-const path = require('path');
+const route = require("./routes/productRoute.js");
 
-const cors = require('cors');
-const dotenv = require('dotenv');
+const env = require("dotenv");
+const express = require("express");
+const { mongoose } = require("mongoose");
+const cors = require("cors");
 
-const connectDB = require('./db.js');
-dotenv.config();
+const path = require("path");
 
-
-const productRoutes = require('./routes/router.js');
 
 const app = express();
-app.use(express.json());
+env.config()
+
+const MONGO_URI = process.env.MONGO_URI;
+const DOMAIN_URI = process.env.DOMAIN_URI;
+
+mongoose.connect(MONGO_URI)
+    .then(() =>{
+        console.log("✅ Successfully connected to DB!");
+        app.listen(process.env.PORT, () =>
+        {
+            console.log('🚀 Server Running on port ', process.env.PORT);   
+            console.log(mongoose.connection.name);
+        })
+    })
+    .catch((e) =>{
+        console.log("❌ ", e, " Error with connection to DB");
+    })
+
+
 app.use(cors());
 
+app.use('/images', express.static(path.join(__dirname,'images')));
 
-connectDB();
 
-
-app.use('/', productRoutes)
-app.use('/images', express.static(path.join(__dirname, 'images')));
-
-const PORT = process.env.PORT || 30005;
-
-app.listen(PORT,  () => {
-    console.log("app is running on PORT: ", {PORT});
-})
+app.use("/products/api", route);

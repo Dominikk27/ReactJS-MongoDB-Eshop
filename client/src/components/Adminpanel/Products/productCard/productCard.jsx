@@ -14,20 +14,18 @@ import { FaPercentage } from "react-icons/fa";
 
 import unknown from "../productCard/unknown.jpg"
 
-function ProductCardComponent ({product}) {
+function ProductCardComponent ({ product, setShowForm, setActiveProduct }) {
 
     if(!product) return null;
 
     const {
         productName,
         productDescription,
-        productPrice,
-        productSalePrice,
-        productImages
+        defaultPrice,
+        onSalePrice,
+        productImages,
+        onSale
     }= product;
-
-    console.log("Images:", productImages);
-    const isOnSale = productSalePrice && productSalePrice > 0 && productSalePrice < productPrice;
 
   return (
     <div className="AP_productCard">
@@ -46,13 +44,13 @@ function ProductCardComponent ({product}) {
                 <div className="AP_productDescription">
                     <p>{productDescription}</p>
                 </div>
-                <div className={`AP_productPriceBox ${isOnSale ? 'isOnSale' : ''}`}>
+                <div className={`AP_productPriceBox ${onSale ? 'isOnSale' : ''}`}>
                     <div className="AP_productNormalPrice AP_price">
-                    {productPrice.toFixed(2)}
+                    {defaultPrice} €
                     </div>
-                    {isOnSale && (
+                    {onSale && (
                         <div className="AP_productSalesPrice AP_price">
-                            {productSalePrice.toFixed(2)}
+                            {onSalePrice} €
                         </div>
                     )}
                 </div>
@@ -60,7 +58,10 @@ function ProductCardComponent ({product}) {
             <div className="AP_productButtons">
                 <ul className='AP_productButtonsList'>
                     <li className='AP_productButton'><FaPercentage className='icon'/></li>
-                    <li className='AP_productButton'><IoMdRemoveCircle className='icon'/></li>
+                    <li className='AP_productButton' onClick={() => {
+                        setActiveProduct(product);
+                        setShowForm('removeProduct');
+                    }}><IoMdRemoveCircle className='icon'/></li>
                 </ul>
             </div>
         </div>
