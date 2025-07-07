@@ -1,5 +1,5 @@
-server/node_modules/
-server/.env
-server/*.log
+node_modules/
+.env
+*.log
 
 
