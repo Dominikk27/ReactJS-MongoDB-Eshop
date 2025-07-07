@@ -48,7 +48,7 @@ const addProduct = async (req, res) => {
             onSalePrice: parseFloat(onSalePrice),
             onSale,
             productImages
-        });
+        }); 
 
         await newProduct.save();
 
@@ -86,4 +86,75 @@ const removeProduct = async (req, res) => {
     }
 }
 
-module.exports = { fetch, addProduct, removeProduct };
+
+const editProduct = async (req, res) => {
+    const productID = req.params.id;
+
+    try{
+        const product = await Product.findById(productID);
+        
+        if(!product){
+            return res.status(200).json({error: "Product not found!"});
+        }
+
+        const {
+            productName,
+            productDescription,
+            defaultPrice,
+            onSale,
+            onSalePrice, 
+            oldImages
+        } = req.body;
+
+        
+
+        const oldIMG = oldImages ? JSON.parse(oldImages) : [];
+
+        const imgToRemove = product.productImages.filter(image =>
+            !oldIMG.includes(image)
+        );
+
+        imgToRemove.forEach(imageURL => {
+            const relativePath = imageURL.replace(STORAGE_URI, "").replace(/^\/+/, "");
+            const absolutePath = path.join(__dirname, "..", relativePath);
+            if(fs.existsSync(absolutePath)){
+                fs.unlinkSync(absolutePath);
+            }
+        });
+
+
+        const newImagePaths = (req.files || []).map(file =>
+            STORAGE_URI + file.path
+            .replace(path.join(__dirname, "..", "images"), "/images")
+            .replace(/\\/g, "/")
+        );
+
+        product.productImages = [...oldIMG, ...newImagePaths];
+
+        if (productName !== undefined) product.productName = productName;
+        if (productDescription !== undefined) product.productDescription = productDescription;
+
+        if (defaultPrice !== undefined && defaultPrice !== '') {
+        const parsedDefaultPrice = parseFloat(defaultPrice);
+        if (!isNaN(parsedDefaultPrice)) product.defaultPrice = parsedDefaultPrice;
+        }
+
+        if (onSalePrice !== undefined && onSalePrice !== '') {
+        const parsedOnSalePrice = parseFloat(onSalePrice);
+        if (!isNaN(parsedOnSalePrice)) product.onSalePrice = parsedOnSalePrice;
+        }
+
+        if (onSale !== undefined) {
+        product.onSale = (onSale === 'true' || onSale === true);
+        }
+
+        await product.save();
+        res.status(200).json(product);
+
+    }catch(e){
+        console.error("Error with editing product details: ", e);
+        res.status(500).json({error: "Error with updating product details!"});
+    }
+};
+
+module.exports = { fetch, addProduct, removeProduct, editProduct };

@@ -12,7 +12,7 @@ function createStorage(storageFolder){
             cb(null, dir);
         },
         filename: function(req, file, cb) {
-            const uniqueID = Date.now() + "-"
+            const uniqueID = Date.now() + "-" + Math.floor(Math.random() * 9999);
             const fileName = path.extname(file.originalname)
             cb(null, uniqueID + fileName);
         }

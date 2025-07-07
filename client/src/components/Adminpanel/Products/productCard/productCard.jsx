@@ -4,7 +4,7 @@ import "../productCard/productCard.css"
 
 import { IoMdRemoveCircle } from "react-icons/io";
 import { IoSettingsSharp } from "react-icons/io5";
-import { FaPercentage } from "react-icons/fa";
+import { AiFillTool } from "react-icons/ai";
 
 
 
@@ -57,7 +57,10 @@ function ProductCardComponent ({ product, setShowForm, setActiveProduct }) {
            </div>
             <div className="AP_productButtons">
                 <ul className='AP_productButtonsList'>
-                    <li className='AP_productButton'><FaPercentage className='icon'/></li>
+                    <li className='AP_productButton' onClick={() => {
+                        setActiveProduct(product);
+                        setShowForm('editProduct');
+                    }}><AiFillTool className='icon'/></li>
                     <li className='AP_productButton' onClick={() => {
                         setActiveProduct(product);
                         setShowForm('removeProduct');
