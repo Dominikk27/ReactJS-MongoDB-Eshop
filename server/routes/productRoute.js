@@ -19,10 +19,12 @@ const upload = multer({
 
 const route = express.Router();
 
+//PRODUCTS ACTIONS
 route.get("/fetch", fetch);
 route.post("/adminpanel/addProduct", upload.array("productImages", 8), addProduct);
 route.delete("/adminpanel/deleteProduct/:id", removeProduct);
 route.put("/adminpanel/editProduct/:id", upload.array("productImages", 8), editProduct);
+
 
 
 module.exports = route;

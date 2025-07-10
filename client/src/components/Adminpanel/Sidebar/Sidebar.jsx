@@ -10,6 +10,8 @@ import { MdOutlinePointOfSale } from "react-icons/md";
 import { PiSealPercentFill } from "react-icons/pi";
 import { IoMdSettings } from "react-icons/io";
 import { LuSettings2 } from "react-icons/lu";
+import { BsTicketPerforatedFill } from "react-icons/bs";
+
 
 const SidebarComponent = ({isOpen, toggle, navigate}) => {
 
@@ -18,11 +20,12 @@ const SidebarComponent = ({isOpen, toggle, navigate}) => {
       {isOpen && (
         <>
         <div className="logo_box">
-          <img src={Logo} />
+          <a href="http://localhost:3000/" target='_blank'><img src={Logo} /></a>
         </div>
         <div className="buttons_box">
           <ul className='siedBar_buttonList'>
             <li className='sideBar_buttonBox'><a className='sideBar_button' onClick={() => navigate("dashboard")}> <MdDashboard className='icon'/> Dashboard</a></li>
+            <li className='sideBar_buttonBox'><a className='sideBar_button' onClick={() => navigate("reservations")}> <BsTicketPerforatedFill className='icon'/> Reservations</a></li>
             <li className='sideBar_buttonBox'><a className='sideBar_button' onClick={() => navigate("products")}> <MdOutlinePointOfSale className='icon'/> Products</a></li>
             <li className='sideBar_buttonBox'><a className='sideBar_button' onClick={() => navigate("settings")}> <IoMdSettings className='icon'/> Settings</a></li>
             <li className='sideBar_buttonBox'><a className='sideBar_button' onClick={() => navigate("visuals")}> <LuSettings2 className='icon'/> Visuals</a></li>

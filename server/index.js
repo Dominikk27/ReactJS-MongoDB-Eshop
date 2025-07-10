@@ -1,5 +1,6 @@
 
-const route = require("./routes/productRoute.js");
+const productRoute = require("./routes/productRoute.js");
+const visualsRoute = require("./routes/visualsRoute.js");
 
 const env = require("dotenv");
 const express = require("express");
@@ -31,7 +32,8 @@ mongoose.connect(MONGO_URI)
 
 app.use(cors());
 
-app.use('/images', express.static(path.join(__dirname,'images')));
+app.use("/images", express.static(path.join(__dirname,'images')));
 
+app.use("/adminpanel/visuals", visualsRoute)
 
-app.use("/products/api", route);
+app.use("/products/api", productRoute);

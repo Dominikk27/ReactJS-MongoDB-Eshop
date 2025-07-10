@@ -12,6 +12,7 @@ import Adminpanel from './components/Adminpanel/apanel'
 
 import Products from './components/Adminpanel/Products/products';
 import Dashboard from './components/Adminpanel/Dashboard/Dashboard';
+import Reservations from './components/Adminpanel/Reservations/Reservations';
 import Settings from './components/Adminpanel/Settings/Settings';
 import Visuals from './components/Adminpanel/Visuals/Visuals';
 
@@ -54,6 +55,7 @@ function App() {
         <Route path="/adminpanel" element={<Adminpanel />}>
           <Route index element={<Dashboard />} />
           <Route path="dashboard" element={<Dashboard />} />
+          <Route path="reservations" element={<Reservations />} />
           <Route path="products" element={<Products products={products} />} />
           <Route path="settings" element={<Settings />} />
           <Route path="visuals" element={<Visuals />} />

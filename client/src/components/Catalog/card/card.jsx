@@ -12,9 +12,9 @@ const Card = ({ product }) => {
 
   const formatPrice = (price) => {
     if (price && typeof price === 'object' && price.$numberDecimal) {
-      return parseFloat(price.$numberDecimal).toFixed(2);  // Preveď Decimal128 na číslo
+      return parseFloat(price.$numberDecimal).toFixed(2);  
     }
-    return price;  // Ak cena nie je Decimal128, vráti ju tak, ako je
+    return price; 
   };
 
   return (
@@ -34,7 +34,7 @@ const Card = ({ product }) => {
           <FaRegStar className='icon'/>
         </div>
         <div className="cardDescription">
-        {product.description}
+        {product.productDescription}
         </div>
         <div className="cardPrice">
           {product.OnSale ? (

@@ -12,6 +12,7 @@ import Popup from "../Adminpanel/Products/form/popUpForms"
 import Logo from "../Adminpanel/logo.png"
 import Products from "./Products/products"
 import Dashboard from "./Dashboard/Dashboard";
+import Reservations from './Reservations/Reservations';
 import Settings from './Settings/Settings';
 import Visuals from './Visuals/Visuals';
 
@@ -29,6 +30,8 @@ function Adminpanel ({products}) {
     switch(activeComponent){
       case "Dashboard":
         return <Dashboard />
+        case "Reservations":
+        return <Reservations />
       case "Products":
         return <Products />
       case "Settings":
