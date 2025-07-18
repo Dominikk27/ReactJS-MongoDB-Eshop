@@ -1,59 +1,204 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import './Visuals.css'
 
 import { IoClose } from "react-icons/io5";
-
-import stihl from './images/stihl.png'
-import cubCadet from './images/cubcadet.png'
-import mtd from './images/mtd.png'
-import DAKR from './images/DAKR.jpg'
-import wolfGarten from './images/wolfgarten.png'
-import supa from './images/supa.png'
+import { FaUpload } from "react-icons/fa";
+import { useMemo } from 'react';
 
 const Visuals = () => {
+  const [localPartners, setLocalPartners] = useState([]);
+  const [loadedPartners, setLoadedPartners] = useState([]);
+  const [currentPartners, setCurrentPartners] = useState([]);
+
+  {/* FETCH PARTNERS FROM DB */}
+  useEffect(()=> {
+    const fetchPartners = async () => {
+      try {
+        const partnersRes = await fetch("http://localhost:3005/adminpanel/visuals/partners");
+        const partnersData = await partnersRes.json();
+
+        setCurrentPartners(partnersData);
+        setLoadedPartners(partnersData);
+      }catch(e){
+        console.error("Failed to fetch any partners logo! error: ", e);
+      }
+    }
+    fetchPartners();
+  }, []);
+
+  {/* CANCEL CHANGES */}
+  const CancelChanges = () => {
+    setCurrentPartners(loadedPartners);
+
+    localPartners.forEach(image => URL.revokeObjectURL(image.preview));
+    setLocalPartners([]);
+  };
+
+  const SaveChanges = async () => {
+    try{
+      const formData = new FormData();
+      const removedIDs = loadedPartners
+        .filter(lp => !currentPartners
+          .some(cp => cp._id === lp._id))
+          .map(partner => partner._id);
+
+      if(removedIDs.length === 0 && localPartners.length === 0){
+        console.log("No partners to Update!");
+        return;
+      }
+
+      formData.append("removedIDs", JSON.stringify(removedIDs));
+       localPartners.forEach((partner) => {
+        formData.append("partnerLogo", partner.file);
+      })
+
+
+      const res = await fetch("http://localhost:3005/adminpanel/visuals/partners/update",{
+        method: "PUT",
+        body: formData
+      });
+
+      if(!res.ok){
+        console.error("Server Error! Failed to Update Partners!");
+        return;
+      }
+
+      setLoadedPartners(currentPartners);
+      setLocalPartners([]);
+      console.log("Partners successfully updated!");
+
+    }catch (e){
+      console.log("Client Error: ",e);
+      return;
+    }
+  }
+
+  {/* PARTNERS CHANGES */}
+  const PartnersChanged = () => {
+    if (localPartners.length > 0) return true
+    
+    const removedPartners = loadedPartners.filter(loadedPartners =>
+      !currentPartners.some(partner => partner._id === loadedPartners._id)
+    );
+
+    return removedPartners.length > 0;
+  }
+
+  {/* PREVIEW LOCAL IMAGES */}
+  const handlePartnersImages = (e) => {
+    const files = Array.from(e.target.files);
+    const newPartner = files.map(file => ({
+      file,
+      preview: URL.createObjectURL(file)
+    }));
+
+    setLocalPartners(prev => [...prev, ...newPartner]);
+    e.target.value = null;
+  };
+
+
+  {/* UPLOAD IMAGES */}
+  const handleUploadImages = async () => {
+    const formData = new FormData();
+
+    localPartners.forEach((partner, index) => {
+      formData.append("partnerLogo", partner.file);
+    });
+
+    try{
+      const res = await fetch("http://localhost:3005/adminpanel/visuals/partners/add", {
+        method: 'POST',
+        body: formData,
+      });
+
+      if(!res.ok){
+        console.error("Server Error!");
+        return;
+      }
+
+      console.log("Upload Successful!");
+      setLocalPartners([]);
+      const update = await res.json();
+      setCurrentPartners(update);
+    }catch(e){
+
+    }
+  }
+
+  {/* REMOVE LOCAL IMG PREV */}
+  const RemoveLocalPartner = (index) => {
+    setLocalPartners(prev => {
+      const updated = [...prev];
+      const removed = updated.splice(index, 1);
+
+      if(removed?.preview){
+        URL.revokeObjectURL(removed.preview);
+      }
+      return updated;
+    });
+  };
+
+  {/* REMOVE LOADED IMG PREV */}
+  const RemoveLoadedPartner = (index) => {
+    setCurrentPartners(prev => {
+      const updated = [...prev];
+      const removed = updated.splice(index, 1);
+
+      return updated;
+    });
+  };
+
   return (
     <div className="visualsBox">
       <h3 className='tabName'>Visual Settings</h3>
       <div className="visualsPartnersBox">
         <h4 className='categoryName'>Partners</h4>
         <div className="visualsPartnersIMGBox">
-          <div className="partner">
-            <img src={stihl} alt="" />
-            <IoClose className='removeIcon'/>
-          </div>
-          <div className="partner">
-            <img src={mtd} alt="" />
-            <IoClose className='removeIcon'/>
-          </div>
-          <div className="partner">
-            <img src={supa} alt="" />
-            <IoClose className='removeIcon'/>
-          </div>
-          <div className="partner">
-            <img src={wolfGarten} alt="" />
-            <IoClose className='removeIcon'/>
-          </div>
-          <div className="partner">
-            <img src={DAKR} alt="" />
-            <IoClose className='removeIcon'/>
-          </div>
-          <div className="partner">
-            <img src={cubCadet} alt="" />
-            <IoClose className='removeIcon'/>
-          </div>
-          <div className="partner">
-            <div className="addPartner">Add Partner</div>
-          </div>
-        </div>
-        <div className="partnersActionButtonsBox">
-          <div className="cancelChangesPartnersBTN BTN">
-            Cancel Changes
-          </div>
-          <div className="submitChangesPartnersBTN BTN">
-            Submit Changes
+          {(currentPartners && currentPartners.length > 0) || (localPartners && localPartners.length > 0) ? (
+            <>
+              {currentPartners.map((partner, index) => (
+                <div className="partner" key={`old-${index}`}>
+                  <img src={partner.partnerLogo} alt="partner logo" />
+                  <IoClose className="removeIcon" onClick={() => RemoveLoadedPartner(index)}/>
+                </div>
+              ))}
+              {localPartners.map((localPartner, index) => (
+                <div className="partner" key={`local-${index}`}>
+                  <img src={URL.createObjectURL(localPartner.file)} alt="partner logo" />
+                  <IoClose className="removeIcon" onClick={() => RemoveLocalPartner(index)}/>
+                </div>
+              ))}
+            </>
+          ) : (
+            <p>Neboli nájdení žiadni partneri</p>
+          )}
+          <div className='addPartnerImage'>
+            <input 
+              id="file-input" 
+              type="file" 
+              name='partnerLogo' 
+              title='Partner Imagaes' 
+              accept='image/*' 
+              multiple
+              onChange={handlePartnersImages}
+            />
+            <label htmlFor="file-input">
+              <FaUpload className='uploadIcon' /> 
+              <span>Pridať partnera</span>
+            </label>
           </div>
         </div>
+        {PartnersChanged() && (
+          <div className="partnersActionButtonsBox">
+            <div className="cancelChangesPartnersBTN BTN" onClick={CancelChanges}>
+              Cancel Changes
+            </div>
+            <div className="submitChangesPartnersBTN BTN" onClick={SaveChanges}>
+              Submit Changes
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )

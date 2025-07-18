@@ -25,7 +25,7 @@ const SidebarComponent = ({isOpen, toggle, navigate}) => {
         <div className="buttons_box">
           <ul className='siedBar_buttonList'>
             <li className='sideBar_buttonBox'><a className='sideBar_button' onClick={() => navigate("dashboard")}> <MdDashboard className='icon'/> Dashboard</a></li>
-            <li className='sideBar_buttonBox'><a className='sideBar_button' onClick={() => navigate("reservations")}> <BsTicketPerforatedFill className='icon'/> Reservations</a></li>
+            <li className='sideBar_buttonBox'><a className='sideBar_button' onClick={() => navigate("reservations")}> <BsTicketPerforatedFill className='icon'/> Reservation</a></li>
             <li className='sideBar_buttonBox'><a className='sideBar_button' onClick={() => navigate("products")}> <MdOutlinePointOfSale className='icon'/> Products</a></li>
             <li className='sideBar_buttonBox'><a className='sideBar_button' onClick={() => navigate("settings")}> <IoMdSettings className='icon'/> Settings</a></li>
             <li className='sideBar_buttonBox'><a className='sideBar_button' onClick={() => navigate("visuals")}> <LuSettings2 className='icon'/> Visuals</a></li>

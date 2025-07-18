@@ -27,7 +27,7 @@ const fetch = async (req, res) => {
 const STORAGE_URI = process.env.STORAGE_URI;
 
 const addProduct = async (req, res) => {
-    const file = req.files;
+    //const file = req.files;
     try{
         const { productName, productDescription, defaultPrice, onSale, onSalePrice} = req.body;
         

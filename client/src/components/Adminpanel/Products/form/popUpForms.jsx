@@ -55,13 +55,16 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
     console.log(preview);
     
     setNewImages(prev => [...prev, ...preview]);
-   // setValue('productImages', files)
   }
 
   const handleRemoveOldImage = (index) => {
     setOldImages(prev => {
       const updated = [...prev];
-      updated.splice(index, 1);
+      const removed = updated.splice(index, 1);
+
+      if(removed?.preview){
+        URL.revokeObjectURL(removed.preview);
+      }
       return updated;
     });
   };
@@ -77,23 +80,6 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
       return updated;
     });
   };
-
-  /* const handleRemoveImage = (imgIndexToRemove) => {
-    setSelectedImages(prev => {
-      const updatePreview = [...prev];
-      const target = updatePreview.splice(imgIndexToRemove, 1);
-
-      if (target[0]?.preview){
-        URL.revokeObjectURL(target[0].preview);
-      }
-
-      const updatedFiles = updatePreview.map((image) => image.file);
-      setValue('productImages', updatedFiles);
-
-      return updatePreview;
-
-    });
-  }; */
 
   const handleRemoveProduct = async () => {
     if(!activeProduct._id) return;
@@ -111,7 +97,6 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
       console.log("Error with Removing product");
     }
   }
-
 
   function ActiveForm() {
     switch(showForm){
@@ -202,7 +187,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
 
       <div className="formBody">
         <form onSubmit={handleSubmit(onSubmit)}>
-          {/* Názov produktu */}
+          {/* Product Name */}
           <input 
             type="text" 
             name='productName' 
@@ -211,7 +196,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
             {...register('productName', {required: true})}
           />
 
-          {/* Cena produktu */}
+          {/* Default Price */}
           <input 
             type="number" 
             name='defaultPrice' 
@@ -221,7 +206,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
             {...register('defaultPrice', {required: true})}
           />
 
-          {/* Checkbox Akcia produktu */}
+          {/* Checkbox On Sale */}
           <div className="onSaleCheckBox">
             <label htmlFor="onSale">Je produkt v akcii</label>
             <input 
@@ -230,7 +215,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
             />
           </div>
 
-          {/* Cena produktu v akcii*/}
+          {/* On Sale Price */}
           {onSale ? 
           
             <input 
@@ -245,7 +230,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
           }
   
 
-          {/* Popis produktu */}
+          {/* Product Description */}
           <textarea 
             type="text" 
             name="productDescription" 
@@ -254,7 +239,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
             {...register('productDescription', {required: true})}
           />
 
-          {/* Obrazky produktu */}
+          {/* Product Images Box */}
           <div className='productImageInputContainer'>
             <input 
               id="file-input" 
@@ -316,9 +301,9 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
     })
     .then(data => {
       console.log("Success: ", data);
-      //setForm(null);
-      //setActiveProduct(null);
-      //window.location.reload();
+      setForm(null);
+      setActiveProduct(null);
+      window.location.reload();
     })
     .catch(e => {
       alert.error(e.message);
@@ -342,7 +327,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
       <div className="formBody">
         <form onSubmit={handleSubmit(onEditSubmit)}>
           
-          {/* Názov produktu */}
+          {/* Product Name */}
           <input
             type="text"
             name="productName"
@@ -350,7 +335,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
             placeholder="Názov produktu"
           />
 
-          {/* Popis produktu */}
+          {/* Product Description */}
           <textarea
             type="text"
             name="description"
@@ -358,7 +343,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
             placeholder="Popis produktu"
           />
 
-          {/* Základná cena */}
+          {/* Default Price */}
           <input
             type="number"
             name="defaultPrice"
@@ -368,7 +353,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
             placeholder="Základná cena"
           />
 
-          {/* Checkbox Akcia produktu */}
+          {/* Checkbox Product On Sale */}
           <div className="onSaleCheckBox">
             <label htmlFor="onSale">Je produkt v akcii</label>
             <input 
@@ -379,7 +364,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
             />
           </div>
 
-          {/* Cena produktu v akcii*/}
+          {/* On Sale Price */}
           { onSale ?
               <input 
                 type="number" 
@@ -392,7 +377,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
               :null
           }
 
-          {/* Obrazky produktu */}
+          {/* Product Images Button */}
           <div className='productImageInputContainer'>
             <input 
               id="file-input" 
@@ -410,7 +395,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
             </label>
           </div>
           <div className="productGallery">
-            {/* Staré obrázky */}
+            {/* Old Images */}
             {oldImages.map((image, index) => (
               <div key={`old-${index}`} className="imageWrapper">
                 <img src={image} alt={`Produktový obrázok ${index + 1}`} className="productImage" />
@@ -418,7 +403,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
               </div>
             ))}
             
-            {/* Nové obrázky */}
+            {/* New Images */}
             {newImages.map((image, index) => (
               <div key={index} className="imageWrapper">
                 <img src={image.preview} alt={`Produktový obrázok ${index + 1}`} className="productImage" />

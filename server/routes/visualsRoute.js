@@ -2,7 +2,7 @@ const express = require("express");
 const multer = require("multer");
 const createStorage = require("../utils/storage.js");
 
-const { getStats} = require("../controller/visualsController.js");
+const { getStats, getPartners, UpdatePartners } = require("../controller/visualsController.js");
 
 const upload = multer({
     storage: createStorage("partners"),
@@ -14,12 +14,18 @@ const upload = multer({
             cb(new Error("Invalid Format!"));
         }
     },
-    limits: {fileSize: 5 * 2048 * 2048}
+    limits: {fileSize: 10 * 2048 * 2048}
 });
 
 const route = express.Router();
 
 //STATS
 route.get("/stats", getStats);
+
+//PARTNERS
+route.get("/partners", getPartners);
+route.put("/partners/update", upload.array("partnerLogo", 10), UpdatePartners);
+
+
 
 module.exports = route;

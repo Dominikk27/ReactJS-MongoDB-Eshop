@@ -41,17 +41,17 @@ const Dashboard = () => {
         />
         <DashboardValueCard
           title="Aktívne produkty v zľave"
-          value={stats?.activeProduct ?? 'NaN'}
+          value={stats?.activeOnSaleProduct ?? 'NaN'}
           description="Všetky produkty v zľave"
         />
         <DashboardValueCard 
-          title="Ďalšia karta" 
-          value="NaN" 
-          description="Popis ďalšej metriky" 
+          title="Aktívne rezervácie" 
+          value={stats?.activeReservations ?? 'NaN'} 
+          description="Aktívne rezervácie" 
         />
         <DashboardValueCard 
           title="Ďalšia karta 2" 
-          value="NaN" 
+          value="Soon..." 
           description="Popis metriky 2" 
         />
       </div>
