@@ -4,36 +4,54 @@ const { Decimal128 } = mongoose.Schema.Types;
 
 const productSchema = new mongoose.Schema({
     productName:{
-        type:String,
+        type: String,
         required: true
     },
 
     productDescription:{
-        type:String,
+        type: String,
         required: false
     },
 
     productImages:[
         {
-            type:String,
-            required: true
+          type: String,
+          required: true
         }
     ],
 
     defaultPrice:{
-        type:Decimal128,
+        type: Decimal128,
         required: true
     },
 
     onSale:{
-        type:Boolean,
+        type: Boolean,
         required: true
     },
 
     onSalePrice:{
-        type:Decimal128,
+        type: Decimal128,
         required: true
     },
+
+    productType:{
+        type: String,
+        enum: ['kosacka', 'krovinorez', 'pila'],
+        required: true
+    },
+
+    productDrive:{
+      type: String,
+      enum:['elektrika', 'aku', 'benzín'],
+      required: true,
+    },
+
+    productDetails:{
+      type: mongoose.Schema.Types.Mixed,
+      required: false
+    },
+
 }, {collection: "Products"});
 
 

@@ -9,7 +9,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 
 .popUpInner{
@@ -17,12 +16,23 @@
     height: 100%;
     padding: 50px;
     background-color: #ffffff;
+    transition: linear 0.3s;
 }
 
-.formContent{
+.popUpInner.showDetails{
+    width: 80%;
+    height: 100%;
+    padding: 50px;
+    background-color: #ffffff;
+    transition: linear 0.3s;
+}
+
+.formContainer{
     display: flex;
     flex-direction: column;
+    gap: 40px;
 }
+
 
 .formHeader{
     display: flex;
@@ -42,11 +52,6 @@ button[type="submit"]{
     background-color: bisque;
 }
 
-.contentBox{
-    display: flex;
-    flex-direction: column;
-    gap: 30px
-}
 .btns-box{
     display: flex;
     gap: 10px;
@@ -67,7 +72,6 @@ button[type="submit"]{
     background-color: #FF999C;
 }
 
-
 .closeBTN .icon{
     width: auto;
     height: auto;
@@ -83,11 +87,17 @@ button[type="submit"]{
     border-radius: 30px;
 }
 
-.formBody form{
+.formBody{
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
+
+.formsRow{
+    display: flex;
+    gap: 30px;
+}
+
 
 .productImageInputContainer{
     display: flex;
@@ -199,6 +209,52 @@ textarea{
 
 .removeImage:hover {
     background-color: rgba(255, 0, 0, 1);
+
+
+}
+
+.selectBox_Product{
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 15px;
+    height: 30px;
+}
+
+.selectBox_Product label{
+    display: flex;
+    width: fit-content;
+    height: 100%;
+    align-items: center; 
+}
+
+.selectBox_Product select{
+    flex: 1;
+    height: 100%;
+}
+
+.inputBox{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.categoryGroup{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.inputBox label{
+    display: flex;
+    width: auto;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+}
+
+.inputBox input{
+    width: 100px;
+    
 }
 
 

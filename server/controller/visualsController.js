@@ -54,10 +54,6 @@ const UpdatePartners = async (req, res) => {
                 .replace(path.join(__dirname, "..", "images"), "/images")
                 .replace(/\\/g, "/")
         ) || [];
-
-        //console.log(req.files);
-        //console.log("Removed IDs:", removedIDs);
-        //console.log("Partners Logo paths:", partnersLogo);
        
         if (removedIDs.length > 0){
             const partnersToRemove = await Partners.find({_id: {$in: removedIDs}});

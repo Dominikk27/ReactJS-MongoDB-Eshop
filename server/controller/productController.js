@@ -28,8 +28,11 @@ const STORAGE_URI = process.env.STORAGE_URI;
 
 const addProduct = async (req, res) => {
     //const file = req.files;
+
+    console.log("BODY", req.body);
+
     try{
-        const { productName, productDescription, defaultPrice, onSale, onSalePrice} = req.body;
+        const { productName, productDescription, defaultPrice, onSale, onSalePrice, productType, productDrive } = req.body;
         
         if(!productName || !defaultPrice) {
             return res.status(400).json({error: "Product name and price are required!"});
@@ -41,13 +44,26 @@ const addProduct = async (req, res) => {
             .replace(/\\/g,"/"))
         ) || [];
 
+        let productDetails = {};
+        try {
+            productDetails = req.body.productDetails 
+                ? JSON.parse(req.body.productDetails)
+                : {};
+        } catch (e) {
+            console.error("Chyba pri parsovaní productDetails:", e);
+            return res.status(400).json({ error: "Neplatný formát detailov produktu" });
+        }
+
         const newProduct = new Product({
             productName,
             productDescription,
             defaultPrice: parseFloat(defaultPrice),
             onSalePrice: parseFloat(onSalePrice),
             onSale,
-            productImages
+            productImages,
+            productType,
+            productDrive,
+            productDetails
         }); 
 
         await newProduct.save();

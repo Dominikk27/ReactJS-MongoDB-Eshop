@@ -1,24 +1,50 @@
 import React, { useEffect, useState } from 'react'
+
 import { FaBold, FaUpload } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
+import { IoClose } from "react-icons/io5";
 
-import { useForm } from 'react-hook-form';
+import { useForm, FormProvider } from 'react-hook-form';
 
 
 import "../form/popUpForms.css"
-
-import { IoClose } from "react-icons/io5";
+import ProductDetailsForm from "../form/utils/productDetails";
+import { productDetailSchema } from './utils/productSchemas';
 
 
 function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
 
-  const [selectedImages, setSelectedImages] = useState([]);
+  //const [selectedImages, setSelectedImages] = useState([]);
+
+  const methods = useForm({
+    shouldUnregister: false,
+    defaultValues: {
+      productDetails: {}
+    }
+  });
+  
+  const {
+    register, 
+    handleSubmit, 
+    setValue, 
+    watch, 
+    reset,
+    formState: { isSubmitting }
+  } = methods;
+
+
+  //const watchedImages = watch('productImages');
+  const onSale = watch('onSale');
+  const productType = watch('productType');
+  const productDrive = watch('productDrive');
+
+  useEffect(() => {
+    setValue("productDetails", {});
+  }, [productType, productDrive]);
 
 
   const [oldImages, setOldImages] = useState([]);
   const [newImages, setNewImages] = useState([]);
-
-  const {register, handleSubmit, setValue, watch, reset} = useForm();
 
   useEffect(() => {
     if(showForm === "editProduct" && activeProduct){
@@ -40,9 +66,6 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
       setNewImages([]); 
     }
   }, [showForm, activeProduct, reset]);
-
-  const watchedImages = watch('productImages');
-  const onSale = watch("onSale");
   
   const handleSelectedImages = (e) => {
     const files = Array.from(e.target.files);
@@ -113,7 +136,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
 
   // ================== REMOVE PRODUCT START ===================
   const RemoveProduct = () => (
-    <div className="formContnet">
+    <div className="mainFormContent">
       <div className="formHeader">
         <div className="textHeader">
           <h2>Odstrániť produkt</h2>
@@ -135,7 +158,6 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
   )
 
   // ==================== ADD PRODUCT ====================
-
   
   {/* SUBMIT AddProduct HANDLER */}
   const onSubmit = (data) => {
@@ -145,7 +167,13 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
     formData.append("defaultPrice", data.defaultPrice);
     formData.append("onSale", data.onSale || false);
     formData.append("onSalePrice", data.onSalePrice);
-    formData.append("productDescription", data.productDescription); 
+    formData.append("productDescription", data.productDescription);
+    formData.append("productDrive", data.productDrive);
+    formData.append("productType", data.productType);
+    formData.append("productDetails", JSON.stringify(data.productDetails || {}));
+    
+    console.log("productDetails before sending:", data.productDetails);
+
 
     newImages.forEach(image => {
       formData.append("productImages", image.file);
@@ -175,99 +203,152 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
   
   {/* ADD FORM */}
   const AddProduct = () => (
-    <div className="formContnet">
-      <div className="formHeader">
-        <div className="textHeader">
-          <h2>Pridať produkt</h2>
-        </div>
-        <div className="closeBTN" onClick={() => setForm(null)}>
-          <IoClose className='icon' />
-        </div>
-      </div>
-
-      <div className="formBody">
-        <form onSubmit={handleSubmit(onSubmit)}>
-          {/* Product Name */}
-          <input 
-            type="text" 
-            name='productName' 
-            title='Product Name' 
-            placeholder='Nazov Produktu'
-            {...register('productName', {required: true})}
-          />
-
-          {/* Default Price */}
-          <input 
-            type="number" 
-            name='defaultPrice' 
-            placeholder='Cena produktu' 
-            min={0} 
-            step={0.01} 
-            {...register('defaultPrice', {required: true})}
-          />
-
-          {/* Checkbox On Sale */}
-          <div className="onSaleCheckBox">
-            <label htmlFor="onSale">Je produkt v akcii</label>
-            <input 
-              type="checkbox"  
-              {...register('onSale')} 
-            />
+    <FormProvider {...methods}>
+      <form onSubmit={handleSubmit(onSubmit)} className='formContainer'>
+        <div className="formHeader">
+          <div className="textHeader">
+            <h2>Pridať produkt</h2>
           </div>
+          <div className="closeBTN" onClick={() => setForm(null)}>
+            <IoClose className='icon' />
+          </div>
+        </div>
+        <div className="formsRow">
+          <div className="mainFormContent formBody">
+            {/* SELECT PRODUCT TYPE */}
+            <div className="selectBox_Product">
+              <select name="productType" 
+                id="productType" 
+                className="productType" 
+                placeholder="test"
+                {...register('productType', {required: true})}
+                >
+                <option value=""></option>
+                <option value="pila">Píla</option>
+                <option value="kosacka">Kosačka</option>
+                <option value="krovinorez">Krovinorez</option>
+              </select>
+              <label htmlFor="productType">
+                  <span>Typ produktu</span>
+              </label>
+            </div>
 
-          {/* On Sale Price */}
-          {onSale ? 
-          
+            {/* Product Name */}
+            <input 
+              type="text" 
+              name='productName' 
+              title='Product Name' 
+              placeholder='Nazov Produktu'
+              {...register('productName', {required: true})}
+            />
+
+            {/* Default Price */}
             <input 
               type="number" 
-              name='onSalePrice' 
-              placeholder='Cena produktu v zľave'
+              name='defaultPrice' 
+              placeholder='Cena produktu' 
               min={0} 
               step={0.01} 
-              {...register('onSalePrice', {required: true})}
+              {...register('defaultPrice', {required: true})}
             />
-            :null
-          }
-  
 
-          {/* Product Description */}
-          <textarea 
-            type="text" 
-            name="productDescription" 
-            title='Product Description' 
-            placeholder='Popis Produktu...'
-            {...register('productDescription', {required: true})}
-          />
+            {/* Checkbox On Sale */}
+            <div className="onSaleCheckBox">
+              <label htmlFor="onSale">Je produkt v akcii</label>
+              <input 
+                type="checkbox"  
+                {...register('onSale')} 
+              />
+            </div>
 
-          {/* Product Images Box */}
-          <div className='productImageInputContainer'>
-            <input 
-              id="file-input" 
-              type="file" 
-              name='productImages' 
-              title='Product Images' 
-              accept='image/*' 
-              multiple
-              onChange={handleSelectedImages}
+            {/* On Sale Price */}
+            {onSale ? 
+            
+              <input 
+                type="number" 
+                name='onSalePrice' 
+                placeholder='Cena produktu v zľave'
+                min={0} 
+                step={0.01} 
+                {...register('onSalePrice', {required: true})}
+              />
+              :null
+            }
+
+            {/* Product Description */}
+            <textarea 
+              type="text" 
+              name="productDescription" 
+              title='Product Description' 
+              placeholder='Popis Produktu...'
+              {...register('productDescription', {required: true})}
             />
-            <label htmlFor="file-input">
-              <FaUpload className='uploadIcon' /> 
-              <span>Vyber obrázok</span>
-            </label>
+
+            {/* SELECT PRODUCT DRIVE */}
+            <div className="selectBox_Product">
+              <select name="productDrive" 
+              id="productDrive" 
+              className="productDrive" 
+              placeholder="pohon"
+              {...register('productDrive', {required: true})}>
+                <option value=""></option>
+                <option value="aku">AKU</option>
+                <option value="elektro">Elektrika</option>
+                <option value="benzin">Benzín</option>
+              </select>
+              <label htmlFor="productType">
+                  <span>Pohon </span>
+              </label>
+            </div>
+
+            {/* Product Images Box */}
+            <div className='productImageInputContainer'>
+              <input 
+                id="file-input" 
+                type="file" 
+                name='productImages' 
+                title='Product Images' 
+                accept='image/*' 
+                multiple
+                onChange={handleSelectedImages}
+              />
+              <label htmlFor="file-input">
+                <FaUpload className='uploadIcon' /> 
+                <span>Vyber obrázok</span>
+              </label>
+            </div>
+            <div className="productGallery">
+              {newImages.map((image, index) => (
+                <div key={index} className="imageWrapper">
+                  <img src={image.preview} alt={`Produktový obrázok ${index + 1}`} className="productImage" />
+                  <div className="removeImage" onClick={() => handleRemoveNewImage(index)}><MdClose /></div>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="productGallery">
-            {newImages.map((image, index) => (
-              <div key={index} className="imageWrapper">
-                <img src={image.preview} alt={`Produktový obrázok ${index + 1}`} className="productImage" />
-                <div className="removeImage" onClick={() => handleRemoveNewImage(index)}><MdClose /></div>
+          {productType && productDrive && (
+          <div className="detailsFormContent">
+            <div className="formHeader">
+              <div className="textHeader">
+                <h2>Detaily produkt</h2>
               </div>
-            ))}
-          </div>
+            </div>
 
+            <div className="formBody">
+              <ProductDetailsForm
+                productType={watch("productType")}
+                productDrive={watch("productDrive")}
+              />
+            </div>
+          </div>
+          )}
+
+        </div>
+        <div className="formsButton">
           <button type='submit'> Pridať Produkt</button>
-        </form>
-      </div>
-    </div>
+        </div>
+      </form>
+    </FormProvider>
   )
 
   // ==================== EDIT PRODUCT ====================
@@ -314,7 +395,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
 
 
   const EditProduct = () => (
-    <div className="formContnet">
+    <div className="mainFormContent">
       <div className="formHeader">
         <div className="textHeader">
           <h2>Upraviť produkt</h2>
@@ -420,7 +501,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
 
   return (
     <div className="popUpBox">
-      <div className="popUpInner">
+      <div className={`popUpInner ${productType && productDrive ? 'showDetails' : ''}`}>
         {ActiveForm()}
       </div>
     </div>

@@ -5,8 +5,6 @@ import { useEffect, useState } from 'react';
 
 import { MdAdd } from "react-icons/md";
 
-import { FaTrashAlt } from "react-icons/fa";
-
 import "../Products/products.css"
 import ProductCardComponent from './productCard/productCard'
 

@@ -4,14 +4,13 @@ import './Visuals.css'
 
 import { IoClose } from "react-icons/io5";
 import { FaUpload } from "react-icons/fa";
-import { useMemo } from 'react';
 
 const Visuals = () => {
   const [localPartners, setLocalPartners] = useState([]);
   const [loadedPartners, setLoadedPartners] = useState([]);
   const [currentPartners, setCurrentPartners] = useState([]);
 
-  {/* FETCH PARTNERS FROM DB */}
+  /* FETCH PARTNERS FROM DB */
   useEffect(()=> {
     const fetchPartners = async () => {
       try {
@@ -27,7 +26,7 @@ const Visuals = () => {
     fetchPartners();
   }, []);
 
-  {/* CANCEL CHANGES */}
+  /* CANCEL CHANGES */
   const CancelChanges = () => {
     setCurrentPartners(loadedPartners);
 
@@ -64,8 +63,14 @@ const Visuals = () => {
         return;
       }
 
-      setLoadedPartners(currentPartners);
+      localPartners.forEach(partner =>{
+        URL.revokeObjectURL(partner.preview);
+      })
       setLocalPartners([]);
+
+      window.location.reload();
+
+
       console.log("Partners successfully updated!");
 
     }catch (e){
@@ -74,7 +79,7 @@ const Visuals = () => {
     }
   }
 
-  {/* PARTNERS CHANGES */}
+  /* PARTNERS CHANGES */
   const PartnersChanged = () => {
     if (localPartners.length > 0) return true
     
@@ -85,7 +90,7 @@ const Visuals = () => {
     return removedPartners.length > 0;
   }
 
-  {/* PREVIEW LOCAL IMAGES */}
+  /* PREVIEW LOCAL IMAGES */
   const handlePartnersImages = (e) => {
     const files = Array.from(e.target.files);
     const newPartner = files.map(file => ({
@@ -97,36 +102,7 @@ const Visuals = () => {
     e.target.value = null;
   };
 
-
-  {/* UPLOAD IMAGES */}
-  const handleUploadImages = async () => {
-    const formData = new FormData();
-
-    localPartners.forEach((partner, index) => {
-      formData.append("partnerLogo", partner.file);
-    });
-
-    try{
-      const res = await fetch("http://localhost:3005/adminpanel/visuals/partners/add", {
-        method: 'POST',
-        body: formData,
-      });
-
-      if(!res.ok){
-        console.error("Server Error!");
-        return;
-      }
-
-      console.log("Upload Successful!");
-      setLocalPartners([]);
-      const update = await res.json();
-      setCurrentPartners(update);
-    }catch(e){
-
-    }
-  }
-
-  {/* REMOVE LOCAL IMG PREV */}
+  /* REMOVE LOCAL IMG PREV */
   const RemoveLocalPartner = (index) => {
     setLocalPartners(prev => {
       const updated = [...prev];
@@ -139,11 +115,11 @@ const Visuals = () => {
     });
   };
 
-  {/* REMOVE LOADED IMG PREV */}
+  /* REMOVE LOADED IMG PREV */
   const RemoveLoadedPartner = (index) => {
     setCurrentPartners(prev => {
       const updated = [...prev];
-      const removed = updated.splice(index, 1);
+      updated.splice(index, 1);
 
       return updated;
     });
