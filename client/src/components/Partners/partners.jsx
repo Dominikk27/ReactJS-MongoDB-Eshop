@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import '../Partners/partners.css'
 
 import stihl from '../Partners/images/stihl.png'
@@ -9,33 +9,43 @@ import wolfGarten from '../Partners/images/wolfgarten.png'
 import supa from '../Partners/images/supa.png'
 
 const Partners = () => {
-  return (
+
+    const [loadedPartners, setLoadedPartners] = useState([]);
+
+    useEffect(() =>{
+        const fetchPartners = async () =>{
+            try{
+                const partnersRes = await fetch("http://localhost:3005/client/visuals/partners");
+                const partnersData = await partnersRes.json();
+
+                setLoadedPartners(partnersData);
+
+            }catch (e){
+                console.error("Fetching partners failed! error: ", e);
+            }
+        };
+
+        fetchPartners();
+    }, []);
+
+    return (
     <div className="partnersContainer">
         <div className="header">
             <h2>Partneri</h2>
         </div>
         <div className="partners">
-            <div className="partner">
-                <img src={stihl} alt="" />
-            </div>
-            <div className="partner">
-                <img src={mtd} alt="" />
-            </div>
-            <div className="partner">
-                <img src={supa} alt="" />
-            </div>
-            <div className="partner">
-                <img src={wolfGarten} alt="" />
-            </div>
-            <div className="partner">
-                <img src={DAKR} alt="" />
-            </div>
-            <div className="partner">
-                <img src={cubCadet} alt="" />
-            </div>
+            {loadedPartners.length > 0 ? (
+                loadedPartners.map((partner, index) => (
+                    <div className="partner">
+                        <img src={partner.partnerLogo} alt="" />
+                    </div>
+                ))
+            ):
+            <p>Načítavam Partnerov!</p>
+            }
         </div>
     </div>
-  )
+    )
 }
 
 export default Partners
