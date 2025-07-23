@@ -1,17 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useFormContext } from 'react-hook-form';
 
 import { productDetailSchema } from "../utils/productSchemas";
 
 import '../popUpForms.css';
 
-export default function ProductDetailsForm({ productType, productDrive }) {
-  const { register } = useFormContext();
+export default function ProductDetailsForm({ productType, productDrive, productDetails }) {
+  const { register, setValue } = useFormContext();
 
   if (!productType || !productDrive) return null;
 
+
   const fieldsByCategory = productDetailSchema[productType]?.[productDrive];
   if (!fieldsByCategory) return null;
+
 
   return (
     <div className="dynamic-form formBody">
@@ -24,6 +26,7 @@ export default function ProductDetailsForm({ productType, productDrive }) {
               <input
                 id={key}
                 type={type}
+                defaultValue={productDetails?.[key] || ""}
                 {...register(`productDetails.${key}`)} 
               />
             </div>

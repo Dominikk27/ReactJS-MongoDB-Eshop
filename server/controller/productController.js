@@ -110,7 +110,7 @@ const editProduct = async (req, res) => {
         const product = await Product.findById(productID);
         
         if(!product){
-            return res.status(200).json({error: "Product not found!"});
+            return res.status(404).json({error: "Product not found!"});
         }
 
         const {
@@ -119,7 +119,10 @@ const editProduct = async (req, res) => {
             defaultPrice,
             onSale,
             onSalePrice, 
-            oldImages
+            oldImages,
+            productType,
+            productDrive,
+            productDetails: parsedProductDetails
         } = req.body;
 
         
@@ -146,22 +149,28 @@ const editProduct = async (req, res) => {
         );
 
         product.productImages = [...oldIMG, ...newImagePaths];
-
-        if (productName !== undefined) product.productName = productName;
-        if (productDescription !== undefined) product.productDescription = productDescription;
+        product.productName = productName || product.productName;
+        product.productDescription = productDescription || product.productDescription;
+        product.productType = productType || product.productType;
+        product.productDrive = productDrive || product.productDrive;
 
         if (defaultPrice !== undefined && defaultPrice !== '') {
-        const parsedDefaultPrice = parseFloat(defaultPrice);
-        if (!isNaN(parsedDefaultPrice)) product.defaultPrice = parsedDefaultPrice;
+            const parsedDefaultPrice = parseFloat(defaultPrice);
+            if (!isNaN(parsedDefaultPrice)) product.defaultPrice = parsedDefaultPrice;
         }
 
         if (onSalePrice !== undefined && onSalePrice !== '') {
-        const parsedOnSalePrice = parseFloat(onSalePrice);
-        if (!isNaN(parsedOnSalePrice)) product.onSalePrice = parsedOnSalePrice;
+            const parsedOnSalePrice = parseFloat(onSalePrice);
+            if (!isNaN(parsedOnSalePrice)) product.onSalePrice = parsedOnSalePrice;
         }
 
-        if (onSale !== undefined) {
-        product.onSale = (onSale === 'true' || onSale === true);
+        if(parsedProductDetails){
+            try{
+                product.productDetails = JSON.parse(parsedProductDetails);
+            }catch(e){
+                console.error("Error Parsing Product Details! error:", e);
+                return res.status(400).json({error: "Product Details Parsing Error"});
+            }
         }
 
         await product.save();
