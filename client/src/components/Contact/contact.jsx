@@ -11,9 +11,9 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 
 import image from '../Contact/contactIMAGE.png'
 
-const Contact = () => {
+const Contact = ({ id }) => {
   return (
-    <div className="container">
+    <div className="container" id={id}>
         <div className="header">
             <h2>Kontakt</h2>
         </div>

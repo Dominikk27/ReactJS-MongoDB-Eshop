@@ -9,9 +9,9 @@ import { MdSupportAgent } from "react-icons/md";
 import Billboard from './board.png';
 import frame from './wheat.png'
 
-const Services = () => {
+const Services = ({ id }) => {
   return (
-    <div className="servicesContainer">
+    <div className="servicesContainer" id={id}>
       <div className="background">
         <div className="header">
           <h2>Služby</h2>
