@@ -24,12 +24,30 @@ const fetch = async (req, res) => {
     }
 };
 
+
+const fetchProductData = async (req, res) => {
+    const productID = req.params.id;
+
+    try{
+        const product = await Product.findById(productID);
+
+        if(!product) {
+            console.error("Failed to find product with this ID!");
+            res.status(404).json({message: "Product not found!"});
+            return;
+        }
+        res.status(200).json(product);
+
+    }catch (e){
+        console.error("Failed to fetch product data! error: ", e);
+        res.status(404).json({error: "Failed to get product data!"});
+    }
+}
+
 const STORAGE_URI = process.env.STORAGE_URI;
 
 const addProduct = async (req, res) => {
     //const file = req.files;
-
-    console.log("BODY", req.body);
 
     try{
         const { productName, productDescription, defaultPrice, onSale, onSalePrice, productType, productDrive } = req.body;
@@ -74,7 +92,7 @@ const addProduct = async (req, res) => {
         res.status(500).json({error:"FAILED to ADD PRODUCT INTO DB!"});
     }
 
-}
+};
 
 const removeProduct = async (req, res) => {
     const productID = req.params.id;
@@ -83,7 +101,7 @@ const removeProduct = async (req, res) => {
         const product = await Product.findById(productID);
 
         if (!product){
-            return res.status(400).json({error: "Product not found!"});
+            return res.status(404).json({error: "Product not found!"});
         }
 
         for (const imagePath of product.productImages) {
@@ -100,7 +118,7 @@ const removeProduct = async (req, res) => {
         console.error("Error deleting product: ", e);
         res.status(500).json({error: "Internal server error wia deleting product"});
     }
-}
+};
 
 
 const editProduct = async (req, res) => {
@@ -182,4 +200,4 @@ const editProduct = async (req, res) => {
     }
 };
 
-module.exports = { fetch, addProduct, removeProduct, editProduct };
+module.exports = { fetch, addProduct, removeProduct, editProduct, fetchProductData };

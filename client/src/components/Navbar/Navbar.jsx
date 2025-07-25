@@ -1,18 +1,43 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import "../Navbar/Navbar.css"
+
+import { NavLink, useLocation } from 'react-router-dom';
+import { scroller } from 'react-scroll';
+
 import { SlSocialInstagram, SlSocialFacebook, SlSocialGoogle   } from "react-icons/sl";
 import { FaRegClock } from "react-icons/fa";
 import { FaMapMarkerAlt, FaChevronDown} from "react-icons/fa";
-import { FaPhone } from "react-icons/fa6";
 import { FiPhoneCall } from "react-icons/fi";
 
 import { FaHome, FaTools  } from "react-icons/fa";
 import { RiFileList3Line, RiContactsBook3Fill  } from "react-icons/ri";
 
-
 import Logo from './logo.png'
 
 const Navbar = () => {
+  const location = useLocation();
+
+  const scrollToSection =  (section) => {
+    scroller.scrollTo(section, {
+      duration: 600,
+      delay: 0,
+      smooth: 'easeInOutQuart',
+      offset: -100,
+    });
+  };
+
+  const handleSectionSelect = (section, e) => {
+    if (location.pathname === '/') {
+      e.preventDefault();
+      scrollToSection(section);
+    }
+  }
+
+  const isSectionActive = (section) => {
+    return location.pathname === '/' &&
+           location.hash === `#${section}`;
+  };
+
   return (
     <div className='header'>
       <div className="upperBar">
@@ -45,31 +70,43 @@ const Navbar = () => {
         </div>
       </div>
       <div className="bottomBar">
-        <div className="logoBox">
-          <img src={Logo} alt="logo"/>
-        </div>
+        <NavLink to="/" end>
+          <div className="logoBox">
+            <img src={Logo} alt="logo"/>
+          </div>
+        </NavLink>
         <div className="rightSideBox">
           <div className="navigation">
             <ul className="navBar">
               <li className="navItem">
-                <a href="#" className="navButton">
-                  <FaHome className="navIcon"/> Domov
-                </a>
+                <NavLink
+                  to="/" end className={({ isActive }) =>
+                    isActive ? "navButton active" : "navButton"}>
+                    <FaHome className="navIcon"/> Domov
+                </NavLink>
               </li>
               <li className="navItem">
-                <a href="#" className="navButton">
+                <NavLink
+                  to="/catalog" end className={({ isActive }) =>
+                    isActive ? "navButton active" : "navButton"}>
                   <RiFileList3Line className="navIcon"/> Katalóg
-                </a>
+                </NavLink>
               </li>
               <li className="navItem">
-                <a href="#" className="navButton">
+                <NavLink
+                  to="/#services" end className={({ isActive }) =>
+                    isActive ? "navButton active" : "navButton"}
+                    onClick={(e) => handleSectionSelect('services', e)}>
                   <FaTools className="navIcon"/>Služby
-                </a>
+                </NavLink>
               </li>
               <li className="navItem">
-                <a href="#" className="navButton">
+                <NavLink
+                  to="/#contact" end className={({ isActive }) =>
+                    isActive ? "navButton active" : "navButton"}
+                    onClick={(e) => handleSectionSelect('contact', e)}>
                   <RiContactsBook3Fill  className="navIcon"/>Kontakt
-                </a>
+                </NavLink>
               </li>
             </ul>
           </div>
