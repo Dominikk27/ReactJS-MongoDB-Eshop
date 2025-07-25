@@ -32,7 +32,7 @@ const Catalog = () => {
                 <div className="productsListBox">
                     {loadedProducts.length > 0 ? (
                         loadedProducts.map((product) => (
-                            <Card key={product._id} product={product} />
+                            <Card key={product._id} product={product}/>
                         ))
                     ) : (
                         <p>Načítavam produkty!</p>

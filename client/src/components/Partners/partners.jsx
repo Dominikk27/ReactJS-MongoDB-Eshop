@@ -1,13 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import '../Partners/partners.css'
 
-import stihl from '../Partners/images/stihl.png'
-import cubCadet from '../Partners/images/cubcadet.png'
-import mtd from '../Partners/images/mtd.png'
-import DAKR from '../Partners/images/DAKR.jpg'
-import wolfGarten from '../Partners/images/wolfgarten.png'
-import supa from '../Partners/images/supa.png'
-
 const Partners = () => {
 
     const [loadedPartners, setLoadedPartners] = useState([]);
@@ -35,8 +28,8 @@ const Partners = () => {
         </div>
         <div className="partners">
             {loadedPartners.length > 0 ? (
-                loadedPartners.map((partner, index) => (
-                    <div className="partner">
+                loadedPartners.map((partner) => (
+                    <div key={partner._id} className="partner">
                         <img src={partner.partnerLogo} alt="" />
                     </div>
                 ))

@@ -70,9 +70,11 @@ const Navbar = () => {
         </div>
       </div>
       <div className="bottomBar">
-        <div className="logoBox">
-          <img src={Logo} alt="logo"/>
-        </div>
+        <NavLink to="/" end>
+          <div className="logoBox">
+            <img src={Logo} alt="logo"/>
+          </div>
+        </NavLink>
         <div className="rightSideBox">
           <div className="navigation">
             <ul className="navBar">

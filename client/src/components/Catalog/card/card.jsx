@@ -1,4 +1,6 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
+
 import '../card/card.css'
 
 import { FaStar, FaRegStar, FaPercentage } from "react-icons/fa";
@@ -9,6 +11,7 @@ import unknown from "../card/image/unknown.jpg"
 
 const Card = ({ product }) => {
 
+  const navigate = useNavigate();
 
   const formatPrice = (price) => {
     if (price && typeof price === 'object' && price.$numberDecimal) {
@@ -17,8 +20,13 @@ const Card = ({ product }) => {
     return price; 
   };
 
+  const clickOnProduct = () =>{
+      console.log("product id: ", product._id);
+      navigate(`/catalog/product/${product._id}`);
+  }
+
   return (
-    <div className="productCardBox">
+    <div className="productCardBox" onClick={clickOnProduct}>
       <div className="cardImage">
         {product.onSale ?
         <div className="floatingTag">
@@ -53,7 +61,7 @@ const Card = ({ product }) => {
           </div>
         </div>
         <div className="readMore">
-          <button className="showBTN">
+          <button className="showBTN" onClick={()=> console.log("HJELLO!")}>
             Zobraziť produkt
           </button>
         </div>
