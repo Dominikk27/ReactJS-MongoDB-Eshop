@@ -16,7 +16,6 @@ import Reservations from './Reservations/Reservations';
 import Settings from './Settings/Settings';
 import Visuals from './Visuals/Visuals';
 
-import OnSale from './Products/onSale';
 import SidebarComponent from './Sidebar/Sidebar';
 
 

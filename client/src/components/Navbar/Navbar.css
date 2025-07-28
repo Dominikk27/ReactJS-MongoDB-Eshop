@@ -7,7 +7,7 @@ ul{
 }
 
 .upperBar{
-    width: 100vw;
+    max-width: 100vw;
     height: 50px;
     display: flex;
     background-color: #F6F4EC;
@@ -99,7 +99,7 @@ ul{
 .logoBox{
     width: 250px;
     height: auto;
-    padding: 10px 0;
+    padding: 10px 10px;
 }
 
 .rightSideBox{

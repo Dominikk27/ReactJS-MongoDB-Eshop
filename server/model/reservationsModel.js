@@ -25,6 +25,27 @@ const ReservationSchema = new mongoose.Schema({
         type:Date,
         required:true
     },
+
+    ReservationTime:{
+        type:String,
+        required:true
+    },
+
+    ProductCode:{
+        type:String,
+        required:true
+    },
+
+    ReservationNote:{
+        type:String,
+        required:false
+    },
+
+    status: {
+        type: String,
+        enum: ['new', 'active', 'canceled', 'completed'],
+        default: 'new'
+    }
 }, {collection: "Reservations"});
 
 module.exports = mongoose.model("Reservations", ReservationSchema);

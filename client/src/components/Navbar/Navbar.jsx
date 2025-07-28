@@ -70,11 +70,9 @@ const Navbar = () => {
         </div>
       </div>
       <div className="bottomBar">
-        <NavLink to="/" end>
-          <div className="logoBox">
-            <img src={Logo} alt="logo"/>
-          </div>
-        </NavLink>
+        <div className="logoBox">
+          <img src={Logo} alt="logo"/>
+        </div>
         <div className="rightSideBox">
           <div className="navigation">
             <ul className="navBar">
@@ -115,7 +113,7 @@ const Navbar = () => {
               <FiPhoneCall className='phoneIcon'/>
             </div>
             <div className="phoneNumber">
-              <h3>+421 902 840 733</h3>
+              <h3>+421 123 456 789</h3>
             </div>
           </div>
         </div>

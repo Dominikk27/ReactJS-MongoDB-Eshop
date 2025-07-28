@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import Card from './card/card';
 
-import "../Catalog/Catalog.css"
+import "../Catalog/catalog.css"
 
 const Catalog = () => {
     const [loadedProducts, setLoadedProducts] = useState([]);
@@ -24,9 +24,6 @@ const Catalog = () => {
     return (
         <div className="catalogBox">
             <div className="leftSide">
-                <ul className="productList">
-
-                </ul>
             </div>
             <div className="rightSide">
                 <div className="productsListBox">

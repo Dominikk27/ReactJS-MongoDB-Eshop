@@ -16,7 +16,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
 
   //const [selectedImages, setSelectedImages] = useState([]);
 
-  const methods = useForm({
+  const productMethods = useForm({
     shouldUnregister: false,
     defaultValues: showForm === "editProduct" && activeProduct ? {
       productDetails: activeProduct.productDetails,
@@ -35,20 +35,43 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
     }
   });
 
+  const reservationMethods = useForm({
+    shouldUnregister: true,
+    defaultValues: {
+      FName: "",
+      LName: "",
+      phoneNumber: "",
+      email: "",
+      reservationDate: "",
+      reservationTime: "",
+      reservationNote: "",
+      productCode: activeProduct?._id || ""
+    }
+
+  })
+
   const {
-    register, 
-    handleSubmit, 
-    setValue, 
-    watch, 
-    reset,
-    formState: { isSubmitting }
-  } = methods;
+    register: registerProduct, 
+    handleSubmit: handleSubmitProduct, 
+    setValue: setValueProduct, 
+    watch: watchProduct, 
+    reset: resetProduct,
+    formState: { isSubmitting: isProductSubmitting }
+  } = productMethods;
+
+  const {
+    register: registerReservation,
+    handleSubmit: handleSubmitReservation,
+    watch: watchReservation,
+    reset: resetReservation,
+    formState: { isSubmitting: isReservationSubmitting }
+  } = reservationMethods
 
 
-  //const watchedImages = watch('productImages');
-  const onSale = watch('onSale');
-  const productType = watch('productType');
-  const productDrive = watch('productDrive');
+  //const watchProductedImages = watchProduct('productImages');
+  const onSale = watchProduct('onSale');
+  const productType = watchProduct('productType');
+  const productDrive = watchProduct('productDrive');
 
 
   const [oldImages, setOldImages] = useState([]);
@@ -56,7 +79,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
 
   useEffect(() => {
     if(showForm === "editProduct" && activeProduct){
-      reset({
+      resetProduct({
         productName: activeProduct.productName,
         productDescription: activeProduct.productDescription,
         defaultPrice: activeProduct.defaultPrice,
@@ -70,13 +93,13 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
       setNewImages([]);
     }
     if (showForm === "addProduct") {
-      reset();
+      resetProduct();
       //setSelectedImages([]);
 
       setOldImages([]);
       setNewImages([]); 
     }
-  }, [showForm, activeProduct, reset]);
+  }, [showForm, activeProduct, resetProduct]);
   
   const handleSelectedImages = (e) => {
     const files = Array.from(e.target.files);
@@ -140,6 +163,8 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
         return <EditProduct />;
       case 'removeProduct':
         return <RemoveProduct />;
+      case 'reserveProduct':
+        return <ReserveProduct />;
       default:
         return null;
     }
@@ -183,7 +208,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
     formData.append("productType", data.productType);
     formData.append("productDetails", JSON.stringify(data.productDetails || {}));
     
-    console.log("productDetails before sending:", data.productDetails);
+    //console.log("productDetails before sending:", data.productDetails);
 
 
     newImages.forEach(image => {
@@ -195,17 +220,21 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
       body: formData
     })
     .then(res => {
-      if(!res.ok) throw new Error("Upload failed!");
+      if(!res.ok){
+        console.error("Upload failed!");
+        throw new Error("Upload failed!");
+        
+      }
       return res.json();
     })
     .then(data => {
       console.log("Success: ", data);
-      reset();
+      resetProduct();
       setForm(null);
       window.location.reload();
     })
     .catch(e => {
-      console.log("Error: ", e);
+      console.error("Error: ", e);
     });
 
 
@@ -214,8 +243,8 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
   
   {/* ADD FORM */}
   const AddProduct = () => (
-    <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onSubmit)} className='formContainer'>
+    <FormProvider {...productMethods}>
+      <form onSubmit={handleSubmitProduct(onSubmit)} className='formContainer'>
         <div className="formHeader">
           <div className="textHeader">
             <h2>Pridať produkt</h2>
@@ -232,7 +261,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
                 id="productType" 
                 className="productType" 
                 placeholder="test"
-                {...register('productType', {required: true})}
+                {...registerProduct('productType', {required: true})}
                 >
                 <option value=""></option>
                 <option value="pila">Píla</option>
@@ -250,7 +279,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
               name='productName' 
               title='Product Name' 
               placeholder='Nazov Produktu'
-              {...register('productName', {required: true})}
+              {...registerProduct('productName', {required: true})}
             />
 
             {/* Default Price */}
@@ -260,7 +289,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
               placeholder='Cena produktu' 
               min={0} 
               step={0.01} 
-              {...register('defaultPrice', {required: true})}
+              {...registerProduct('defaultPrice', {required: true})}
             />
 
             {/* Checkbox On Sale */}
@@ -268,7 +297,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
               <label htmlFor="onSale">Je produkt v akcii</label>
               <input 
                 type="checkbox"  
-                {...register('onSale')} 
+                {...registerProduct('onSale')} 
               />
             </div>
 
@@ -281,7 +310,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
                 placeholder='Cena produktu v zľave'
                 min={0} 
                 step={0.01} 
-                {...register('onSalePrice', {required: true})}
+                {...registerProduct('onSalePrice', {required: true})}
               />
               :null
             }
@@ -292,7 +321,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
               name="productDescription" 
               title='Product Description' 
               placeholder='Popis Produktu...'
-              {...register('productDescription', {required: true})}
+              {...registerProduct('productDescription', {required: true})}
             />
 
             {/* SELECT PRODUCT DRIVE */}
@@ -301,7 +330,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
               id="productDrive" 
               className="productDrive" 
               placeholder="pohon"
-              {...register('productDrive', {required: true})}>
+              {...registerProduct('productDrive', {required: true})}>
                 <option value=""></option>
                 <option value="aku">AKU</option>
                 <option value="elektro">Elektrika</option>
@@ -347,8 +376,8 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
 
             <div className="formBody">
               <ProductDetailsForm
-                productType={watch("productType")}
-                productDrive={watch("productDrive")}
+                productType={watchProduct("productType")}
+                productDrive={watchProduct("productDrive")}
               />
             </div>
           </div>
@@ -356,7 +385,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
 
         </div>
         <div className="formsButton">
-          <button type='submit'> Pridať Produkt</button>
+          <button type='submit' disabled={isProductSubmitting}> Pridať Produkt</button>
         </div>
       </form>
     </FormProvider>
@@ -405,9 +434,9 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
     });
   };
 
-  const EditProduct = () => 
-    <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onEditSubmit)} className="formContainer">
+  const EditProduct = () => (
+    <FormProvider {...productMethods}>
+      <form onSubmit={handleSubmitProduct(onEditSubmit)} className="formContainer">
         <div className="formHeader">
           <div className="textHeader">
             <h2>Upraviť produkt</h2>
@@ -425,8 +454,8 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
                 id="productType" 
                 className="productType"
                 placeholder="productType"
-                {...register('productType', {required: true})}
-                value={watch("productType") || ""}
+                {...registerProduct('productType', {required: true})}
+                value={watchProduct("productType") || ""}
                 >
                 <option value=""></option>
                 <option value="pila">Píla</option>
@@ -442,7 +471,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
             <input
               type="text"
               name="productName"
-              {...register("productName", {required: true})}
+              {...registerProduct("productName", {required: true})}
               placeholder="Názov produktu"
             />
 
@@ -453,7 +482,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
               placeholder='Cena produktu' 
               min={0} 
               step={0.01} 
-              {...register('defaultPrice', {required: true})}
+              {...registerProduct('defaultPrice', {required: true})}
             />
 
             {/* Checkbox On Sale */}
@@ -461,7 +490,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
               <label htmlFor="onSale">Je produkt v akcii</label>
               <input 
                 type="checkbox"  
-                {...register('onSale')} 
+                {...registerProduct('onSale')} 
               />
             </div>
 
@@ -474,7 +503,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
                 placeholder='Cena produktu v zľave'
                 min={0} 
                 step={0.01} 
-                {...register('onSalePrice', {required: true})}
+                {...registerProduct('onSalePrice', {required: true})}
               />
               :null
             }
@@ -485,7 +514,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
               name="productDescription" 
               title='Product Description' 
               placeholder='Popis Produktu...'
-              {...register('productDescription', {required: true})}
+              {...registerProduct('productDescription', {required: true})}
             />
 
             {/* SELECT PRODUCT DRIVE */}
@@ -494,8 +523,8 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
                 id="productDrive" 
                 className="productDrive" 
                 placeholder="pohon"
-                {...register('productDrive', {required: true})}
-                value={watch("productDrive") || ""}
+                {...registerProduct('productDrive', {required: true})}
+                value={watchProduct("productDrive") || ""}
               >
                 <option value=""></option>
                 <option value="aku">AKU</option>
@@ -561,10 +590,130 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
 
         </div>
         <div className="formsButton">
-          <button type='submit'> Upraviť Produkt</button>
+          <button type='submit' disabled={isProductSubmitting}> Upraviť Produkt</button>
         </div>
       </form>
     </FormProvider>
+  )
+
+  // ==================== RESERVE PRODUCT ====================
+  const onReservationSubmit = async (data) =>{
+    const reservationData = {
+      FName: data.FName,
+      LName: data.LName,
+      email: data.email,
+      phoneNumber: data.phoneNumber,
+      reservationDate: data.reservationDate,
+      reservationTime: data.reservationTime,
+      reservationNote: data.reservationNote,
+      productCode: data.productCode
+    };
+
+    console.log("reservation data: ", reservationData)
+
+    try {
+      const response = await fetch('http://localhost:3005/client/reservations/reserveProduct', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(reservationData)
+      });
+
+      if (!response.ok) {
+        throw new Error("Rezervácia zlyhala");
+      }
+
+      const result = await response.json();
+      console.log("Rezervácia úspešná:", result);
+      setForm(null);
+    } catch (error) {
+      console.error("Chyba pri rezervácii:", error);
+    }
+  }
+
+  const ReserveProduct = () => (
+    <FormProvider {...reservationMethods}>
+      <form onSubmit={handleSubmitReservation(onReservationSubmit)} className="formContainer">
+        <div className="formHeader">
+          <div className="textHeader">
+            <h2>Rezervovať produkt</h2>
+          </div>
+          <div className="closeBTN" onClick={() => setForm(null)}>
+            <IoClose className='icon' />
+          </div>
+        </div>
+        {/* ProductCode */}
+        <input
+          type="text"
+          name="productCode"
+          defaultValue={activeProduct._id}
+          {...registerReservation("productCode", {required: true})}
+          placeholder="productCode"
+          readOnly
+        />
+        <div className="consumerFormFullNameBox">
+          {/* Consumer FName */}
+          <input
+            type="text"
+            name="FName"
+            {...registerReservation("FName", {required: true})}
+            placeholder="Meno"
+          />
+          {/* Consumer LName */}
+          <input
+            type="text"
+            name="LName"
+            {...registerReservation("LName", {required: true})}
+            placeholder="Priezvisko"
+          />
+        </div>
+        {/* Phone Number */}
+        <input
+          type="tel"
+          name="phoneNumber"
+          {...registerReservation("phoneNumber", {required: true})}
+          placeholder="Telefónne číslo"
+        />
+        {/* Email */}
+        <input
+          type="email"
+          name="email"
+          {...registerReservation("email", {required: true})}
+          placeholder="Email"
+        />
+        <div className="reservationDateTimeBox">
+          {/* Reservation Date */}
+          <input
+            type="date"
+            name="reservationDate"
+            {...registerReservation("reservationDate", {required: true})}
+            placeholder="Dátum Rezervácie"
+          />
+          {/* Reservation Time */}
+          <input
+            type="time"
+            name="reservationTime"
+            {...registerReservation("reservationTime", {required: true})}
+            placeholder="Čas Rezervácie"
+          />
+        </div>
+        {/* Poznámka */}
+        <textarea
+          type="text"
+          name="reservationNote"
+          {...registerReservation("reservationNote", {required: true})}
+          placeholder="Poznámka k rezervácii"
+        />
+        <div className="formsButton">
+          <button type='submit' disabled={isReservationSubmitting}> Rezervovať produkt</button>
+        </div>
+      </form>
+    </FormProvider>
+  )
+
+
+
   
 
   return (
@@ -577,3 +726,39 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
 }
 
 export default Popup
+
+
+/* const onReservationSubmit = async (data) =>{
+    const reservationData = {
+      FName: data.FName,
+      LName: data.LName,
+      email: data.email,
+      phoneNumber: data.phoneNumber,
+      reservationDate: data.reservationDate,
+      reservationTime: data.reservationTime,
+      reservationNote: data.reservationNote,
+      productCode: data.productCode
+    };
+
+    console.log("reservation data: ", reservationData)
+
+    try {
+      const response = await fetch('http://localhost:3005/client/reservations/reserveProduct', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(reservationData)
+      });
+
+      if (!response.ok) {
+        throw new Error("Rezervácia zlyhala");
+      }
+
+      const result = await response.json();
+      console.log("Rezervácia úspešná:", result);
+      setForm(null);
+    } catch (error) {
+      console.error("Chyba pri rezervácii:", error);
+    }
+  } */
