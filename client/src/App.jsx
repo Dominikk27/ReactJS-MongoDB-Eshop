@@ -3,6 +3,9 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import  {scroller} from 'react-scroll';
 
 
+//import Loader from './utils/loader'
+
+
 import Navbar from './components/Navbar/Navbar'
 import Slider from './components/Slider/slider'
 import FeaturedProducts from './components/Catalog/components/featuredProducts'
@@ -31,7 +34,7 @@ function App() {
         //console.log("Fetched products:", data);
         setProducts(data);
       } catch (e) {
-        console.log(e, "error code!");
+        console.log("Server Error: ",e);
       }
     }
     fetchData();

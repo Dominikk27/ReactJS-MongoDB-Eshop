@@ -1,0 +1,54 @@
+.reserveCardBox{
+    display: flex;
+    width: 100%;
+    background-color: #F5F5F5;
+    height: auto;
+    padding: 20px 20px;
+    border-radius: 15px;
+}
+
+.actionButtonsBox{
+    display: flex;
+    min-width: 100px;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.valueBox{
+    display: flex;
+    text-align: center;
+    align-items: center;
+}
+
+.actionBtn{
+    width: 30px;
+    height: 30px;
+    background-color: #ccc;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.actionBtn .icon{
+    width: 20px;
+    height: 20px;
+}
+
+
+.status-new {
+  background-color: #F5F5F5;
+}
+
+.status-active {
+  background-color: #80EF80;
+}
+
+.status-canceled {
+ background-color: #f9bdbd;
+}
+
+.status-complete {
+  background-color: lightgoldenrodyellow;
+}

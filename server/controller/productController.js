@@ -50,7 +50,14 @@ const addProduct = async (req, res) => {
     //const file = req.files;
 
     try{
-        const { productName, productDescription, defaultPrice, onSale, onSalePrice, productType, productDrive } = req.body;
+        const { 
+            productName, 
+            productDescription, 
+            defaultPrice, 
+            onSale, onSalePrice, 
+            productType, 
+            productDrive 
+        } = req.body;
         
         if(!productName || !defaultPrice) {
             return res.status(400).json({error: "Product name and price are required!"});

@@ -32,7 +32,9 @@ function ProductsComponent({products}) {
 
   return (
     <div className="productsBox">
-      <h3>Products</h3>
+      <div className="sectionHeader">
+        <h3>Products</h3>
+      </div>
       <div className="productsList_Buttons">
         <button className="product_actionButton" onClick={
           () => {

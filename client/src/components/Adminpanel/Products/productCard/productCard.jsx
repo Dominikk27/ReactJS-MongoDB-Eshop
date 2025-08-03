@@ -6,12 +6,6 @@ import { IoMdRemoveCircle } from "react-icons/io";
 import { IoSettingsSharp } from "react-icons/io5";
 import { AiFillTool } from "react-icons/ai";
 
-
-
-
-
-
-
 import unknown from "../productCard/unknown.jpg"
 
 function ProductCardComponent ({ product, setShowForm, setActiveProduct }) {

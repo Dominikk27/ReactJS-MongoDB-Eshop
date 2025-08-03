@@ -46,7 +46,7 @@
 }
 
 
-@media screen and (min-width: 344px) and (max-width:500px) {
+@media screen and (min-width: 340px) and (max-width:500px) {
     
     .productsList_Buttons{
         width: 100%;
@@ -59,7 +59,27 @@
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
         width: 100%;
-        gap: 10px;
+        gap: 20px;
+        padding: 10px;
+        flex: 1;
+        overflow-y: auto;
+    }
+}
+
+@media screen and (min-width: 501px) and (max-width:900px) {
+    
+    .productsList_Buttons{
+        width: 100%;
+        height: auto;
+        padding: 10px;
+        display: flex;
+    }
+
+    .productsList{
+        display: grid;
+        grid-template-columns: repeat(2, minmax(100%, 1fr));
+        width: 100%;
+        gap: 20px;
         padding: 10px;
         flex: 1;
         overflow-y: auto;

@@ -78,6 +78,20 @@
     transition: width 0.3s ease;
 }
 
+.sideBar_buttonBox{
+    position: relative;
+}
+
+.notificationBox{
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 30px;
+    top: 3px;
+    right: -10px;
+}
+
 
 @media (max-width: 730px){
     .sideBar{

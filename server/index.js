@@ -1,6 +1,8 @@
 
 const productRoute = require("./routes/productRoute.js");
 const visualsRoute = require("./routes/visualsRoute.js");
+const reserveRoute = require("./routes/reserveRoute.js");
+const socialsRoute = require("./routes/socialsRoute.js");
 
 const env = require("dotenv");
 const express = require("express");
@@ -8,6 +10,7 @@ const { mongoose } = require("mongoose");
 const cors = require("cors");
 
 const path = require("path");
+const reservationsModel = require("./model/reservationsModel.js");
 
 
 const app = express();
@@ -22,7 +25,7 @@ mongoose.connect(MONGO_URI)
         app.listen(process.env.PORT, () =>
         {
             console.log('🚀 Server Running on port ', process.env.PORT);   
-            console.log(mongoose.connection.name);
+            //console.log(mongoose.connection.name);
         })
     })
     .catch((e) =>{
@@ -31,11 +34,14 @@ mongoose.connect(MONGO_URI)
 
 
 app.use(cors());
+app.use(express.json());
 
 app.use("/images", express.static(path.join(__dirname,'images')));
-
 app.use("/adminpanel/visuals", visualsRoute);
+app.use("/adminpanel/socials", socialsRoute);
+
 
 app.use("/products/api", productRoute);
-
 app.use("/client/visuals", visualsRoute);
+app.use("/client/reservations", reserveRoute);
+app.use("/client/socials", socialsRoute);

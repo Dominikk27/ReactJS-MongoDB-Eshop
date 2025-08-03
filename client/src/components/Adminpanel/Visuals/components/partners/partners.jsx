@@ -126,10 +126,8 @@ const PartnersSettings = () => {
     };
 
     return (
-    <div className="visualsBox">
-        <h3 className='tabName'>Visual Settings</h3>
         <div className="visualsPartnersBox">
-        <h4 className='categoryName'>Partners</h4>
+            <h4 className='categoryName'>Partners</h4>
         <div className="visualsPartnersIMGBox">
             {(currentPartners && currentPartners.length > 0) || (localPartners && localPartners.length > 0) ? (
             <>
@@ -150,32 +148,31 @@ const PartnersSettings = () => {
             <p>Neboli nájdení žiadni partneri</p>
             )}
             <div className='addPartnerImage'>
-            <input 
-                id="file-input" 
-                type="file" 
-                name='partnerLogo' 
-                title='Partner Imagaes' 
-                accept='image/*' 
-                multiple
-                onChange={handlePartnersImages}
-            />
-            <label htmlFor="file-input">
-                <FaUpload className='uploadIcon' /> 
-                <span>Pridať partnera</span>
-            </label>
+                <input 
+                    id="file-input" 
+                    type="file" 
+                    name='partnerLogo' 
+                    title='Partner Imagaes' 
+                    accept='image/*' 
+                    multiple
+                    onChange={handlePartnersImages}
+                />
+                <label htmlFor="file-input">
+                    <FaUpload className='uploadIcon' /> 
+                    <span>Pridať partnera</span>
+                </label>
             </div>
         </div>
         {PartnersChanged() && (
-            <div className="partnersActionButtonsBox">
-            <div className="cancelChangesPartnersBTN BTN" onClick={CancelChanges}>
-                Cancel Changes
-            </div>
-            <div className="submitChangesPartnersBTN BTN" onClick={SaveChanges}>
-                Submit Changes
-            </div>
+            <div className="ap_ActionButtonsBox">
+                <button className="cancelChangesBTN BTN" onClick={CancelChanges}>
+                    Cancel Changes
+                </button>
+                <button className="submitChangesBTN BTN" onClick={SaveChanges}>
+                    Submit Changes
+                </button>
             </div>
         )}
-        </div>
     </div>
   )
 }
