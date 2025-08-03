@@ -621,17 +621,17 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct, onSuccess }
       });
 
       if (!response.ok) {
-        throw new Error("Rezervácia zlyhala");
+        throw new Error("Reservations not successful");
       }
 
       const result = await response.json();
-      console.log("Rezervácia úspešná:", result);
+      console.log("Reservation successful:", result);
       if (typeof onSuccess === 'function') {
           onSuccess();
       }
       setForm(null);
     } catch (error) {
-      console.error("Chyba pri rezervácii:", error);
+      console.error("Reservation Error:", error);
     }
   }
 
@@ -725,39 +725,3 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct, onSuccess }
 }
 
 export default Popup
-
-
-/* const onReservationSubmit = async (data) =>{
-    const reservationData = {
-      FName: data.FName,
-      LName: data.LName,
-      email: data.email,
-      phoneNumber: data.phoneNumber,
-      reservationDate: data.reservationDate,
-      reservationTime: data.reservationTime,
-      reservationNote: data.reservationNote,
-      productCode: data.productCode
-    };
-
-    console.log("reservation data: ", reservationData)
-
-    try {
-      const response = await fetch('http://localhost:3005/client/reservations/reserveProduct', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(reservationData)
-      });
-
-      if (!response.ok) {
-        throw new Error("Rezervácia zlyhala");
-      }
-
-      const result = await response.json();
-      console.log("Rezervácia úspešná:", result);
-      setForm(null);
-    } catch (error) {
-      console.error("Chyba pri rezervácii:", error);
-    }
-  } */

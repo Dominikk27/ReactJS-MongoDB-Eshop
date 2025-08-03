@@ -164,13 +164,13 @@ const PartnersSettings = () => {
             </div>
         </div>
         {PartnersChanged() && (
-            <div className="partnersActionButtonsBox">
-                <div className="cancelChangesPartnersBTN BTN" onClick={CancelChanges}>
+            <div className="ap_ActionButtonsBox">
+                <button className="cancelChangesBTN BTN" onClick={CancelChanges}>
                     Cancel Changes
-                </div>
-                <div className="submitChangesPartnersBTN BTN" onClick={SaveChanges}>
+                </button>
+                <button className="submitChangesBTN BTN" onClick={SaveChanges}>
                     Submit Changes
-                </div>
+                </button>
             </div>
         )}
     </div>

@@ -2,6 +2,7 @@
 const productRoute = require("./routes/productRoute.js");
 const visualsRoute = require("./routes/visualsRoute.js");
 const reserveRoute = require("./routes/reserveRoute.js");
+const socialsRoute = require("./routes/socialsRoute.js");
 
 const env = require("dotenv");
 const express = require("express");
@@ -37,7 +38,10 @@ app.use(express.json());
 
 app.use("/images", express.static(path.join(__dirname,'images')));
 app.use("/adminpanel/visuals", visualsRoute);
+app.use("/adminpanel/socials", socialsRoute);
+
 
 app.use("/products/api", productRoute);
 app.use("/client/visuals", visualsRoute);
 app.use("/client/reservations", reserveRoute);
+app.use("/client/socials", socialsRoute);
