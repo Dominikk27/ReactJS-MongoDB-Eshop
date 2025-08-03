@@ -1,9 +1,10 @@
 import React from 'react'
 
 import PartnersSettings from './components/partners/partners';
+import WorkingDays from './components/workingDays/workingDays';
+import Socials from './components/socials/socials';
 
 import "./Visuals.css"
-import Socials from './components/socials/socials';
 
 const Visuals = () => {
   return (
@@ -16,6 +17,7 @@ const Visuals = () => {
         <div className="rowContainer">
           <Socials />
         </div>
+        <WorkingDays />
       </div>
     </div>
   )
