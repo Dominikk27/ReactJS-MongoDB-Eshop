@@ -147,12 +147,3 @@ const Navbar = () => {
 }
 
 export default Navbar
-
-
-/* return(
-  <li key={key}>
-    <a href={value} target="_blank" rel="noopener noreferrer">
-      {socialIcons[key]}
-    </a>
-  </li>
-) */
