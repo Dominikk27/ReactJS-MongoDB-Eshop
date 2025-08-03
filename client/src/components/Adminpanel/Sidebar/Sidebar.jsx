@@ -13,7 +13,7 @@ import { LuSettings2 } from "react-icons/lu";
 import { BsTicketPerforatedFill } from "react-icons/bs";
 
 
-const SidebarComponent = ({isOpen, toggle, navigate}) => {
+const SidebarComponent = ({ isOpen, toggle, navigate, stats }) => {
 
   return (
     <div className={`sideBar ${isOpen ? 'open' : 'closed'}`}>
@@ -25,7 +25,10 @@ const SidebarComponent = ({isOpen, toggle, navigate}) => {
         <div className="buttons_box">
           <ul className='siedBar_buttonList'>
             <li className='sideBar_buttonBox'><a className='sideBar_button' onClick={() => navigate("dashboard")}> <MdDashboard className='icon'/> Dashboard</a></li>
-            <li className='sideBar_buttonBox'><a className='sideBar_button' onClick={() => navigate("reservations")}> <BsTicketPerforatedFill className='icon'/> Reservation</a></li>
+            <li className='sideBar_buttonBox'><a className='sideBar_button' onClick={() => navigate("reservations")}> <BsTicketPerforatedFill className='icon'/> Reservation</a>
+            
+            {stats?.newReservations > 0 && ( <div className="notificationBox"></div>)}
+            </li>
             <li className='sideBar_buttonBox'><a className='sideBar_button' onClick={() => navigate("products")}> <MdOutlinePointOfSale className='icon'/> Products</a></li>
             <li className='sideBar_buttonBox'><a className='sideBar_button' onClick={() => navigate("settings")}> <IoMdSettings className='icon'/> Settings</a></li>
             <li className='sideBar_buttonBox'><a className='sideBar_button' onClick={() => navigate("visuals")}> <LuSettings2 className='icon'/> Visuals</a></li>

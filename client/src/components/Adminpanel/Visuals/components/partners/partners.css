@@ -1,21 +1,11 @@
-.tabName{
-    width: 100%;
-    height: 40px;
-}
-
 .visualsPartnersBox{
     display: flex;
     width: 100%;
     background-color: #F5F5F4;
-    padding: 10px;
     border-radius: 15px;
     flex-direction: column;
 }
 
-.categoryName{
-    width: 100%;
-    height: 40px;
-}
 .visualsPartnersIMGBox{
     display: grid;
     grid-template-columns: repeat(8, minmax(200px, 200px));
@@ -45,6 +35,7 @@
     font-weight: 600;
     cursor: pointer;
     gap: 5px;
+    margin: 0 20px;
 } 
 
 
@@ -107,4 +98,124 @@
 .cancelChangesPartnersBTN{
     background-color: #8E9494;
     border: 0;
+}
+
+
+@media screen and (min-width: 340px) and (max-width: 600px){
+    .visualsPartnersBox{
+        width: 100%;
+        height: auto;
+        flex-direction: column;
+    }
+
+    .visualsPartnersIMGBox{
+        grid-template-columns: repeat(1, minmax(200px, 200px));
+        justify-content: center;
+    }
+
+    .addPartnerImage{
+        display: flex;
+        position: relative;
+        height: 70px;
+        width: 100%;
+        border-radius: 15px;
+        border-style: dotted;
+        align-items: center;
+        text-align: center;
+        color: #025bee;
+        font-weight: 600;
+        cursor: pointer;
+        gap: 5px;
+        margin: 0;  
+        
+    } 
+}
+
+
+@media screen and (min-width: 600px) and (max-width: 750px){
+    .visualsPartnersBox{
+        width: 100%;
+        height: auto;
+        flex-direction: column;
+    }
+
+    .visualsPartnersIMGBox{
+        grid-template-columns: repeat(2, minmax(200px, 200px));
+        justify-content: center;
+    }
+
+    .addPartnerImage{
+        display: flex;
+        position: relative;
+        height: 70px;
+        width: 100%;
+        border-radius: 15px;
+        border-style: dotted;
+        align-items: center;
+        text-align: center;
+        color: #025bee;
+        font-weight: 600;
+        cursor: pointer;
+        gap: 5px;
+        margin: 0;  
+        
+    } 
+}
+
+@media screen and (min-width: 751px) and (max-width: 1090px){
+    .visualsPartnersBox{
+        width: 100%;
+        height: auto;
+        flex-direction: column;
+    }
+
+    .visualsPartnersIMGBox{
+        grid-template-columns: repeat(3, minmax(200px, 200px));
+        justify-content: center;
+    }
+
+    .addPartnerImage{
+        display: flex;
+        position: relative;
+        height: 70px;
+        width: 100%;
+        border-radius: 15px;
+        border-style: dotted;
+        align-items: center;
+        text-align: center;
+        color: #025bee;
+        font-weight: 600;
+        cursor: pointer;
+        gap: 5px;
+        margin: 0;        
+    } 
+}
+
+@media screen and (min-width: 1090px) and (max-width: 1520px){
+    .visualsPartnersBox{
+        width: 100%;
+        height: auto;
+        flex-direction: column;
+    }
+
+    .visualsPartnersIMGBox{
+        grid-template-columns: repeat(5, minmax(200px, 200px));
+        justify-content: center;
+    }
+
+    .addPartnerImage{
+        display: flex;
+        position: relative;
+        height: 70px;
+        width: 100%;
+        border-radius: 15px;
+        border-style: dotted;
+        align-items: center;
+        text-align: center;
+        color: #025bee;
+        font-weight: 600;
+        cursor: pointer;
+        gap: 5px;
+        margin: 0;        
+    } 
 }

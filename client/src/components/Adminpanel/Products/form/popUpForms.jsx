@@ -12,7 +12,7 @@ import ProductDetailsForm from "../form/utils/productDetails";
 import { productDetailSchema } from './utils/productSchemas';
 
 
-function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
+function Popup({ showForm, setForm, activeProduct, setActiveProduct, onSuccess }) {
 
   //const [selectedImages, setSelectedImages] = useState([]);
 
@@ -626,6 +626,9 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
 
       const result = await response.json();
       console.log("Rezervácia úspešná:", result);
+      if (typeof onSuccess === 'function') {
+          onSuccess();
+      }
       setForm(null);
     } catch (error) {
       console.error("Chyba pri rezervácii:", error);
@@ -711,10 +714,6 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct }) {
       </form>
     </FormProvider>
   )
-
-
-
-  
 
   return (
     <div className="popUpBox">

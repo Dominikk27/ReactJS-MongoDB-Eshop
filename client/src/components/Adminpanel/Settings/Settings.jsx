@@ -4,7 +4,11 @@ import './Settings.css'
 
 const Settings = () => {
   return (
-    <div>Settings</div>
+    <div className="settingsBox">
+      <div className="sectionHeader">
+        <h4>Settings</h4>
+      </div>
+    </div>
   )
 }
 

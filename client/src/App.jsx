@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import  {scroller} from 'react-scroll';
 
 
-import Loader from './utils/loader'
+//import Loader from './utils/loader'
 
 
 import Navbar from './components/Navbar/Navbar'

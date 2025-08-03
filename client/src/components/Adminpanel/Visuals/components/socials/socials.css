@@ -1,0 +1,50 @@
+.socialsBox{
+    display: flex;
+    width: 500px;
+    background-color: #F5F5F4;
+    border-radius: 15px;
+    flex-direction: column;
+}
+
+.socialsInputsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px 30px;
+}
+
+.socialInputWrapper{
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+
+    background-color: #fff;
+    max-width: 400px;
+}
+
+.iconBox{
+    display: flex;
+    width: 40px;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color: #ccc;
+    border-bottom-left-radius: 8px;
+    border-top-left-radius: 8px;
+}
+
+.socialIcon {
+    font-size: 18px;
+    color: #44A05B;
+    width: 20px;
+    height: 20px;
+}
+
+input.socialInput {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 16px;
+  background-color: #fff;
+}

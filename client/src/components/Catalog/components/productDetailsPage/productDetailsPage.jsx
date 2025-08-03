@@ -3,6 +3,7 @@ import { useParams, useNavigate, Navigate } from 'react-router-dom';
 
 import { IoChevronBackOutline } from "react-icons/io5";
 import { FaStar, FaRegStar, FaPercentage } from "react-icons/fa";
+import { MdClose } from "react-icons/md";
 
 import Popup from '../../../Adminpanel/Products/form/popUpForms';
 
@@ -17,7 +18,16 @@ const ProductDetailsPage = ({ onBack }) => {
     const [showForm, setShowForm] = useState(null);
     const handleReservationForm = (productData) => {
         setShowForm(null);
+        triggerSuccessPopup();
     }
+
+    const [showPopupMessage, setShowPopupMessage] = useState(null);
+    const triggerSuccessPopup = () => {
+        setShowPopupMessage(true);
+        setTimeout(() => {
+            setShowPopupMessage(false);
+        }, 4000);
+    };
 
 
     const navigate = useNavigate();
@@ -127,7 +137,18 @@ const ProductDetailsPage = ({ onBack }) => {
                 </div>
             </div>
             {showForm === 'reserveProduct' && (
-                <Popup showForm={showForm} setForm={setShowForm} activeProduct={product}/>
+                <Popup showForm={showForm} setForm={setShowForm} activeProduct={product} onSuccess={handleReservationForm}/>
+            )}
+            {showPopupMessage && (
+                <div className="popupMessageBox">
+                    <div className="closePopupMessage"><MdClose /></div>
+                    <div className="popupMessageHeader">
+                        <h5>Rezervácia úspešne prijata!</h5>
+                    </div>
+                    <div className="popupMessageContent">
+                        TEXT 
+                    </div>
+                </div>
             )}
         </div>
     );

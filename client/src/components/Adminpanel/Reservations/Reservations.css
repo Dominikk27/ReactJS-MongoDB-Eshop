@@ -5,3 +5,39 @@
     height: 100%;
     gap: 20px;
 }
+
+.sectionHeader{
+    height: 50px;
+    width: 100%;
+    border-bottom: 2px solid #ff0444;
+}
+
+.reservationsHeader{
+    display: flex;
+    width: 100%;
+    background-color: #ccc;
+    height: auto;
+    padding: 20px 20px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    justify-content: space-between;
+    font-weight: 700;
+
+}
+
+.reservationsContainer{
+    display: grid;
+    grid-template-rows: minmax(repeat(auto, 1fr));
+    gap: 10px;
+}
+
+.headerBox{
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.idBox{
+    width: 250px;
+    height: auto;
+}

@@ -15,17 +15,26 @@ function encrypt(text) {
     };
 }
 
-function decrypt(hash) {
-    const decipher = crypto.createDecipheriv(
-        algorithm,
-        Buffer.from(secretKey),
-        Buffer.from(hash.iv, 'hex')
-    );
-    const decrypted = Buffer.concat([
-        decipher.update(Buffer.from(hash.content, 'hex')),
-        decipher.final()
-    ]);
-    return decrypted.toString('utf8');
-}
+const decrypt = (encryptedData) => {
+    try {
+        const hash = JSON.parse(encryptedData);
+        
+        const decipher = crypto.createDecipheriv(
+            algorithm,
+            Buffer.from(secretKey, 'hex'),
+            Buffer.from(hash.initVect, 'hex')
+        );
+        
+        const decrypted = Buffer.concat([
+            decipher.update(Buffer.from(hash.content, 'hex')),
+            decipher.final()
+        ]);
+        
+        return decrypted.toString();
+    } catch (error) {
+        console.error("Decryption error:", error);
+        return "Decryption Error!";
+    }
+};
 
 module.exports = { encrypt, decrypt };

@@ -1,11 +1,9 @@
 const Reservation = require("../model/reservationsModel.js");
-const { encrypt } = require("../utils/encrypt.js");
+const { encrypt, decrypt } = require("../utils/encrypt.js");
 
 const env = require("dotenv");
 
 const reserveProduct = async (req, res) =>{
-    console.log("REQUEST BODY: ", req.body);
-
     try{
         const {
             FName,
@@ -44,5 +42,59 @@ const reserveProduct = async (req, res) =>{
     }
 }
 
+const getReservations = async (req, res) =>{
+    try{
+        const reservations = await Reservation.find();
+        if(reservations === 0){ 
+            console.log("DB is empty!");
+            res.status(404).json({message: "There are no reservations!"});
+        }
 
-module.exports = { reserveProduct };
+        const decryptedData = reservations.map(reservation => {
+            return {
+                ...reservation._doc,
+                LastName: decrypt(reservation.LastName),
+                PhoneNumber: decrypt(reservation.PhoneNumber),
+                Email: decrypt(reservation.Email)
+            };
+        });
+        
+        res.status(200).json(decryptedData);
+    }catch(e){
+        console.error("Failed to fetch reservations! error: ", e);
+        res.status(500).json({error: "Internal Server Error!"});
+    }
+}
+
+
+const updateReservation = async (req, res) => {
+    const reserveID = req.params.id
+    //console.log("RESERVE ID: ", reserveID);
+    const { status } = req.body;
+    try{ 
+        const updatedReservation = await Reservation.findByIdAndUpdate(
+            reserveID,
+            {status: status},
+            {new: true}
+        );
+
+        if(!updatedReservation){
+            return res.status(404).json({message: "Reservation not found!"});
+        }
+
+        const decryptReservation = {
+            ...updatedReservation._doc,
+            LastName: decrypt(updatedReservation.LastName),
+            Email: decrypt(updatedReservation.Email),
+            PhoneNumber: decrypt(updatedReservation.PhoneNumber),
+        };
+
+        res.json(decryptReservation);
+    }catch(e){
+        console.error("Failed to update reservation status! error: ",e);
+        res.status(500).json({message: "failed to update reservation status!"});
+    }
+}
+
+
+module.exports = { reserveProduct, getReservations, updateReservation };

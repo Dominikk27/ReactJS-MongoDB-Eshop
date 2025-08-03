@@ -19,12 +19,14 @@ const getStats = async (req, res) =>{
         const activeProduct = await Product.countDocuments();
         const activeOnSaleProduct = await Product.countDocuments({ onSale: true});
 
-        const activeReservations = await Reservations.countDocuments();
+        const activeReservations = await Reservations.countDocuments({ status: "active"});
+        const newReservations = await Reservations.countDocuments({ status: "new"});
 
         res.json({
             activeProduct,
             activeOnSaleProduct,
-            activeReservations
+            activeReservations,
+            newReservations
         })
     }catch(e){
         console.error("Error getting stats: ", e);
