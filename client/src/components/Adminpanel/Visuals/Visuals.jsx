@@ -1,7 +1,7 @@
 import React from 'react'
 
 import PartnersSettings from './components/partners/partners';
-import WorkingDays from './components/workingDays/workingDays';
+import BusinessDays from './components/businessDays/businessDays';
 import Socials from './components/socials/socials';
 
 import "./Visuals.css"
@@ -17,7 +17,7 @@ const Visuals = () => {
         <div className="rowContainer">
           <Socials />
         </div>
-        <WorkingDays />
+        <BusinessDays />
       </div>
     </div>
   )
