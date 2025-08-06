@@ -49,7 +49,7 @@
     justify-content: center;
 }
 
-button[type="submit"]{
+button[type="submit"].formSubmit{
     width: 30%;
     height: 60px;
     border: 0;

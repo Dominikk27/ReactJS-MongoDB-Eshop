@@ -97,7 +97,7 @@
 }
 
 
-@media screen and (min-width: 600px) and (max-width: 750px){
+@media screen and (min-width: 601px) and (max-width: 750px){
     .visualsPartnersBox{
         width: 100%;
         height: auto;
@@ -127,7 +127,7 @@
     } 
 }
 
-@media screen and (min-width: 751px) and (max-width: 1090px){
+@media screen and (min-width: 751px) and (max-width: 1300px){
     .visualsPartnersBox{
         width: 100%;
         height: auto;
@@ -156,7 +156,7 @@
     } 
 }
 
-@media screen and (min-width: 1090px) and (max-width: 1520px){
+@media screen and (min-width: 1301px) and (max-width: 1520px){
     .visualsPartnersBox{
         width: 100%;
         height: auto;

@@ -5,6 +5,7 @@ import ReservationCard from './card/reservationCard';
 
 const Reservations = () => {
   const [reservations, setReservations] = useState([]);
+  const [filterStatus, setFilterStatus] = useState('');
 
   useEffect(() => {
     const fetchReservations = async () => {
@@ -32,6 +33,35 @@ const Reservations = () => {
     <div className="reservationsBox">
       <div className="sectionHeader">
         <h3>Reservations</h3>
+        <div className="filtersBox">
+          <select
+            value={filterStatus}
+            onChange={e => setFilterStatus(e.target.value)}
+          >
+            <option value="">Všetky</option>
+            <option value="complete">Complete</option>
+            <option value="active">Active</option>
+            <option value="canceled">Cancelled</option>
+          </select>
+          <select
+            value={filterStatus}
+            onChange={e => setFilterStatus(e.target.value)}
+          >
+            <option value="">Všetky</option>
+            <option value="1">Január</option>
+            <option value="2">Február</option>
+            <option value="3">Marec</option>
+            <option value="4">Apríl</option>
+            <option value="5">Máj</option>
+            <option value="6">Jún</option>
+            <option value="7">Júl</option>
+            <option value="8">August</option>
+            <option value="9">September</option>
+            <option value="10">Október</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
+          </select>
+        </div>
       </div>
       <div className="reservationsContainer">
         <div className="reservationsHeader">
@@ -60,11 +90,18 @@ const Reservations = () => {
               <p>ACTIONS</p>
           </div>
         </div>
-        {reservations.map((reservation, index) => (
-          <ReservationCard key={index} 
-            reservationData={reservation} 
-            onStatusUpdate={handleStatusUpdate} />
-        ))}
+        <div className="reservationCardsContainer">
+          {reservations
+            .filter(reservation => 
+              filterStatus === '' ? true : reservation.status === filterStatus
+            )
+            .map((reservation, index) => (
+              <ReservationCard key={index}
+                reservationData={reservation}
+                onStatusUpdate={handleStatusUpdate} />
+            ))
+          }
+        </div>
       </div>
     </div>
   )

@@ -46,3 +46,4 @@ app.use("/products/api", productRoute);
 app.use("/client/visuals", visualsRoute);
 app.use("/client/reservations", reserveRoute);
 app.use("/client/socials", socialsRoute);
+app.use("/client/businessDays", businessDayRoute);

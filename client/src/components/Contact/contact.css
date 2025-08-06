@@ -61,11 +61,27 @@
     font-size: 15px;
     white-space: nowrap;
     overflow: hidden;
+    gap: 15px
+}
+
+.openItem{
+    width: 230px;
 }
 
 .bold_text {
     font-weight: bolder;
     font-size: 15px;
+}
+
+.dayName{
+    font-size: 20px;
+    font-weight: 600;
+    width: auto;
+}
+
+.dayTime{
+    font-size: 20px;
+    text-align: end;
 }
 
 

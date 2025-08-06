@@ -1,6 +1,6 @@
 .socialsBox{
     display: flex;
-    width: 500px;
+    max-width: 500px;
     background-color: #F5F5F4;
     border-radius: 15px;
     flex-direction: column;

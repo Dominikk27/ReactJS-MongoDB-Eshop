@@ -3,6 +3,11 @@ const { Decimal128 } = mongoose.Schema.Types;
 
 
 const productSchema = new mongoose.Schema({
+    productCode:{
+        type: String,
+        required: true
+    },
+
     productName:{
         type: String,
         required: true

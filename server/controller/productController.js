@@ -50,7 +50,8 @@ const addProduct = async (req, res) => {
     //const file = req.files;
 
     try{
-        const { 
+        const {
+            productCode, 
             productName, 
             productDescription, 
             defaultPrice, 
@@ -59,7 +60,7 @@ const addProduct = async (req, res) => {
             productDrive 
         } = req.body;
         
-        if(!productName || !defaultPrice) {
+        if(!productName || !defaultPrice || !productCode) {
             return res.status(400).json({error: "Product name and price are required!"});
         }
 
@@ -80,6 +81,7 @@ const addProduct = async (req, res) => {
         }
 
         const newProduct = new Product({
+            productCode,
             productName,
             productDescription,
             defaultPrice: parseFloat(defaultPrice),
@@ -139,6 +141,7 @@ const editProduct = async (req, res) => {
         }
 
         const {
+            productCode,
             productName,
             productDescription,
             defaultPrice,
@@ -174,6 +177,7 @@ const editProduct = async (req, res) => {
         );
 
         product.productImages = [...oldIMG, ...newImagePaths];
+        product.productCode = productCode || product.productCode;
         product.productName = productName || product.productName;
         product.productDescription = productDescription || product.productDescription;
         product.productType = productType || product.productType;

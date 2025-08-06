@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { formDate } from '../../../../utils/dateFormater/dateFormat.js';
+import { formDate } from '../../../../utils/dates/dateFormat.js';
 
 import { FaCheck } from "react-icons/fa";
 import { MdOutlineClose } from "react-icons/md";
@@ -36,10 +36,10 @@ const ReservationCard = ({ reservationData, onStatusUpdate }) => {
     }
 
 
-    console.log("ReservationData: ", reservationData)
+    //console.log("ReservationData: ", reservationData)
     return (
         <div className={`reserveCardBox status-${reservationData.status}`}>
-            <div className="idBox">
+            <div className="idBox valueBox">
                 <p>ID</p>
             </div>
             <div className="pCodeBox valueBox">
@@ -68,7 +68,7 @@ const ReservationCard = ({ reservationData, onStatusUpdate }) => {
                             <div className="actionBtn btnAcceptReservation" onClick={() => handleChangeStatus("active")}>
                                 <FaCheck className='icon'/>
                             </div>
-                            <div className="actionBtn btnCancelReservation" onClick={() => handleChangeStatus("canceled")}>
+                            <div className="actionBtn btnCancelReservation" onClick={() => handleChangeStatus("cancelled")}>
                                 <MdOutlineClose className='icon'/>
                             </div>
                         </>
@@ -77,7 +77,7 @@ const ReservationCard = ({ reservationData, onStatusUpdate }) => {
                             <div className="actionBtn btnAcceptReservation" onClick={() => handleChangeStatus("complete")}>
                                 <FaFlagCheckered className='icon'/>
                             </div>
-                            <div className="actionBtn btnCancelReservation" onClick={() => handleChangeStatus("canceled")}>
+                            <div className="actionBtn btnCancelReservation" onClick={() => handleChangeStatus("cancelled")}>
                                 <MdOutlineClose className='icon'/>
                             </div>
                         </>

@@ -24,7 +24,7 @@ route.get("/fetch", fetch);
 route.get("/fetch/:id", fetchProductData);
 route.post("/adminpanel/addProduct", upload.array("productImages", 8), addProduct);
 route.delete("/adminpanel/deleteProduct/:id", removeProduct);
-route.put("/adminpanel/editProduct/:id", upload.array("productImages", 8), editProduct);
+route.patch("/adminpanel/editProduct/:id", upload.array("productImages", 8), editProduct);
 
 
 

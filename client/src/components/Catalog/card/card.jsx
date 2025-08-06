@@ -50,10 +50,16 @@ const Card = ({ product }) => {
             <FaRegStar className='icon'/>
           </div> */}
           <div className="cardPrice">
-            {product.OnSale ? (
+            {product.onSale ? (
                 <>
-                  <h4 className="originalPrice">{formatPrice(product.defaultPrice)} €</h4>
-                  <h4 className="salePrice">{formatPrice(product.onSalePrice)} €</h4>
+                  <div className="defaultPriceBox">
+                    <div className={product.onSale ? 'small-diagonal-line' : ''}>
+                      <h4 className="originalPrice oldPrice">{formatPrice(product.defaultPrice)} €</h4>
+                    </div>
+                  </div>
+                  <div className="onSalePriceBox">
+                    <h4 className="salePrice">{formatPrice(product.onSalePrice)} €</h4>
+                  </div>
                 </>
               ) : (
                 <h4>{formatPrice(product.defaultPrice)} €</h4>

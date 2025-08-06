@@ -3,7 +3,7 @@ const { updateSocials, getSocials } = require("../controller/socialsController.j
 
 const route = express.Router();
 
-route.put("/updateSocials", updateSocials);
+route.patch("/updateSocials", updateSocials);
 route.get("/getSocials", getSocials);
 
 module.exports = route;

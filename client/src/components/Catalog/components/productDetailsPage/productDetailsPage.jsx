@@ -71,7 +71,7 @@ const ProductDetailsPage = ({ onBack }) => {
                 <div className="productDetailsLeftSide">
                     <div className="productImagesBox">
                         <div className="productCodeBox">
-                            <p>KOD PRODUKTU: </p>
+                            <p>KOD PRODUKTU: {product.productCode}</p>
                         </div>
                         <div className="bigIMGBox">
                             {product.onSale ?
@@ -105,9 +105,10 @@ const ProductDetailsPage = ({ onBack }) => {
                                 <h2 className='defaultPrice'>{product.defaultPrice}<span className='currency'> €</span></h2>
                             </div>
                         </div>
-                        <div className="onSalePriceBox">
-                            <h2 className='onSalePrice'>{product.onSalePrice}<span className='currency'> €</span></h2>
-                        </div>
+                        {product.onSale ? 
+                            <div className="onSalePriceBox">
+                                <h2 className='onSalePrice'>{product.onSalePrice}<span className='currency'> €</span></h2>
+                            </div> :null}
                     </div>
                     <div className="productDescriptionBox">
                         <p>

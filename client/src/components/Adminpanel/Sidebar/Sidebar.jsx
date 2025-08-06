@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState} from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 
 
 import './Sidebar.css'
@@ -14,6 +15,8 @@ import { BsTicketPerforatedFill } from "react-icons/bs";
 
 
 const SidebarComponent = ({ isOpen, toggle, navigate, stats }) => {
+  const location = useLocation();
+  const isActive = (path) => location.pathname.startsWith(`/adminpanel/${path}`);
 
   return (
     <div className={`sideBar ${isOpen ? 'open' : 'closed'}`}>
@@ -24,14 +27,14 @@ const SidebarComponent = ({ isOpen, toggle, navigate, stats }) => {
         </div>
         <div className="buttons_box">
           <ul className='siedBar_buttonList'>
-            <li className='sideBar_buttonBox'><a className='sideBar_button' onClick={() => navigate("dashboard")}> <MdDashboard className='icon'/> Dashboard</a></li>
-            <li className='sideBar_buttonBox'><a className='sideBar_button' onClick={() => navigate("reservations")}> <BsTicketPerforatedFill className='icon'/> Reservation</a>
+            <li className={`sideBar_buttonBox ${isActive("dashboard") ? "active" : ""}`}><NavLink to='dashboard' className='sideBar_button'> <MdDashboard className='icon'/> Dashboard</NavLink></li>
+            <li className={`sideBar_buttonBox ${isActive("reservations") ? "active" : ""}`}><NavLink to='reservations' className='sideBar_button'> <BsTicketPerforatedFill className='icon'/> Reservation</NavLink>
             
             {stats?.newReservations > 0 && ( <div className="notificationBox"></div>)}
             </li>
-            <li className='sideBar_buttonBox'><a className='sideBar_button' onClick={() => navigate("products")}> <MdOutlinePointOfSale className='icon'/> Products</a></li>
-            <li className='sideBar_buttonBox'><a className='sideBar_button' onClick={() => navigate("settings")}> <IoMdSettings className='icon'/> Settings</a></li>
-            <li className='sideBar_buttonBox'><a className='sideBar_button' onClick={() => navigate("visuals")}> <LuSettings2 className='icon'/> Visuals</a></li>
+            <li className={`sideBar_buttonBox ${isActive("products") ? "active" : ""}`}><NavLink to='products' className='sideBar_button'> <MdOutlinePointOfSale className='icon'/> Products</NavLink></li>
+            <li className={`sideBar_buttonBox ${isActive("settings") ? "active" : ""}`}><NavLink to='settings' className='sideBar_button'> <IoMdSettings className='icon'/> Settings</NavLink></li>
+            <li className={`sideBar_buttonBox ${isActive("visuals") ? "active" : ""}`}><NavLink to='visuals' className='sideBar_button'> <LuSettings2 className='icon'/> Visuals</NavLink></li>
           </ul>
         </div>
         </>

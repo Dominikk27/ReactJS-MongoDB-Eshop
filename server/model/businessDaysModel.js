@@ -1,11 +1,10 @@
 const mongoose = require("mongoose");
 
-
-const businessDaySchema = new mongoose.Schema({
+const daySchema = new mongoose.Schema({
     day:{
         type: String,
         enum: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-        required: true,
+        required: false,
     },
     isOpen:{
         type: Boolean,
@@ -19,6 +18,10 @@ const businessDaySchema = new mongoose.Schema({
         type:String,
         required: false,
     }
+});
+
+const businessDaysSchema = new mongoose.Schema({
+  days: [daySchema]
 },{collection: "Businessdays"});
 
-module.exports = mongoose.model("BusinessDays", businessDaySchema);
+module.exports = mongoose.model("BusinessDays", businessDaysSchema);

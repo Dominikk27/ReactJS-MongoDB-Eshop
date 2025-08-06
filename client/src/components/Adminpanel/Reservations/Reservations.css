@@ -10,13 +10,41 @@
     height: 50px;
     width: 100%;
     border-bottom: 2px solid #ff0444;
+    display: flex;
+}
+
+.filtersBox{
+    display: flex;
+    gap: 10px;
+    padding: 10px 10px;
+    align-items: center;
+    justify-content: end;
+}
+
+.filtersBox select{
+    width: auto;
+    border: none;
+    padding: 5px;
+    border-radius: 9px;
+    background-color: #44A05B;
+}
+
+.reservationsContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+    overflow: hidden;
 }
 
 .reservationsHeader{
     display: flex;
+    position: sticky;
+    z-index: 100;
+    top: 0;
     width: 100%;
     background-color: #ccc;
-    height: auto;
+    max-height: 80px;
     padding: 20px 20px;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
@@ -25,10 +53,14 @@
 
 }
 
-.reservationsContainer{
-    display: grid;
-    grid-template-rows: minmax(repeat(auto, 1fr));
+.reservationCardsContainer{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    grid-template-rows: repeat(60px, 1fr);
     gap: 10px;
+    overflow-y: scroll;
 }
 
 .headerBox{
@@ -40,4 +72,38 @@
 .idBox{
     width: 250px;
     height: auto;
+}
+
+@media screen and (min-width: 340px) and (max-width: 600px){
+    .sectionHeader{
+        flex-direction: column;
+        height: 80px;
+    }
+    
+    .filtersBox{
+        justify-content: center;
+    }
+
+    .reservationsHeader{
+        display: none;
+
+    }
+
+}
+
+@media screen and (min-width: 601px) and (max-width: 1200px){
+    .sectionHeader{
+        flex-direction: column;
+        height: 80px;
+    }
+    
+    .filtersBox{
+        justify-content: center;
+    }
+
+    .reservationsHeader{
+        display: none;
+
+    }
+
 }

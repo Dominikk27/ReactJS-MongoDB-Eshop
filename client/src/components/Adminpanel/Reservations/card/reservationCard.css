@@ -2,9 +2,9 @@
     display: flex;
     width: 100%;
     background-color: #F5F5F5;
-    height: auto;
-    padding: 20px 20px;
+    padding: 10px 20px;
     border-radius: 15px;
+    min-height: 60px;
 }
 
 .actionButtonsBox{
@@ -51,4 +51,86 @@
 
 .status-complete {
   background-color: lightgoldenrodyellow;
+}
+
+
+
+@media screen and (min-width: 340px) and (max-width: 600px){
+  .reserveCardBox{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 10px;
+    gap: 3px;
+    min-height: unset;
+  }
+
+  .reserveCardBox .valueBox{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    text-align: left;
+    word-break: break-all;
+  }
+
+  .reserveCardBox .valueBox p{
+    margin: 0;
+    font-size: 14px;
+  }
+
+  .actionButtonsBox.valueBox{
+      display: flex;
+      width: 100%;
+      gap: 10px;
+      justify-content: end;
+      align-items: end;
+  }
+
+  .actionBtn{
+      width: 40px;
+      height: 40px;
+  }
+
+}
+
+@media screen and (min-width: 601px) and (max-width: 1200px){
+  .reserveCardBox{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 10px;
+    gap: 3px;
+    min-height: unset;
+  }
+
+  .reserveCardBox .valueBox{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    text-align: left;
+    word-break: break-all;
+  }
+
+  .reserveCardBox .valueBox p{
+    margin: 0;
+    font-size: 14px;
+  }
+
+  .actionButtonsBox.valueBox{
+      display: flex;
+      width: 100%;
+      gap: 10px;
+      justify-content: end;
+      align-items: end;
+  }
+
+  .actionBtn{
+      width: 40px;
+      height: 40px;
+  }
+
 }

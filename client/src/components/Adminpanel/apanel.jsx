@@ -41,21 +41,6 @@ function Adminpanel ({products}) {
     }, []);
   const navigate = useNavigate();
 
-  const renderComponent = () => {
-    switch(activeComponent){
-      case "Dashboard":
-        return <Dashboard />
-        case "Reservations":
-        return <Reservations />
-      case "Products":
-        return <Products />
-      case "Settings":
-        return <Settings />
-      case "Visuals":
-        return <Visuals />
-    }
-  }
-
   return( 
     <main className='AP_Container'>
         <SidebarComponent 

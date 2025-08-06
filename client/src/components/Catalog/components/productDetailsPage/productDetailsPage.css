@@ -21,7 +21,6 @@
     width: auto;
 }
 
-
 .productDetailsBox{
     display: flex;
     flex-direction: row;
@@ -131,21 +130,16 @@
     width: 100%;
     display: flex;
     padding: 10px 0;
-    gap: 10px;
-}
-
-.defaultPriceBox{
-    width: 100px;
 }
 
 .priceBox .defaultPriceBox{
-    display: inline;
+    display: flex;
+    width: 100%;
+    text-align: start;
+    justify-content: start;
+    align-items: start;
+    color: #E9242E;
     font-size: 30px;
-    line-height: 1.3;
-    margin: 0;
-    align-items: center;
-    text-align: center;
-    justify-content: center;
 }
 
 .priceBox.onSale .defaultPriceBox{
@@ -158,7 +152,7 @@
 
 }
 
-.diagonal-line::before{
+.priceBox.onSale .defaultPriceBox .diagonal-line::before{
     content: "";
     position: absolute;
     width: 70%;

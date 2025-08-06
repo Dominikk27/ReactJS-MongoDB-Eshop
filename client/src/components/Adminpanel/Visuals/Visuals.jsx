@@ -15,9 +15,9 @@ const Visuals = () => {
       <div className="visualsContent">
         <PartnersSettings />
         <div className="rowContainer">
+          <BusinessDays />
           <Socials />
         </div>
-        <BusinessDays />
       </div>
     </div>
   )
