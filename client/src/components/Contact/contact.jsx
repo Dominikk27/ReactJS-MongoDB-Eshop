@@ -39,7 +39,7 @@ const Contact = ({ id }) => {
         getBusinessDays();
     }, []); //sdsdd
 
-    console.log("BUSINESS DATA: ", businessDays);
+    //console.log("BUSINESS DATA: ", businessDays);
 
     return (
         <div className="container" id={id}>
@@ -80,7 +80,7 @@ const Contact = ({ id }) => {
                                 <span className='bold_text'>Otvaracie hodiny</span>
                             </li>
                             {DAYS_NAME.map((day, index) => (
-                                <li className="openItem">
+                                <li className="openItem" key={day}>
                                     <p className='dayName'>{day}: </p>
                                     <p className='dayTime'>{
                                         businessDays[index]?.isOpen 
@@ -89,31 +89,6 @@ const Contact = ({ id }) => {
                                     }</p>
                                 </li>
                             ))}
-
-                            {/* <li className="openItem">
-                                <span className='bold_text'>Otvaracie hodiny</span>
-                            </li>
-                            <li className="openItem">
-                                Pondelok 
-                            </li>
-                            <li className="openItem">
-                                Útorok
-                            </li>
-                            <li className="openItem">
-                                Streda
-                            </li>
-                            <li className="openItem">
-                                Štvrtok
-                            </li>
-                            <li className="openItem">
-                                Piatok
-                            </li>
-                            <li className="openItem">
-                                Sobota
-                            </li>
-                            <li className="openItem">
-                                Nedeľa
-                            </li> */}
                         </ul>
                     </div>
                 </div>

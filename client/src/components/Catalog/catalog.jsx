@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import { FaBars } from "react-icons/fa";
 
 import Card from './card/card';
 
 import "../Catalog/catalog.css"
+import Catalog_Sidebar from './components/Sidebar/Catalog_Sidebar';
 
 const Catalog = () => {
     const [loadedProducts, setLoadedProducts] = useState([]);
-
+    const [isOpen, setIsOpen] = useState(false);
+    const [sections, setSections] = useState([]);
+    
     useEffect(() =>{
         const fetchProducts = async () =>{
             try{
@@ -21,19 +25,42 @@ const Catalog = () => {
         fetchProducts();
     },[]);
 
+    useEffect(() =>{
+        const fetchFilterData = async () =>{
+          try{
+            const res = await fetch("http://localhost:3005/products/filters/getFilters");
+            const filterData = await res.json();
+            setSections(filterData);
+    
+          }catch(e){
+            console.log("Failed to fetch filter data! error: ", e);
+          }
+        }
+        fetchFilterData();
+      }, []);
+
     return (
-        <div className="catalogBox">
-            <div className="leftSide">
-            </div>
-            <div className="rightSide">
-                <div className="productsListBox">
-                    {loadedProducts.length > 0 ? (
-                        loadedProducts.map((product) => (
-                            <Card key={product._id} product={product}/>
-                        ))
-                    ) : (
-                        <p>Načítavam produkty!</p>
-                    )}
+        <div className="container">
+            <div className="catalogBox">
+                <div className={`leftSide ${!isOpen ? "closed" : "opened"}`}>
+                    <Catalog_Sidebar filters={sections} isOpen={isOpen} setIsOpen={setIsOpen}/>
+                    <div className="sideBarBTNContainer">
+                        <button className={`sideBar_Button ${!isOpen ? "closed" : "opened"}`} onClick={() => setIsOpen(prev => !prev)}>
+                            <FaBars className='icon'/>
+                        </button>
+                    </div>
+                </div>
+
+                <div className="rightSide">
+                    <div className="productsListBox">
+                        {loadedProducts.length > 0 ? (
+                            loadedProducts.map((product) => (
+                                <Card key={product._id} product={product}/>
+                            ))
+                        ) : (
+                            <p>Načítavam produkty!</p>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>

@@ -12,6 +12,7 @@ import { productDetailSchema } from '../../../Adminpanel/Products/form/utils/pro
 import "./productDetailsPage.css";
 
 const ProductDetailsPage = ({ onBack }) => {
+    const [activeImage, setActiveImage] = useState(null);
     const { productID } = useParams();
     const [product, setProduct] = useState(null);
 
@@ -41,6 +42,7 @@ const ProductDetailsPage = ({ onBack }) => {
                 const fetchData = await fetch(`http://localhost:3005/products/api/fetch/${productID}`);
                 const productData = await fetchData.json();
                 setProduct(productData);
+                setActiveImage(productData.productImages[0]);
 
             }catch(e){
                 console.error("Failed to fetch product data! ERROR", e);
@@ -78,12 +80,15 @@ const ProductDetailsPage = ({ onBack }) => {
                                 <div className="floatingTag">
                                     <FaPercentage className='icon'/> <p className='tagType'>Zľava</p>
                                 </div> : null}
-                            <img src={product.productImages[0]} />
+                            <img src={activeImage} />
                         </div>
                         <div className="smallIMGsBox">
                             {product.productImages.length > 1 ?(
                                 product.productImages.map((product) => (
-                                   <div className="sImgBox" key={product._id}>
+                                   <div 
+                                    className={`sImgBox ${product === activeImage ? 'active' : 'inactive'}`} 
+                                    key={product._id} 
+                                    onClick={() => setActiveImage(product)}>
                                     <img src={product}/>
                                    </div> 
                                 ))
@@ -93,44 +98,52 @@ const ProductDetailsPage = ({ onBack }) => {
                     </div>
                 </div>
                 <div className="productDetailsRightSide">
-                    <div className="brandNameBox">
-                        <h4>STIHL</h4>
-                    </div>
                     <div className="productNameBox">
                         <h2>{product.productName}</h2>
                     </div>
-                    <div className={product.onSale ? 'priceBox onSale' : 'priceBox'}>
-                        <div className="defaultPriceBox">
-                            <div className={product.onSale ? 'diagonal-line' : ''}>
-                                <h2 className='defaultPrice'>{product.defaultPrice}<span className='currency'> €</span></h2>
-                            </div>
+                    <div className="productDetailsRow">
+                        <div className="productDescriptionBox">
+                            <p>
+                                {product.productDescription}
+                            </p>
                         </div>
-                        {product.onSale ? 
-                            <div className="onSalePriceBox">
-                                <h2 className='onSalePrice'>{product.onSalePrice}<span className='currency'> €</span></h2>
-                            </div> :null}
+                        <div className="descriptionTableBox">
+                            {Object.entries(productSchema).map(([sectionName, fields]) => (
+                                <div className="sectionName">
+                                    <h4>{sectionName}</h4>
+                                    <table className='productDetailsTable'>
+                                        <tbody>
+                                            <tr>
+                                                <td className="paramNameCell">Pohon</td>
+                                                <td className="paramValueCell">{product.productDrive}</td>
+                                            </tr>
+                                            {Array.isArray(fields) && fields.map(({ key, label }) => (
+                                            <tr key={key}>
+                                                <td className="paramNameCell">{label}</td>
+                                                <td className="paramValueCell">{product.productDetails?.[key]}</td>
+                                            </tr>
+                                        ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                    <div className="productDescriptionBox">
-                        <p>
-                            {product.productDescription}
-                        </p>
-                    </div>
-                    <div className="descriptionTableBox">
-                        {Object.entries(productSchema).map(([sectionName, fields]) => (
-                            <div className="sectionName">
-                                <h4>{sectionName}</h4>
-                                <table className='productDetailsTable'>
-                                    <tbody>
-                                        {Array.isArray(fields) && fields.map(({ key, label }) => (
-                                        <tr key={key}>
-                                            <td className="paramNameCell">{label}</td>
-                                            <td className="paramValueCell">{product.productDetails?.[key]}</td>
-                                        </tr>
-                                    ))}
-                                    </tbody>
-                                </table>
+                    <div className="priceBoxDetails">
+                        <div className="priceBoxHeader">
+                            <p>Cena</p>
+                        </div>
+                        <div className={product.onSale ? 'priceBox onSale' : 'priceBox'}>
+                            <div className="defaultPriceBox">
+                                <div className={product.onSale ? 'diagonal-line' : ''}>
+                                    <h2 className='defaultProductPrice'>{product.defaultPrice}<span className='currency'> €</span></h2>
+                                </div>
                             </div>
-                        ))}
+                            {product.onSale ? 
+                                <div className="onSalePriceBox">
+                                    <h2 className='onSaleProductPrice'>{product.onSalePrice}<span className='currency'> €</span></h2>
+                                </div> :null}
+                        </div>
                     </div>
                     <div className="buttonsBox">
                         <button className='btnToReserve' onClick={() => {setShowForm('reserveProduct')}}>Rezervovať produkt</button>
@@ -147,7 +160,7 @@ const ProductDetailsPage = ({ onBack }) => {
                         <h5>Rezervácia úspešne prijata!</h5>
                     </div>
                     <div className="popupMessageContent">
-                        TEXT 
+                        <p>Vášu žiadosť o rezerváciu produktu sme úspešne prijali!</p> 
                     </div>
                 </div>
             )}

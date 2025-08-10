@@ -62,14 +62,11 @@ const Card = ({ product }) => {
                   </div>
                 </>
               ) : (
-                <h4>{formatPrice(product.defaultPrice)} €</h4>
+                <div className="defaultPriceBox">
+                  <h4 className="originalPrice">{formatPrice(product.defaultPrice)} €</h4>
+                </div>
               )}
           </div>
-        </div>
-        <div className="readMore">
-          <button className="showBTN" onClick={()=> console.log("HJELLO!")}>
-            Zobraziť produkt
-          </button>
         </div>
       </div>
     </div>

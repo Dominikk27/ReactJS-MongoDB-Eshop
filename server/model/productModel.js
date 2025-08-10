@@ -42,14 +42,20 @@ const productSchema = new mongoose.Schema({
 
     productType:{
         type: String,
-        enum: ['kosacka', 'krovinorez', 'pila'],
+        enum: ['parkova_kosacka', 'traktorova_kosacka', 'krovinorez', 'pila'],
         required: true
     },
 
     productDrive:{
       type: String,
-      enum:['elektrika', 'aku', 'benzín'],
+      enum:['elektro', 'aku', 'benzin'],
       required: true,
+    },
+
+    productBrand:{
+      type: String,
+      enum: ['STIHL', 'CubCadet', 'MTD', 'DAKR', 'WOLF GARTEN', 'SUPA'],
+      required: true
     },
 
     productDetails:{

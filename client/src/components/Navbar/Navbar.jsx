@@ -42,7 +42,7 @@ const Navbar = () => {
     fetchSocials();
   }, []);
 
-  console.log("SOCIALS: ",socialLinks);
+  //console.log("SOCIALS: ",socialLinks);
 
   const location = useLocation();
 

@@ -85,7 +85,7 @@
 }
 
 
-@media only screen and (max-width: 575px) {
+@media only screen and (min-width: 340px) and (max-width: 600px) {
     .contactCard{
         width: 100%;
         display: flex;
@@ -111,7 +111,8 @@
     .cardContent{
         display: flex;
         flex-direction: column;
-        gap: 15px
+        gap: 35px;
+        padding-bottom: 30px;
     }
     
     .contactList{

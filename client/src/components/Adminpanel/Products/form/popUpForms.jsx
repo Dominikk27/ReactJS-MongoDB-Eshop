@@ -26,13 +26,15 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct, onSuccess }
       productName: activeProduct.productName,
       productDescription: activeProduct.productDescription,
       defaultPrice: activeProduct.defaultPrice,
+      productBrand: activeProduct.productBrand,
       onSalePrice: activeProduct.onSalePrice,
       onSale: activeProduct.onSale
     } : {
       productDetails: {},
       productType: "",
       productDrive: "",
-       productCode: "",
+      productCode: "",
+      productBrand: "",
       onSale: false
     }
   });
@@ -86,6 +88,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct, onSuccess }
         defaultPrice: activeProduct.defaultPrice,
         onSalePrice: activeProduct.onSalePrice,
         onSale: activeProduct.onSale,
+        productBrand: activeProduct.productBrand,
         productType: activeProduct.productType,
         productDrive: activeProduct.productDrive,
         productDetails: activeProduct.productDetails || {}
@@ -208,6 +211,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct, onSuccess }
     formData.append("productDescription", data.productDescription);
     formData.append("productDrive", data.productDrive);
     formData.append("productType", data.productType);
+    formData.append("productBrand", data.productBrand);
     formData.append("productDetails", JSON.stringify(data.productDetails || {}));
     
     //console.log("productDetails before sending:", data.productDetails);
@@ -257,6 +261,24 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct, onSuccess }
         </div>
         <div className="formsRow">
           <div className="mainFormContent formBody">
+            {/* SELECT PRODUCT BRAND */}
+            <div className="selectBox_Product">
+              <select name="productBrand" 
+                id="productBrand" 
+                className="productBrand" 
+                {...registerProduct('productBrand', {required: true})}
+                >
+                <option value=""></option>
+                <option value="STIHL">STIHL</option>
+                <option value="CubCadet">CubCadet</option>
+                <option value="MTD">MTD</option>
+                <option value="Wolf Garten">Wolf Garten</option>
+                <option value="Supa">Šupa</option>
+              </select>
+              <label htmlFor="productType">
+                  <span>Značka</span>
+              </label>
+            </div>
             {/* SELECT PRODUCT TYPE */}
             <div className="selectBox_Product">
               <select name="productType" 
@@ -395,7 +417,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct, onSuccess }
 
         </div>
         <div className="formsButton">
-          <button type='submit' className='formSubmit' disabled={isProductSubmitting}> Pridať Produkt</button>
+          <button type='submit' className='formSubmit btn' disabled={isProductSubmitting}> Pridať Produkt</button>
         </div>
       </form>
     </FormProvider>
@@ -417,6 +439,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct, onSuccess }
     formData.append("productDescription", data.productDescription);
     formData.append("productDrive", data.productDrive);
     formData.append("productType", data.productType);
+    formData.append("productBrand", data.productBrand);
     formData.append("productDetails", JSON.stringify(data.productDetails || {}));
 
     formData.append("oldImages", JSON.stringify(oldImages));
@@ -459,6 +482,24 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct, onSuccess }
 
         <div className="formsRow">
           <div className="mainFormContent formBody">
+            {/* SELECT PRODUCT BRAND */}
+            <div className="selectBox_Product">
+              <select name="productBrand" 
+                id="productBrand" 
+                className="productBrand" 
+                {...registerProduct('productBrand', {required: true})}
+                >
+                <option value=""></option>
+                <option value="STIHL">STIHL</option>
+                <option value="CubCadet">CubCadet</option>
+                <option value="MTD">MTD</option>
+                <option value="Wolf Garten">Wolf Garten</option>
+                <option value="Supa">Šupa</option>
+              </select>
+              <label htmlFor="productType">
+                  <span>Značka</span>
+              </label>
+            </div>
             {/* SELECT PRODUCT TYPE */}
             <div className="selectBox_Product">
               <select name="productType" 
@@ -610,7 +651,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct, onSuccess }
 
         </div>
         <div className="formsButton">
-          <button type='submit' className='formSubmit' disabled={isProductSubmitting}> Upraviť Produkt</button>
+          <button type='submit' className='formSubmit btn' disabled={isProductSubmitting}> Upraviť Produkt</button>
         </div>
       </form>
     </FormProvider>
@@ -629,9 +670,9 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct, onSuccess }
       productCode: data.productCode
     };
 
-    console.log("DATA: ", data);
+    //console.log("DATA: ", data);
 
-    console.log("reservation data: ", reservationData)
+    //console.log("reservation data: ", reservationData)
 
     try {
       const response = await fetch('http://localhost:3005/client/reservations/reserveProduct', {
@@ -647,7 +688,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct, onSuccess }
       }
 
       const result = await response.json();
-      console.log("Reservation successful:", result);
+      //console.log("Reservation successful:", result);
       if (typeof onSuccess === 'function') {
           onSuccess();
       }
@@ -657,7 +698,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct, onSuccess }
     }
   }
 
-  console.log("Active product: ", activeProduct);
+  //console.log("Active product: ", activeProduct);
 
   const ReserveProduct = () => (
     <FormProvider {...reservationMethods}>
@@ -733,7 +774,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct, onSuccess }
           placeholder="Poznámka k rezervácii"
         />
         <div className="formsButton">
-          <button type='submit'className='formSubmit' disabled={isReservationSubmitting}> Rezervovať produkt</button>
+          <button type='submit'className='formSubmit btn' disabled={isReservationSubmitting}> Rezervovať produkt</button>
         </div>
       </form>
     </FormProvider>

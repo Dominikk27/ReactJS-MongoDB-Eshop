@@ -55,7 +55,8 @@ const addProduct = async (req, res) => {
             productName, 
             productDescription, 
             defaultPrice, 
-            onSale, onSalePrice, 
+            onSale, onSalePrice,
+            productBrand, 
             productType, 
             productDrive 
         } = req.body;
@@ -88,6 +89,7 @@ const addProduct = async (req, res) => {
             onSalePrice: parseFloat(onSalePrice),
             onSale,
             productImages,
+            productBrand,
             productType,
             productDrive,
             productDetails
@@ -147,6 +149,7 @@ const editProduct = async (req, res) => {
             defaultPrice,
             onSale,
             onSalePrice, 
+            productBrand,
             oldImages,
             productType,
             productDrive,
@@ -181,6 +184,7 @@ const editProduct = async (req, res) => {
         product.productName = productName || product.productName;
         product.productDescription = productDescription || product.productDescription;
         product.productType = productType || product.productType;
+        product.productBrand = productBrand || product.productBrand;
         product.productDrive = productDrive || product.productDrive;
 
         if (defaultPrice !== undefined && defaultPrice !== '') {

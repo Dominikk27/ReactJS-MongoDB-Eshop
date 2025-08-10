@@ -4,6 +4,7 @@ const visualsRoute = require("./routes/visualsRoute.js");
 const reserveRoute = require("./routes/reserveRoute.js");
 const socialsRoute = require("./routes/socialsRoute.js");
 const businessDayRoute = require("./routes/businessDaysRoute.js");
+const filtersRoute = require("./routes/filtersRoute.js");
 
 const env = require("dotenv");
 const express = require("express");
@@ -47,3 +48,4 @@ app.use("/client/visuals", visualsRoute);
 app.use("/client/reservations", reserveRoute);
 app.use("/client/socials", socialsRoute);
 app.use("/client/businessDays", businessDayRoute);
+app.use("/products/filters", filtersRoute);
