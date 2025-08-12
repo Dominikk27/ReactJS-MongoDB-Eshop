@@ -5,6 +5,7 @@ const reserveRoute = require("./routes/reserveRoute.js");
 const socialsRoute = require("./routes/socialsRoute.js");
 const businessDayRoute = require("./routes/businessDaysRoute.js");
 const filtersRoute = require("./routes/filtersRoute.js");
+const authRoute = require("./routes/authRoute.js");
 
 const env = require("dotenv");
 const express = require("express");
@@ -12,7 +13,6 @@ const { mongoose } = require("mongoose");
 const cors = require("cors");
 
 const path = require("path");
-
 
 const app = express();
 env.config()
@@ -34,13 +34,15 @@ mongoose.connect(MONGO_URI)
     })
 
 
-app.use(cors());
+app.use(cors({origin: DOMAIN_URI, credentials: true}));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use("/images", express.static(path.join(__dirname,'images')));
 app.use("/adminpanel/visuals", visualsRoute);
 app.use("/adminpanel/socials", socialsRoute);
 app.use("/adminpanel/businessDays", businessDayRoute);
+app.use("/adminpanel/auth", authRoute);
 
 
 app.use("/products/api", productRoute);

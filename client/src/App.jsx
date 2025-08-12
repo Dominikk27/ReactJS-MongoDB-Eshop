@@ -5,6 +5,9 @@ import  {scroller} from 'react-scroll';
 
 //import Loader from './utils/loader'
 
+import ProtectedRoute from './components/Adminpanel/login/ProtectedRoute/protectedRoute.js';
+import { AuthProvider } from './components/Adminpanel/login/AuthContext';
+
 
 import Navbar from './components/Navbar/Navbar'
 import Slider from './components/Slider/slider'
@@ -15,6 +18,7 @@ import Contact from './components/Contact/contact'
 import Services from './components/Services/services'
 import Partners from './components/Partners/partners'
 import Footer from './components/Footer/footer'
+import Login from './components/Adminpanel/login/login'
 import Adminpanel from './components/Adminpanel/apanel'
 
 import Products from './components/Adminpanel/Products/products';
@@ -26,6 +30,7 @@ import ProductDetailsForm from './components/Adminpanel/Products/form/utils/prod
 
 function App() {
   const [products, setProducts] = useState([]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -41,58 +46,76 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      <Routes>
-        {/* Hlavná stránka */}
-        <Route
-          path="/"
-          element={
-            <main>
-              <Navbar />
-              <Slider />
-              <FeaturedProducts products={products} />
-              <Services id="services"/>
-              <Partners id="partners"/>
-              <Contact id="contact"/>
-              <Footer />
-            </main>
-          }
-        />
+    <AuthProvider>
+      <Router>
+        <Routes>
+          {/* Hlavná stránka */}
+          <Route
+            path="/"
+            element={
+              <main>
+                <Navbar />
+                <Slider />
+                <FeaturedProducts products={products} />
+                <Services id="services"/>
+                <Partners id="partners"/>
+                <Contact id="contact"/>
+                <Footer />
+              </main>
+            }
+          />
 
-        <Route
-          path="/catalog"
-          element={
-            <main>
-              <Navbar />
-              <Catalog />
-              <Contact />
-              <Footer />
-            </main>
-          }
-        />
+          <Route
+            path="/catalog"
+            element={
+              <main>
+                <Navbar />
+                <Catalog />
+                <Contact />
+                <Footer />
+              </main>
+            }
+          />
 
-        <Route
-          path="/catalog/product/:productID"
-          element={
-            <main>
-              <Navbar />
-              <ProductDetailsPage />
-              <Footer />
-            </main>
-          }
-        />
-        
-        {/* Admin Panel */}
-        <Route path="/adminpanel" element={<Adminpanel />}>
-          <Route index element={<Dashboard />} />
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="reservations" element={<Reservations />} />
-          <Route path="products" element={<Products products={products} />} />
-          <Route path="settings" element={<Settings />} />
-          <Route path="visuals" element={<Visuals />} />
-        </Route>
-      </Routes>
-    </Router>
+
+
+          <Route
+            path="/catalog/product/:productID"
+            element={
+              <main>
+                <Navbar />
+                <ProductDetailsPage />
+                <Footer />
+              </main>
+            }
+          />
+
+
+          <Route
+            path="/login"
+            element={
+              <main>
+                <Login />
+              </main>
+            }
+          />
+          
+          {/* Admin Panel */}
+          <Route path="/adminpanel/*" element={
+                <ProtectedRoute>
+                  <Adminpanel />
+                </ProtectedRoute>
+            }>
+              <Route index element={<Dashboard />} />
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="reservations" element={<Reservations />} />
+              <Route path="products" element={<Products products={products} />} />
+              <Route path="settings" element={<Settings />} />
+              <Route path="visuals" element={<Visuals />} />
+            </Route>
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 

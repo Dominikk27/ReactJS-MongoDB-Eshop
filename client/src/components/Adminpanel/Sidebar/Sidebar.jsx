@@ -27,14 +27,14 @@ const SidebarComponent = ({ isOpen, toggle, navigate, stats }) => {
         </div>
         <div className="buttons_box">
           <ul className='siedBar_buttonList'>
-            <li className={`sideBar_buttonBox ${isActive("dashboard") ? "active" : ""}`}><NavLink to='dashboard' className='sideBar_button'> <MdDashboard className='icon'/> Dashboard</NavLink></li>
-            <li className={`sideBar_buttonBox ${isActive("reservations") ? "active" : ""}`}><NavLink to='reservations' className='sideBar_button'> <BsTicketPerforatedFill className='icon'/> Reservation</NavLink>
+            <li className={`sideBar_buttonBox ${isActive("dashboard") ? "active" : ""}`}><NavLink to='/adminpanel/dashboard' className='sideBar_button'> <MdDashboard className='icon'/> Dashboard</NavLink></li>
+            <li className={`sideBar_buttonBox ${isActive("reservations") ? "active" : ""}`}><NavLink to='/adminpanel/reservations' className='sideBar_button'> <BsTicketPerforatedFill className='icon'/> Reservation</NavLink>
             
             {stats?.newReservations > 0 && ( <div className="notificationBox"></div>)}
             </li>
-            <li className={`sideBar_buttonBox ${isActive("products") ? "active" : ""}`}><NavLink to='products' className='sideBar_button'> <MdOutlinePointOfSale className='icon'/> Products</NavLink></li>
-            <li className={`sideBar_buttonBox ${isActive("settings") ? "active" : ""}`}><NavLink to='settings' className='sideBar_button'> <IoMdSettings className='icon'/> Settings</NavLink></li>
-            <li className={`sideBar_buttonBox ${isActive("visuals") ? "active" : ""}`}><NavLink to='visuals' className='sideBar_button'> <LuSettings2 className='icon'/> Visuals</NavLink></li>
+            <li className={`sideBar_buttonBox ${isActive("products") ? "active" : ""}`}><NavLink to='/adminpanel/products' className='sideBar_button'> <MdOutlinePointOfSale className='icon'/> Products</NavLink></li>
+            <li className={`sideBar_buttonBox ${isActive("settings") ? "active" : ""}`}><NavLink to='/adminpanel/settings' className='sideBar_button'> <IoMdSettings className='icon'/> Settings</NavLink></li>
+            <li className={`sideBar_buttonBox ${isActive("visuals") ? "active" : ""}`}><NavLink to='/adminpanel/visuals' className='sideBar_button'> <LuSettings2 className='icon'/> Visuals</NavLink></li>
           </ul>
         </div>
         </>

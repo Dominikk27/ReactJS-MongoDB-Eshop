@@ -154,7 +154,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct, onSuccess }
       setActiveProduct(null);
 
     }catch(e){
-      console.error("DELETING PRODUCT FAILED!: ",e);
+      console.error("REMOVING PRODUCT FAILED!: ",e);
       console.log("Error with Removing product");
     }
   }

@@ -124,7 +124,8 @@ input[type="number"],
 input[type="tel"],
 input[type="date"],
 input[type="email"],
-input[type="time"]{
+input[type="time"],
+input[type="password"]{
     width: 100%;
     height: 40px;
     border-radius: 10px;

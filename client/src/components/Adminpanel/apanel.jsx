@@ -3,18 +3,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 
 import "../Adminpanel/apanel.css"
 
-
-import { TiPlus } from "react-icons/ti";
-import { MdRemoveShoppingCart } from "react-icons/md";
-import Popup from "../Adminpanel/Products/form/popUpForms"
-
-
-import Logo from "../Adminpanel/logo.png"
-import Products from "./Products/products"
-import Dashboard from "./Dashboard/Dashboard";
-import Reservations from './Reservations/Reservations';
-import Settings from './Settings/Settings';
-import Visuals from './Visuals/Visuals';
+import Logout from "./login/logout";
 
 import SidebarComponent from './Sidebar/Sidebar';
 
@@ -49,6 +38,7 @@ function Adminpanel ({products}) {
           navigate={navigate}
           stats={stats}/>
         <div className="AP_Content">
+          <Logout />
           <Outlet context={{ stats }}/>
         </div>
     </main>
