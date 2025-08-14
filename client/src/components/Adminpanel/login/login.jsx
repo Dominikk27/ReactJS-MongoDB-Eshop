@@ -7,13 +7,13 @@ import { FaUserCircle } from "react-icons/fa";
 
 
 import "./login.css"
-import { use } from 'react';
 
 const Login = () => {
   const navigate = useNavigate();
 
 
-  const { login } = useAuth();
+  const { token, login } = useAuth();
+  console.log("TOKEN #12x: ", token);
 
   const loginMethods = useForm({
     defaultValues:{
@@ -31,13 +31,14 @@ const Login = () => {
 
   const onSubmit = async (data) =>{
     try{
-      const res = await fetch("http://localhost:3005/adminpanel/auth/login",{
+      const res = await fetch("http://localhost:3005/auth/login",{
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           username: data.username,
           password: data.password
         }),
+        credentials: "include"
       });
 
       if(!res.ok){
@@ -45,7 +46,8 @@ const Login = () => {
       }
 
       const result = await res.json();
-      const token = result.token;
+      const token = result.accessToken;
+
       login(token);
       navigate("/adminpanel/dashboard");
       
@@ -65,10 +67,10 @@ const Login = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="loginContent">
                 <div className="inputBox">
-                  <input type='text' placeholder='username' {...register("username")}></input>
+                  <input type='text' placeholder='username' {...register("username", {required: true})}></input>
                 </div>
                 <div className="inputBox">
-                  <input type='password' placeholder='password' {...register("password")}></input>
+                  <input type='password' placeholder='password' {...register("password", {required: true})}></input>
                 </div>
                 <div className="submitBTNBox">
                   <button type='submit' className='loginBTN'>Prihlásiť sa</button>

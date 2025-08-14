@@ -27,7 +27,14 @@ const WorkingDays = () => {
   useEffect(() =>{
     const getBusinessDays = async () =>{
       try{
-        const res = await fetch("http://localhost:3005/adminpanel/businessDays/getBusinessDays");
+        const res = await fetch("http://localhost:3005/adminpanel/businessDays/getBusinessDays", {
+          method: "GET",
+          credentials: "include"
+        });
+
+        if (!res.ok){
+          throw new Error(`Failed to fetch business days data ${res.status}`);
+        }
         const data = await res.json();
 
         if(!data){

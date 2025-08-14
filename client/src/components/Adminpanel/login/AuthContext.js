@@ -1,3 +1,4 @@
+import { useLayoutEffect } from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 
 
@@ -7,26 +8,67 @@ function useAuth(){
     return useContext(AuthContext);
 }
 
-function AuthProvider({ isAuthorized, children }) {
+function AuthProvider({ children }) {
+    const [isAuthorized, setIsAuthorized] = useState(false);
     const [token, setToken] = useState(null);
     const [isLoading, setIsLoading] = useState(true); 
 
-    useEffect(() =>{
-        const storedToken = localStorage.getItem("token");
-        if(storedToken){
-            setToken(storedToken);
-        }
-        setIsLoading(false);
-    },[]);
+    useLayoutEffect(() =>{
+        const fetchAuthStatus = async () =>{
+            try{
+                const res = await fetch("http://localhost:3005/auth/status", {
+                    method: "GET",
+                    credentials: "include"
+                });
 
-    const login = (newToken) => {
-        localStorage.setItem("token", newToken);
-        setToken(newToken);
+                if(!res.ok){
+                    throw new Error("Failed to fetch auth status");
+                }
+
+                const data = await res.json();
+                if(!data.authentificated && !data.accessToken){
+                    console.log("YEY");
+                    setToken(null);
+                    setIsAuthorized(false);
+                }
+                setToken(data.accessToken);
+                setIsAuthorized(true);
+                
+            }catch(e){
+                console.log("Failed to auth! error: ", e);
+            }
+            finally{
+                setIsLoading(false);
+            }
+        }
+        fetchAuthStatus();
+    }, []);
+
+    const login = (token) => {
+        setToken(token); 
+        setIsAuthorized(true);
     }
 
-    const logout = () => {
-        localStorage.removeItem("token");
-        setToken(null);
+    const logout = async () => {
+
+        try{
+            const res = await fetch("http://localhost:3005/adminpanel/auth/logout", {
+                method: "POST",
+                credentials: "include"
+            });
+
+            if(!res.ok){
+                throw new Error("Failed to fetch auth status");
+            }
+            
+        }catch(e){
+            console.log("Failed to logout! error: ", e);
+        }
+        finally{
+            setToken(null);
+            setIsAuthorized(false);
+            setIsLoading(false);
+        }
     }
 
     const contextValues = {

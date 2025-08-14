@@ -7,10 +7,13 @@ const businessDayRoute = require("./routes/businessDaysRoute.js");
 const filtersRoute = require("./routes/filtersRoute.js");
 const authRoute = require("./routes/authRoute.js");
 
+const { verifyAccessToken } = require("./utils/authMiddleware.js");
+
 const env = require("dotenv");
 const express = require("express");
 const { mongoose } = require("mongoose");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 
 const path = require("path");
 
@@ -34,15 +37,23 @@ mongoose.connect(MONGO_URI)
     })
 
 
-app.use(cors({origin: DOMAIN_URI, credentials: true}));
+app.use(cors({
+    origin: DOMAIN_URI, 
+    credentials: true
+}));
+
+
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
+
+app.use("/adminpanel", verifyAccessToken);
 
 app.use("/images", express.static(path.join(__dirname,'images')));
 app.use("/adminpanel/visuals", visualsRoute);
 app.use("/adminpanel/socials", socialsRoute);
 app.use("/adminpanel/businessDays", businessDayRoute);
-app.use("/adminpanel/auth", authRoute);
+app.use("/auth", authRoute);
 
 
 app.use("/products/api", productRoute);

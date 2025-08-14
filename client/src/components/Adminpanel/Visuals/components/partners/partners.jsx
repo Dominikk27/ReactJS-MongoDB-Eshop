@@ -14,7 +14,10 @@ const PartnersSettings = () => {
     useEffect(()=> {
     const fetchPartners = async () => {
         try {
-        const partnersRes = await fetch("http://localhost:3005/adminpanel/visuals/partners");
+        const partnersRes = await fetch("http://localhost:3005/adminpanel/visuals/partners", {
+            method: "GET",
+            credentials: "include"
+        });
         const partnersData = await partnersRes.json();
 
         setCurrentPartners(partnersData);
@@ -55,7 +58,8 @@ const PartnersSettings = () => {
 
         const res = await fetch("http://localhost:3005/adminpanel/visuals/partners/update",{
         method: "PUT",
-        body: formData
+        body: formData,
+        credentials: "include"
         });
 
         if(!res.ok){
