@@ -1,6 +1,7 @@
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+const { memo } = require("react");
 
 function createStorage(storageFolder){
     const dir = path.join(__dirname, "..", "images", storageFolder)
@@ -20,4 +21,8 @@ function createStorage(storageFolder){
 }
 
 
-module.exports = createStorage;
+const memoryUpload = multer({ storage: multer.memoryStorage() });
+
+
+
+module.exports = {createStorage, memoryUpload};

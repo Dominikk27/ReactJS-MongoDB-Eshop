@@ -1,5 +1,5 @@
 import React from 'react'
-
+import config from '../../../../utils/config.js';
 import { formDate } from '../../../../utils/dates/dateFormat.js';
 
 import { FaCheck } from "react-icons/fa";
@@ -13,7 +13,7 @@ const ReservationCard = ({ reservationData, onStatusUpdate }) => {
     
     const handleChangeStatus = async(newStatus) => {
         try{
-            const res = await fetch(`http://localhost:3005/client/reservations/updateReservation/${reservationData._id}`,{
+            const res = await fetch(`${config.API_URL}/client/reservations/updateReservation/${reservationData._id}`,{
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

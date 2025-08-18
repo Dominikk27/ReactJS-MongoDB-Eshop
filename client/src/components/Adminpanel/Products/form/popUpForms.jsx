@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import config from '../../../../utils/config.js';
 
 import { FaBold, FaUpload } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
@@ -93,7 +94,10 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct, onSuccess }
         productDrive: activeProduct.productDrive,
         productDetails: activeProduct.productDetails || {}
       });
-      setOldImages(activeProduct.productImages)
+      setOldImages(activeProduct.productImages.map(img => ({
+        url: img.url,
+        fileId: img.fileId
+      })) || [])
       setNewImages([]);
     }
     if (showForm === "addProduct") {
@@ -125,7 +129,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct, onSuccess }
 
       if(removed?.preview){
         URL.revokeObjectURL(removed.preview);
-      }
+      } 
       return updated;
     });
   };
@@ -146,8 +150,9 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct, onSuccess }
     if(!activeProduct._id) return;
 
     try {
-      await fetch(`http://localhost:3005/products/api/adminpanel/deleteProduct/${activeProduct._id}`, {
-        method: 'DELETE'
+      await fetch(`${config.API_URL}/products/api/adminpanel/deleteProduct/${activeProduct._id}`, {
+        method: 'DELETE',
+        credentials: "include"
       });
 
       setForm(null);
@@ -221,9 +226,10 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct, onSuccess }
       formData.append("productImages", image.file);
     })
 
-    fetch('http://localhost:3005/products/api/adminpanel/addProduct', {
+    fetch(`${config.API_URL}/products/api/adminpanel/addProduct`, {
       method: 'POST',
-      body: formData
+      body: formData,
+      credentials: "include"
     })
     .then(res => {
       if(!res.ok){
@@ -441,7 +447,6 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct, onSuccess }
     formData.append("productType", data.productType);
     formData.append("productBrand", data.productBrand);
     formData.append("productDetails", JSON.stringify(data.productDetails || {}));
-
     formData.append("oldImages", JSON.stringify(oldImages));
 
     newImages.forEach(image => {
@@ -449,9 +454,10 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct, onSuccess }
     });
 
 
-    fetch(`http://localhost:3005/products/api/adminpanel/editProduct/${activeProduct._id}`, {
+    fetch(`${config.API_URL}/products/api/adminpanel/editProduct/${activeProduct._id}`, {
       method: 'PATCH',
-      body: formData
+      body: formData,
+      credentials: "include"
     })
     .then(res => {
       if(!res.ok) throw new Error("Upload failed!");
@@ -493,7 +499,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct, onSuccess }
                 <option value="STIHL">STIHL</option>
                 <option value="CubCadet">CubCadet</option>
                 <option value="MTD">MTD</option>
-                <option value="Wolf Garten">Wolf Garten</option>
+                <option value="WolfGarten">Wolf Garten</option>
                 <option value="Supa">Šupa</option>
               </select>
               <label htmlFor="productType">
@@ -617,7 +623,7 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct, onSuccess }
               {/* Old Images */}
               {oldImages.map((image, index) => (
                 <div key={`old-${index}`} className="imageWrapper">
-                  <img src={image} alt={`Produktový obrázok ${index + 1}`} className="productImage" />
+                  <img src={image.url} alt={`Produktový obrázok ${index + 1}`} className="productImage" />
                   <div className="removeImage" onClick={() => handleRemoveOldImage(index)}><MdClose /></div>
                 </div>
               ))}
@@ -670,12 +676,8 @@ function Popup({ showForm, setForm, activeProduct, setActiveProduct, onSuccess }
       productCode: data.productCode
     };
 
-    //console.log("DATA: ", data);
-
-    //console.log("reservation data: ", reservationData)
-
     try {
-      const response = await fetch('http://localhost:3005/client/reservations/reserveProduct', {
+      const response = await fetch(`${config.API_URL}/client/reservations/reserveProduct`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

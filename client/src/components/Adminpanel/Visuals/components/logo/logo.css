@@ -1,0 +1,100 @@
+.logoCardBox{
+    width: 100%;
+    height: 100%;
+    background-color: #F5F5F4;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.logoContentBox{
+    position: relative;
+    display: flex;
+    width: auto;
+    height: auto;
+    flex: 1;
+    padding: 30px;
+    padding-bottom: 50px;
+    align-items: start;
+    justify-content: center;
+}
+
+.logoContentBox.logoExist{
+    position: relative;
+    display: flex;
+    width: auto;
+    height: auto;
+    flex: 1;
+    align-items: start;
+    justify-content: center;
+}
+
+.logoIMG{
+    width: 250px;
+    height: 250px;
+}
+
+.logoIMG.isHover{
+    filter: blur(5px);
+}
+
+.actionBTN{
+    display: none;
+}
+
+.actionBTN.isHover{
+    display: flex;
+    position: absolute;
+    width: 200px;
+    align-items: center;
+    justify-content: center;
+    top: 120px;
+    z-index: 30;
+}
+
+.emptyBox{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    height: auto;
+    flex: 1;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.inputContainer{
+    width: 250px;
+    height: 50px;
+    border: 0;
+    border-radius: 15px;
+    flex: 1;
+}
+
+.inputContainer input[type="file"]{
+    display: none;
+}
+
+.inputContainer label .uploadIcon{
+    width: 20px;
+    height: 20px;
+    color: #025bee;
+}
+
+.inputContainer label{
+    display: flex;
+    position: relative;
+    border: 2px dashed #025bee;
+    color: #025bee;
+    font-size: 18px;
+    text-align: center;
+    align-items: center;
+    width: 200px;
+    height: 200px;
+    padding: 10px 20px;
+    margin: auto;
+    border-radius: 20px;
+    gap: 5px;
+    cursor: pointer;
+}

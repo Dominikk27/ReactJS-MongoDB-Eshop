@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './Reservations.css';
+import config from '../../../utils/config.js';
+
 
 import ReservationCard from './card/reservationCard';
 
@@ -10,7 +12,7 @@ const Reservations = () => {
   useEffect(() => {
     const fetchReservations = async () => {
       try {
-        const res = await fetch("http://localhost:3005/client/reservations/getReservations")
+        const res = await fetch(`${config.API_URL}/client/reservations/getReservations`)
         const data = await res.json();
         setReservations(data)
       } catch (e) {

@@ -1,5 +1,7 @@
-import { useLayoutEffect } from "react";
+
 import { createContext, useContext, useEffect, useState } from "react";
+
+import config from "../../../utils/config.js";
 
 
 const AuthContext = createContext();
@@ -13,10 +15,10 @@ function AuthProvider({ children }) {
     const [token, setToken] = useState(null);
     const [isLoading, setIsLoading] = useState(true); 
 
-    useLayoutEffect(() =>{
+    useEffect(() =>{
         const fetchAuthStatus = async () =>{
             try{
-                const res = await fetch("http://localhost:3005/auth/status", {
+                const res = await fetch(`${config.API_URL}/auth/status`, {
                     method: "GET",
                     credentials: "include"
                 });
@@ -52,7 +54,7 @@ function AuthProvider({ children }) {
     const logout = async () => {
 
         try{
-            const res = await fetch("http://localhost:3005/adminpanel/auth/logout", {
+            const res = await fetch(`${config.API_URL}/auth/logout`, {
                 method: "POST",
                 credentials: "include"
             });

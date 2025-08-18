@@ -81,7 +81,7 @@ const authLogin = async (req, res) =>{
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             sameSite: 'strict',
-            maxAge: 10 * 60 * 1000 //7 * 24 * 60 * 60 * 1000 // 7 days
+            maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
         });
 
         res.status(200).json({ authentificated: true, accessToken: accessToken, result: payload });
@@ -128,6 +128,12 @@ const authRefresh = (req, res) =>{
 
 const authLogout = (req, res) =>{
     res.clearCookie('refreshToken', {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: 'strict'
+    });
+
+    res.clearCookie('accessToken', {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         sameSite: 'strict'

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
+import config from '../../utils/config.js';
 
 import "../Adminpanel/apanel.css"
 
@@ -13,7 +14,7 @@ import SidebarComponent from './Sidebar/Sidebar';
 
 function Adminpanel ({products}) {
   const { token } = useAuth();
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [activeComponent, setActiveComponent] = useState("Dashboard");
   const [stats, setStats] = useState(null);
   
@@ -21,7 +22,7 @@ function Adminpanel ({products}) {
       
       const fetchStats = async () => {
         try{
-          const res = await fetch("http://localhost:3005/adminpanel/visuals/stats", {
+          const res = await fetch(`${config.API_URL}/adminpanel/visuals/stats`, {
             method: "GET",
             credentials: "include"
           });

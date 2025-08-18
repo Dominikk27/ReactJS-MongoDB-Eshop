@@ -1,5 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react'
 
+import config from '../../../../../utils/config';
+
 import { useForm, FormProvider } from 'react-hook-form';
 
 import { FaFacebook, FaInstagram, FaGoogle, FaYoutube } from "react-icons/fa";
@@ -40,7 +42,7 @@ const Socials = () => {
     useEffect(() =>{
         const fetchSocialData = async () =>{
             try{
-                const res = await fetch("http://localhost:3005/client/socials/getSocials");
+                const res = await fetch(`${config.API_URL}/client/socials/getSocials`);
                 const data = await res.json();
 
                 if(Array.isArray(data) && data.length > 0){
@@ -75,7 +77,7 @@ const Socials = () => {
 
     const onSubmit = async (socialData) =>{
             try{
-                const res = await fetch("http://localhost:3005/adminpanel/socials/updateSocials",
+                const res = await fetch(`${config.API_URL}/adminpanel/socials/updateSocials`,
                 {
                     method: 'PATCH',
                     headers: {

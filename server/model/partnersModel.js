@@ -5,6 +5,10 @@ const partnerSchema = new mongoose.Schema({
     partnerLogo:{
         type:String,
         required: true
+    },
+    fileId:{
+        type:String,
+        required: true
     }
 }, {collection: "Partners"});
 

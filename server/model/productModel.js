@@ -19,10 +19,10 @@ const productSchema = new mongoose.Schema({
     },
 
     productImages:[
-        {
-          type: String,
-          required: true
-        }
+      {
+        url: {type: String, required: true},
+        fileId: {type: String, required: true}
+      }
     ],
 
     defaultPrice:{

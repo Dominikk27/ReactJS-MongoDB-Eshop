@@ -1,10 +1,10 @@
 const express = require("express");
 const multer = require("multer");
-const createStorage = require("../utils/storage.js");
+const {createStorage} = require("../utils/storage.js");
 
 const { fetch, addProduct, removeProduct, editProduct, fetchProductData } = require("../controller/productController.js");
 const upload = multer({ 
-    storage: createStorage("products"),
+    storage: multer.memoryStorage(),
     fileFilter:(req, file, cb) => {
         const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp']
         if(allowedTypes.includes(file.mimetype)){

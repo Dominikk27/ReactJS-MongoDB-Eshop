@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useMemo } from 'react'
 import { useForm, FormProvider } from 'react-hook-form';
 
+import config from '../../../../../utils/config.js';
+
 import {TranslateDay, DAYS_NAME} from '../../../../../utils/dates/dateTranslate.js';
 
 import "./businessDays.css";
@@ -27,7 +29,7 @@ const WorkingDays = () => {
   useEffect(() =>{
     const getBusinessDays = async () =>{
       try{
-        const res = await fetch("http://localhost:3005/adminpanel/businessDays/getBusinessDays", {
+        const res = await fetch(`${config.API_URL}/adminpanel/businessDays/getBusinessDays`, {
           method: "GET",
           credentials: "include"
         });
@@ -73,7 +75,7 @@ const WorkingDays = () => {
     }));
 
     try{
-      const res = await fetch("http://localhost:3005/adminpanel/businessDays/updateBusinessDays", {
+      const res = await fetch(`${config.API_URL}/adminpanel/businessDays/updateBusinessDays`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),

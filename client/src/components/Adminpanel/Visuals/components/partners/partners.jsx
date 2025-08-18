@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
+import config from '../../../../../utils/config';
+
 import "../partners/partners.css";
 
 import { IoClose } from "react-icons/io5";
@@ -14,7 +16,7 @@ const PartnersSettings = () => {
     useEffect(()=> {
     const fetchPartners = async () => {
         try {
-        const partnersRes = await fetch("http://localhost:3005/adminpanel/visuals/partners", {
+        const partnersRes = await fetch(`${config.API_URL}/adminpanel/visuals/partners`, {
             method: "GET",
             credentials: "include"
         });
@@ -56,7 +58,7 @@ const PartnersSettings = () => {
         })
 
 
-        const res = await fetch("http://localhost:3005/adminpanel/visuals/partners/update",{
+        const res = await fetch(`${config.API_URL}/adminpanel/visuals/partners/update`,{
         method: "PUT",
         body: formData,
         credentials: "include"

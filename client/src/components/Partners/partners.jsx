@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react'
+
+import config from '../../utils/config';
+
 import '../Partners/partners.css'
 
 const Partners = () => {
@@ -8,7 +11,7 @@ const Partners = () => {
     useEffect(() =>{
         const fetchPartners = async () =>{
             try{
-                const partnersRes = await fetch("http://localhost:3005/client/visuals/partners");
+                const partnersRes = await fetch(`${config.API_URL}/client/visuals/partners`);
                 const partnersData = await partnersRes.json();
 
                 setLoadedPartners(partnersData);

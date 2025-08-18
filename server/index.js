@@ -38,7 +38,8 @@ mongoose.connect(MONGO_URI)
 
 
 app.use(cors({
-    origin: DOMAIN_URI, 
+    origin: DOMAIN_URI,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"], 
     credentials: true
 }));
 
@@ -48,6 +49,8 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/adminpanel", verifyAccessToken);
+app.use("/products/api/adminpanel", verifyAccessToken);
+app.use("/auth/status", verifyAccessToken);
 
 app.use("/images", express.static(path.join(__dirname,'images')));
 app.use("/adminpanel/visuals", visualsRoute);

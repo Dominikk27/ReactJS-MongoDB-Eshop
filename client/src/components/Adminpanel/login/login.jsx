@@ -2,6 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useAuth } from './AuthContext.js';
 
+import config from '../../../utils/config.js';
+
 
 import { FaUserCircle } from "react-icons/fa";
 
@@ -10,10 +12,7 @@ import "./login.css"
 
 const Login = () => {
   const navigate = useNavigate();
-
-
-  const { token, login } = useAuth();
-  console.log("TOKEN #12x: ", token);
+  const { login } = useAuth();
 
   const loginMethods = useForm({
     defaultValues:{
@@ -25,13 +24,12 @@ const Login = () => {
   const{
     register,
     handleSubmit,
-    formState: {isSubmitting}
   } = loginMethods;
 
 
   const onSubmit = async (data) =>{
     try{
-      const res = await fetch("http://localhost:3005/auth/login",{
+      const res = await fetch(`${config.API_URL}/auth/login`,{
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

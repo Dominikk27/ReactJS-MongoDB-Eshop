@@ -25,7 +25,7 @@ function ProductCardComponent ({ product, setShowForm, setActiveProduct }) {
     <div className="AP_productCard">
         <div className="AP_productImage">
             {productImages && productImages.length > 0 && productImages[0] ? (
-                <img src={productImages[0]} alt={productName} />
+                <img src={productImages[0]?.url} alt={productName} />
                 ) : (
                 <img src={unknown} alt="Obrázok sa nenašiel" />
             )}

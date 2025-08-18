@@ -1,18 +1,19 @@
 .workingDaysBox{
     display: flex;
-    width: 500px;
+    min-width: fit-content;
     background-color: #F5F5F4;
     border-radius: 15px;
     flex-direction: column;
-    overflow: hidden;
-    width: fit-content;
+    min-height: fit-content;
+    height: 100%;
+    padding: 0 20px;
 }
 
 .workingDaysContent{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
-    padding: 20px 30px;
+    padding: 10px 30px;
 }
 
 
@@ -64,6 +65,7 @@
     font-weight: 500;
     width: auto;
 }
+
 
 
 

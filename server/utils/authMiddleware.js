@@ -3,7 +3,6 @@ const jwt = require("jsonwebtoken");
 const JWT_ACCESS_SECRET = process.env.JWT_ACCESS_SECRET;
 
 const verifyAccessToken = (req, res, next) =>{
-    console.log("TOTO JE HEADER", req.cookies);
     const authToken = req.cookies.accessToken;
     if(!authToken) {
         return res.sendStatus(401);

@@ -1,6 +1,8 @@
 import React from 'react'
 import '../Contact/contact.css'
 
+import config from '../../utils/config';
+
 import { TranslateDay, DAYS_NAME } from '../../utils/dates/dateTranslate';
 
 import { FaPhone } from "react-icons/fa6";
@@ -17,7 +19,7 @@ const Contact = ({ id }) => {
     useEffect(() => {
         const getBusinessDays = async () =>{
             try{
-                const res = await fetch("http://localhost:3005/client/businessDays/getBusinessDays");
+                const res = await fetch(`${config.API_URL}/client/businessDays/getBusinessDays`);
 
                 if(!res){
                     throw new Error("ERROR: ", res.status);

@@ -1,10 +1,8 @@
-import React, { useState } from 'react'
 import { FaUser } from "react-icons/fa";
 
 import './dashboardCard.css'
 
 const DashboardValueCard = ({title, description, value}) => {
-
 
     return (
     <div className="dashboardValueCardBox">

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate, Navigate } from 'react-router-dom';
 
+import config from '../../../../utils/config';
+
 import { IoChevronBackOutline } from "react-icons/io5";
 import { FaStar, FaRegStar, FaPercentage } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
@@ -39,7 +41,7 @@ const ProductDetailsPage = ({ onBack }) => {
     useEffect(() => {
         const fetchProductData = async() =>{
             try{
-                const fetchData = await fetch(`http://localhost:3005/products/api/fetch/${productID}`);
+                const fetchData = await fetch(`${config.API_URL}/products/api/fetch/${productID}`);
                 const productData = await fetchData.json();
                 setProduct(productData);
                 setActiveImage(productData.productImages[0]);

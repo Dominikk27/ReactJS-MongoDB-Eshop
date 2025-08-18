@@ -4,6 +4,8 @@ import { NavLink, useLocation } from 'react-router-dom';
 
 import './Sidebar.css'
 import Logo from "../logo.png"
+import config from '../../../utils/config.js';
+
 
 import { FaUserTie,FaBars } from "react-icons/fa";
 import { MdDashboard } from "react-icons/md";
@@ -23,7 +25,7 @@ const SidebarComponent = ({ isOpen, toggle, navigate, stats }) => {
       {isOpen && (
         <>
         <div className="logo_box">
-          <a href="http://localhost:3000/" target='_blank'><img src={Logo} /></a>
+          <a href={`${config.DOMAIN_URL}`} target='_blank'><img src={Logo} /></a>
         </div>
         <div className="buttons_box">
           <ul className='siedBar_buttonList'>

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { FaBars } from "react-icons/fa";
 
+import config from '../../utils/config';
+
 import Card from './card/card';
 
 import "../Catalog/catalog.css"
@@ -14,7 +16,7 @@ const Catalog = () => {
     useEffect(() =>{
         const fetchProducts = async () =>{
             try{
-                const productRes = await fetch("http://localhost:3005/products/api/fetch");
+                const productRes = await fetch(`${config.API_URL}/products/api/fetch`);
                 const productData = await productRes.json();
                 //console.log(productData);
                 setLoadedProducts(productData);
@@ -28,7 +30,7 @@ const Catalog = () => {
     useEffect(() =>{
         const fetchFilterData = async () =>{
           try{
-            const res = await fetch("http://localhost:3005/products/filters/getFilters");
+            const res = await fetch(`${config.API_URL}/products/filters/getFilters`);
             const filterData = await res.json();
             setSections(filterData);
     

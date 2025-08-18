@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react'
 import { useOutletContext } from 'react-router-dom';
 
 import '../Dashboard/Dashboard.css'
 
 import DashboardValueCard from './dashboardCards/dashboardValueCard'
-import DashboardChartCard from './dashboardCards/dashboardChartCard'
+//import DashboardChartCard from './dashboardCards/dashboardChartCard'
 
 import "./Dashboard"
 
