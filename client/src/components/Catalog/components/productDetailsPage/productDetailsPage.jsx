@@ -44,7 +44,7 @@ const ProductDetailsPage = ({ onBack }) => {
                 const fetchData = await fetch(`${config.API_URL}/products/api/fetch/${productID}`);
                 const productData = await fetchData.json();
                 setProduct(productData);
-                setActiveImage(productData.productImages[0]);
+                setActiveImage(productData.productImages[0]?.url);
 
             }catch(e){
                 console.error("Failed to fetch product data! ERROR", e);
@@ -86,12 +86,12 @@ const ProductDetailsPage = ({ onBack }) => {
                         </div>
                         <div className="smallIMGsBox">
                             {product.productImages.length > 1 ?(
-                                product.productImages.map((product) => (
+                                product.productImages.map((img) => (
                                    <div 
-                                    className={`sImgBox ${product === activeImage ? 'active' : 'inactive'}`} 
-                                    key={product._id} 
-                                    onClick={() => setActiveImage(product)}>
-                                    <img src={product}/>
+                                    className={`sImgBox ${img.url === activeImage ? 'active' : 'inactive'}`} 
+                                    key={img._id} 
+                                    onClick={() => setActiveImage(img.url)}>
+                                    <img src={img.url}/>
                                    </div> 
                                 ))
                                 

@@ -21,7 +21,7 @@ const Card = ({ product }) => {
   };
 
   const clickOnProduct = () =>{
-      console.log("product id: ", product._id);
+      //console.log("product id: ", product._id);
       navigate(`/catalog/product/${product._id}`);
   }
 
@@ -32,7 +32,7 @@ const Card = ({ product }) => {
         <div className="floatingTag">
           <FaPercentage className='icon'/> <p className='tagType'>Zľava</p>
         </div> : null}
-        <img src={product.productImages[0] || unknown} alt="" />
+        <img src={product.productImages[0]?.url || unknown} alt="" />
       </div>
       <div className="productCardContent">
         <div className="cardTextContent">
