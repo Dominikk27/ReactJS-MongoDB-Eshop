@@ -1,4 +1,3 @@
-const { storage } = require("firebase-admin");
 const Product = require("../model/productModel.js");
 
 const env = require("dotenv");
